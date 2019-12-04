@@ -23,7 +23,7 @@ class HomeController extends AbstractController
     {
         $form = $this->createForm(UserType::class);
 
-        return $this->render('home.html.twig', [
+        return $this->render('login.html.twig', [
             'form' => $form->createView(),
         ]);
     }
