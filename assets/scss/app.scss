@@ -1,8 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
 @import "vars";
 @import "fonts";
+@import "checklist";
+@import "login_page";
 @import "navbar/navbar.scss";
 
 body {
     font-family: $mainFont;
+}
+
+a {
+    color: $yellow;
 }

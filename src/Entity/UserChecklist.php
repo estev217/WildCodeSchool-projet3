@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserChecklist
 {
+
+    const CATEGORIES = ['todo', 'doc'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
