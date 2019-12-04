@@ -3,7 +3,11 @@
 
 namespace App\Controller;
 
+use App\Entity\UserChecklist;
 use App\Form\UserChecklistType;
+use App\Form\UserChecklistType2;
+use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,21 +21,29 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home.html.twig');
+        $form = $this->createForm(UserType::class);
+
+        return $this->render('home.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
      * @Route("/home", name="home")
      * @param Request $request
+     * @param EntityManagerInterface $em
      * @return Response
      */
-    public function home(Request $request): Response
+    public function home(Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(UserChecklistType::class);
-        $form->handleRequest($request);
+        $checklist = new UserChecklist();
+        $formTodo = $this->createForm(UserChecklistType::class, $checklist, ['em' => $em]);
+
+        $formDoc = $this->createForm(UserChecklistType2::class, $checklist, ['em' => $em]);
 
         return $this->render('checklist.html.twig', [
-            'form' => $form->createView(),
+            'formTodo' => $formTodo->createView(),
+            'formDoc' => $formDoc->createView(),
         ]);
     }
 }

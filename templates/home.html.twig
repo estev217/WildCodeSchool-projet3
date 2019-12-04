@@ -1,4 +1,6 @@
-{% extends 'base.html.twig' %}
 {% block body %}
-    Coucou l'équipe Leap !
+    {{ form_start(form) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_end(form) }}
 {% endblock %}
