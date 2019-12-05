@@ -1,41 +1,21 @@
-@import "~bootstrap/scss/bootstrap";
-@import "vars";
-@import "fonts";
-
 .head-block {
   background: $yellow;
   height: 9rem;
   min-height: 9rem;
+  margin-left: 12rem;
 }
 
-.picture-avatar {
-  border-radius: 50%;
-  width: 6rem;
-  height: 6rem;
-  margin-top: 15px;
-  margin-right: 20px;
+.fa-user-circle {
+  color: $darkBlue;
+  font-size: 6rem;
 }
 
-p {
-  margin: .4rem;
+.info, .infoA {
+  font-size: 1.5rem;
+  .my-name {
+    color: $darkBlue;
+  }
+  p {
+     margin: .4rem;
+   }
 }
-
-legend {
-  color: #000000;
-  padding: 0 6px;
-  width: 90%;
-}
-
-fieldset {
-  border: #1b1e21 solid 1px;
-}
-.info {
-  width: 15rem;
-  margin-top: 2.5rem;
-}
-
-.infoA{
-  width: 15rem;
-  margin-top: 2.5rem;
-}
-
