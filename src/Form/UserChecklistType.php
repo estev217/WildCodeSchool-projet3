@@ -23,7 +23,6 @@ class UserChecklistType extends AbstractType
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
-                'attr' => ['class' => 'checklist-title']
             ]);
     }
 

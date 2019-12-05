@@ -23,7 +23,6 @@ class UserChecklistType2 extends AbstractType
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
-                'group_by' => 'category',
             ]);
     }
 
