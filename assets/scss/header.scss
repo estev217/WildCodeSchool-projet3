@@ -1,8 +1,13 @@
 .head-block {
-  background: $yellow;
+  background: $lightBlue;
   height: 9rem;
   min-height: 9rem;
   margin-left: 12rem;
+  color: white;
+  .rdv {
+    border: 3px $yellow double;
+    padding: 0.6rem;
+  }
 }
 
 .fa-user-circle {
