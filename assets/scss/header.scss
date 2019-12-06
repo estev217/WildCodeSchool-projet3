@@ -1,6 +1,6 @@
 .head-block {
   background: $lightBlue;
-  height: 9rem;
+  height: 9.5rem;
   min-height: 9rem;
   margin-left: 12rem;
   color: white;
@@ -13,10 +13,13 @@
 .fa-user-circle {
   color: $darkBlue;
   font-size: 6rem;
+  &:hover {
+    color: $yellow;
+  }
 }
 
 .info, .infoA {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   .my-name {
     color: $darkBlue;
   }
