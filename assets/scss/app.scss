@@ -8,13 +8,16 @@
 
 body {
     font-family: $mainFont;
-    background-image: url("../images/hiver2.jpg");
+    /*background-image: url("../images/plage-freepik.jpg");
     background-size: cover;
-    background-position: center;
-}
+    background-position: center;*/
 
-a {
-    color: $yellow;
+    background-color: #c1e5eb;
+    background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
+
+    /*background-color: #c1e5eb;
+    background-image: url("https://www.transparenttextures.com/patterns/fresh-snow.png");*/
+
 }
 
 .container {

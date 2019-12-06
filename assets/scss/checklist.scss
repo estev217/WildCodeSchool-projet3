@@ -1,11 +1,16 @@
 .card {
   margin-left: 4rem;
-  background-color: rgba(250, 250, 250, 0.9);
+  background-color: lighten($lightGrey, 3);
+  box-shadow: 3px 3px 10px #b3abab;
   .card-header {
-    background-color: $yellow;
+    background-color: $lightBlue;
   }
   legend {
     display: none;
+  }
+  button{
+    background-color: $yellow;
+    border: 1px $yellow solid;
   }
 }
 
