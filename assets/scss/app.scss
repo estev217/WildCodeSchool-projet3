@@ -8,8 +8,15 @@
 
 body {
     font-family: $mainFont;
+    background-image: url("../images/hiver2.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 a {
     color: $yellow;
+}
+
+.container {
+    margin-top: 3rem;
 }

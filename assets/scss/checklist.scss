@@ -1,15 +1,17 @@
-.card .card-header {
-  background-color: $lightBlue;
-}
-
-fieldset legend {
-  display: none;
-}
-
-.form-check-label {
-  margin-left: 1rem;
+.card {
+  margin-left: 4rem;
+  background-color: rgba(250, 250, 250, 0.9);
+  .card-header {
+    background-color: $yellow;
+  }
+  legend {
+    display: none;
+  }
 }
 
 .form-check {
   margin: 0.5rem;
+  .form-check-label {
+    margin-left: 1rem;
+  }
 }

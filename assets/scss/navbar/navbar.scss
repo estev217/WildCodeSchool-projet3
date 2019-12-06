@@ -1,16 +1,14 @@
-@import "~bootstrap/scss/bootstrap";
-@import "../vars";
-@import "../fonts";
-
 .vertical-nav {
     min-width: 12rem;
     width: 12rem;
     height: 100vh;
     position: fixed;
+    top: 0;
     left: 0;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
     background: $darkBlue;
+    padding-top: 8rem;
 }
 
 .page-content {
@@ -43,8 +41,6 @@
         margin-left: 17rem;
         width: calc(100% - 17rem);
     }
-
-
 }
 
 .header {
