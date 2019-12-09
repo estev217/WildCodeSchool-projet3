@@ -1,9 +1,25 @@
+@import "~bootstrap/scss/bootstrap";
 @import "vars";
+@import "fonts";
+@import "header";
+@import "checklist";
+@import "login_page";
+@import "navbar/navbar.scss";
 
 body {
-    background-color: $secondary-color;
+    font-family: $mainFont;
+    /*background-image: url("../images/plage-freepik.jpg");
+    background-size: cover;
+    background-position: center;*/
+
+    background-color: #c1e5eb;
+    background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
+
+    /*background-color: #c1e5eb;
+    background-image: url("https://www.transparenttextures.com/patterns/fresh-snow.png");*/
+
 }
 
-a {
-    color: $warm-color;
+.container {
+    margin-top: 3rem;
 }

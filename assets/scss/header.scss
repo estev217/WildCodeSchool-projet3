@@ -1,0 +1,29 @@
+.head-block {
+  background: $lightBlue;
+  height: 9.5rem;
+  min-height: 9rem;
+  margin-left: 12rem;
+  color: white;
+  .rdv {
+    border: 3px $yellow double;
+    padding: 0.6rem;
+  }
+}
+
+.fa-user-circle {
+  color: $darkBlue;
+  font-size: 6rem;
+  &:hover {
+    color: $yellow;
+  }
+}
+
+.info, .infoA {
+  font-size: 1.2rem;
+  .my-name {
+    color: $darkBlue;
+  }
+  p {
+     margin: .4rem;
+   }
+}
