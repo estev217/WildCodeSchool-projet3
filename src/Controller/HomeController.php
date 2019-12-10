@@ -49,17 +49,4 @@ class HomeController extends AbstractController
             'formDoc' => $formDoc->createView(),
         ]);
     }
-
-    /**
-     * @Route("/timeline", name="timeline")
-     * @return Response
-     */
-    public function timeline(): Response
-    {
-        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
-
-        return $this->render('timeline/timeline.html.twig', [
-            'steps' => $steps,
-        ]);
-    }
 }
