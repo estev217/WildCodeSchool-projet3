@@ -58,7 +58,7 @@ class HomeController extends AbstractController
     {
         $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
 
-        return $this->render('timeline/timeline2.html.twig', [
+        return $this->render('timeline/timeline.html.twig', [
             'steps' => $steps,
         ]);
     }
