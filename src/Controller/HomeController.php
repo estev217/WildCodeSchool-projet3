@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\IntegrationStep;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\UserChecklist;
@@ -55,6 +56,10 @@ class HomeController extends AbstractController
      */
     public function timeline(): Response
     {
-        return $this->render('timeline/timeline.html.twig');
+        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+
+        return $this->render('timeline/timeline2.html.twig', [
+            'steps' => $steps,
+        ]);
     }
 }
