@@ -9,6 +9,9 @@
     transition: all 0.4s;
     background: $lightGrey;
     padding-top: 8rem;
+    .nav-title {
+        color: $darkBlue;
+    }
     .nav-link {
         color: #15111d;
         &:hover {
@@ -30,10 +33,6 @@
 #content.active {
     width: 100%;
     margin: 0;
-}
-
-.nav-title {
-    color: $darkBlue;
 }
 
 @media (max-width: 700px) {
