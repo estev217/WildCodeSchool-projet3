@@ -3,6 +3,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
+use App\Entity\User;
 use App\Entity\UserChecklist;
 use App\Form\UserChecklistType;
 use App\Form\UserChecklistType2;
