@@ -19,7 +19,7 @@ class UserChecklistType2 extends AbstractType
             ->add('checklistItem', EntityType::class, [
                 'class' => ChecklistItem::class,
                 'choices' => $options['em']->getRepository(ChecklistItem::class)
-                    ->findByCategory(UserChecklist::CATEGORIES[1]),
+                    ->findByCategory(ChecklistItem::DOC),
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,

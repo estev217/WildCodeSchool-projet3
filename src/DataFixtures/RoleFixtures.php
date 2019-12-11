@@ -13,15 +13,15 @@ class RoleFixtures extends Fixture
     const ROLES = [
         'collab' => [
             'name' => 'Collaborateur',
-            'identifier' => 'collab'
+            'identifier' => Role::COLLAB
         ],
         'manager' => [
             'name' => 'Manager',
-            'identifier' => 'manager'
+            'identifier' => Role::MANAGER
         ],
         'admin' => [
             'name' => 'Administrateur',
-            'identifier' => 'admin'
+            'identifier' => Role::ADMIN
         ],
         ];
 

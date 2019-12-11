@@ -8,14 +8,12 @@
     {% endblock %}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
           integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="{{asset('build/images/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('build/images/favicon2.png')}}">
 </head>
 <body>
 
-<header>
-    {% include '_header.html.twig' %}
-    {% include '_nav.html.twig' %}
-</header>
+{% block main %}
+{% endblock %}
 
 <div class="page-content">
 {% block body %}

@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ChecklistItem
 {
+    const TODO = 'todo';
+    const DOC = 'doc';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
