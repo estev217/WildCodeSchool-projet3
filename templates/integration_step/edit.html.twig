@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit IntegrationStep{% endblock %}
+
+{% block body %}
+    <h1>Edit IntegrationStep</h1>
+
+    {{ include('integration_step/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('integration_step_index') }}">back to list</a>
+
+    {{ include('integration_step/_delete_form.html.twig') }}
+{% endblock %}

@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AppointmentRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Appointment
 {
@@ -82,6 +84,25 @@ class Appointment
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function handleCreationDate()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTimeImmutable());
+        }
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function handleUpdateDate()
+    {
+        $this->setUpdatedAt(new DateTimeImmutable());
     }
 
     public function getUser(): ?User

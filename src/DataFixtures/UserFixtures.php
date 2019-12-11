@@ -26,7 +26,6 @@ class UserFixtures extends Fixture
         $user->setLastname($faker->lastName);
         $user->setEmail($faker->email);
         $user->setPassword($faker->password);
-        $user->setCreatedAt($faker->dateTime);
         $user->setRole($this->getReference('role_2'));
         $manager->persist($user);
 
@@ -37,7 +36,6 @@ class UserFixtures extends Fixture
             $user->setLastname($faker->lastName);
             $user->setEmail($faker->email);
             $user->setPassword($faker->password);
-            $user->setCreatedAt($faker->dateTime);
             $user->setRole($this->getReference('role_1'));
             $manager->persist($user);
             $this->addReference('manager_' . $i, $user);
@@ -50,7 +48,6 @@ class UserFixtures extends Fixture
             $user->setLastname($faker->lastName);
             $user->setEmail($faker->email);
             $user->setPassword($faker->password);
-            $user->setCreatedAt($faker->dateTime);
             $user->setRole($this->getReference('role_0'));
             $number = rand(0, 1);
             $user->setManager($this->getReference('manager_' . $number));

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New IntegrationStep{% endblock %}
+
+{% block body %}
+    <h1>Create new IntegrationStep</h1>
+
+    {{ include('integration_step/_form.html.twig') }}
+
+    <a href="{{ path('integration_step_index') }}">back to list</a>
+{% endblock %}
