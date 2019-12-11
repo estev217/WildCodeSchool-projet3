@@ -11,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Role
 {
+
+    const COLLAB = 'collab';
+    const MANAGER = 'manager';
+    const ADMIN = 'admin';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

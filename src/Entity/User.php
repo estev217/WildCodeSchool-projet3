@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class User
 {
@@ -81,6 +83,7 @@ class User
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="collaborators")
+     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $manager;
 
@@ -229,6 +232,16 @@ class User
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist()
+     */
+    public function handleCreationDate()
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new DateTimeImmutable());
+        }
+    }
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
@@ -239,6 +252,14 @@ class User
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function handleUpdateDate()
+    {
+        $this->setUpdatedAt(new DateTimeImmutable());
     }
 
     public function getStartDate(): ?\DateTimeInterface

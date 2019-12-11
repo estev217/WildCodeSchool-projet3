@@ -13,45 +13,45 @@ class ChecklistItemFixtures extends Fixture
     const ITEMS = [
         '0' => [
             'name' => 'Signer et renvoyer mon contrat de travail',
-            'category' => 'todo',
+            'category' => ChecklistItem::TODO,
         ],
         '1' => [
             'name' => 'Retourner le dossier d\'embauche avec l\'ensemble des documents demandés',
-            'category' => 'todo',
+            'category' => ChecklistItem::TODO,
         ],
         '2' => [
             'name' => 'Si j\'ai un logement de fonction,
          remplir l\'état des lieux d\'entrée avec mon responsable de Zone ou mon Référent Métier',
-            'category' => 'todo',
+            'category' => ChecklistItem::TODO,
         ],
         '3' => [
             'name' => 'Retourner le formulaire d\'état des lieux d\'entrée au service RH 
             accompagné du chèque de caution',
-            'category' => 'todo',
+            'category' => ChecklistItem::TODO,
         ],
         '4' => [
             'name' => 'Welcome Pack',
-            'category' => 'doc',
+            'category' => ChecklistItem::DOC,
         ],
         '5' => [
             'name' => 'Contrat de travail',
-            'category' => 'doc',
+            'category' => ChecklistItem::DOC,
         ],
         '6' => [
             'name' => 'Dossier d\'embauche',
-            'category' => 'doc',
+            'category' => ChecklistItem::DOC,
         ],
         '7' => [
             'name' => 'Clé USB',
-            'category' => 'doc',
+            'category' => ChecklistItem::DOC,
         ],
         '8' => [
             'name' => 'Book Outils (Horsys, Iresa, Progidoc...)',
-            'category' => 'doc',
+            'category' => ChecklistItem::DOC,
         ],
         '9' => [
             'name' => 'Carnet de route',
-            'category' => 'doc',
+            'category' => ChecklistItem::DOC,
         ],
 
 

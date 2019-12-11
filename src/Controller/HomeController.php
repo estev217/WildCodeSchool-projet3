@@ -3,6 +3,9 @@
 
 namespace App\Controller;
 
+use App\Entity\IntegrationStep;
+use App\Entity\Role;
+use App\Entity\User;
 use App\Entity\UserChecklist;
 use App\Form\UserChecklistType;
 use App\Form\UserChecklistType2;
@@ -45,14 +48,5 @@ class HomeController extends AbstractController
             'formTodo' => $formTodo->createView(),
             'formDoc' => $formDoc->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/timeline", name="timeline")
-     * @return Response
-     */
-    public function timeline(): Response
-    {
-        return $this->render('timeline/timeline.html.twig');
     }
 }

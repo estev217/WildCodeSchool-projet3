@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.timeline-panel {
+  background-color: lighten($lightGrey, 3);;
+}
+
 .timeline:before {
   top: 0;
   bottom: 0;
