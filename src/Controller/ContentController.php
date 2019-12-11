@@ -16,6 +16,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContentController extends AbstractController
 {
     /**
+     * @Route ("/toolbox", name="toolbox")
+     * @return Response
+     */
+    public function toolBox(): Response
+    {
+        return $this->render('toolBox.html.twig');
+    }
+
+    /**
+     * @Route ("/info", name="info")
+     * @return Response
+     */
+    public function showContent(): Response
+    {
+        return $this->render('nemeaContent.html.twig');
+    }
+    /**
      * @Route("/", name="content_index", methods={"GET"})
      */
     public function index(ContentRepository $contentRepository): Response
