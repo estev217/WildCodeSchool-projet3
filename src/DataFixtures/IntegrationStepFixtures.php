@@ -20,7 +20,7 @@ class IntegrationStepFixtures extends Fixture
         ],
         [
             'name' => 'Intégration au siège',
-            'description' => 'Suivi du parcours de rencontre \n 
+            'description' => 'Suivi du parcours de rencontre 
             Bilan des deux jours d\'intégration au siège avec le manager',
             'duration' => 1,
             'font_awesome' => 'fas fa-user-plus',
@@ -28,20 +28,21 @@ class IntegrationStepFixtures extends Fixture
         ],
         [
             'name' => 'Intégration sur la résidence pilote - Mise en situation',
-            'description' => 'Mise en situation aux côtés du référent métier \n
+            'description' => 'Mise en situation aux côtés du référent métier
             Doit comprendre un week-end',
             'duration' => 7,
             'font_awesome' => 'fas fa-home',
         ],
         [
             'name' => 'Intégration du lieu de travail',
-            'description' => 'Visite des locaux \n Présentation de l\'équipe',
+            'description' => 'Visite des locaux
+            Présentation de l\'équipe',
             'duration' => 14,
             'font_awesome' => 'fas fa-flag-checkered',
         ],
         [
             'name' => 'Suivi de l\'intégration',
-            'description' => 'Point avec les services supports \n
+            'description' => 'Point avec les services supports
             Suivi hebdomadaire',
             'duration' => 14,
             'font_awesome' => 'fas fa-comments',
@@ -54,14 +55,14 @@ class IntegrationStepFixtures extends Fixture
         ],
         [
             'name' => 'Suivi mensuel',
-            'description' => 'Entretien de suivi avec le responsable de pôle \n
+            'description' => 'Entretien de suivi avec le responsable de pôle
              Si prolongation de la période d\'essai, 2nd entretien',
             'duration' => 60,
             'font_awesome' => 'fas fa-rocket',
         ],
         [
             'name' => 'Bilan de la fin d\'intégration',
-            'description' => 'Entretien de suivi mensuel \n
+            'description' => 'Entretien de suivi mensuel
             Elaboration du plan de développement personnalisé',
             'duration' => 180,
             'font_awesome' => 'fas fa-rocket',
