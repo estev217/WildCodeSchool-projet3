@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-lg-6 col-md-10 col-sm-10 col-xs-10">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Mes collaborateurs</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="col-1 text-uppercase text-center">Nom</th>
+                                <th scope="col" class="col-1 text-uppercase text-center">Prénom</th>
+                                <th scope="col" class="col-1 text-uppercase text-center">Résidence</th>
+                                <th scope="col" class="col-1 text-uppercase text-center"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for collaborator in collaborators %}
+                                <tr>
+                                    <td class="text-center align-middle">{{ collaborator.lastname }}</td>
+                                    <td class="text-center align-middle">{{ collaborator.firstname }}</td>
+                                    <td class="text-center align-middle">{{ collaborator.residence.city }}</td>
+                                    <td>
+                                        <a href=""><i class="fas fa-arrow-circle-right"></i></a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">Vous n'avez pas de collaborateur.</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Ses documents</h3>
+                    </div>
+                    <div class="card-body d-flex flex-row justify-content-around mx-3">
+                        <div>
+                            <div>
+                                <input type="checkbox" id="welcomepack" name="welcomepack" disabled>
+                                <label for="welcomepack">Welcome Pack</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="contrat" name="contrat"disabled>
+                                <label for="contrat">Contrat de travail</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="dossier" name="dosier" disabled>
+                                <label for="dossier">Dossier d'embauche</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <input type="checkbox" id="usb" name="usb" disabled>
+                                <label for="usb">Clé USB</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="book" name="book" disabled>
+                                <label for="book">Book outils</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="carnet" name="carnet" disabled>
+                                <label for="carnet">Carnet de route</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header text-center">
+                        <h3>Sa liste de choses à faire</h3>
+                    </div>
+                    <div class="card-body  d-flex flex-column text-center mx-3">
+                        <div>
+                            <input type="checkbox" id="signer" name="signer" disabled>
+                            <label for="signer">Signer et renvoyer son contrat</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="embauche" name="embauche" disabled>
+                            <label for="embauche">Retourner le dossier d'embauche</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="logement" name="logement" disabled>
+                            <label for="logement">Remplir l'état des lieux du logement de fonction</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="usb" name="usb" disabled>
+                            <label for="retourner">Retourner l'état des lieux au service RH</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="caution" name="caution" disabled>
+                            <label for="caution">Donner le chèque de caution au service RH</label>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
