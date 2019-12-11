@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,5 +91,20 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * @Route("/manager/collaborators", name="manager_show", methods={"GET"})
+     */
+    public function showCollaborators(
+        UserRepository $userRepository,
+        ResidenceRepository $residenceRepository
+    ): Response {
+        return $this->render('manager/collaborator.html.twig', [
+            'residence' => $residenceRepository->findAll(),
+            'collaborators' => $userRepository->findBy(
+                ['manager' => ['id' => '18']],
+                ['lastname' => 'ASC']
+            )]);
     }
 }
