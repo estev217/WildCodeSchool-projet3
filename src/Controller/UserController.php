@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ChecklistItemRepository;
 use App\Repository\ResidenceRepository;
+use App\Repository\UserChecklistRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,10 +103,32 @@ class UserController extends AbstractController
         ResidenceRepository $residenceRepository
     ): Response {
         return $this->render('manager/collaborator.html.twig', [
-            'residence' => $residenceRepository->findAll(),
+            'residences' => $residenceRepository->findAll(),
             'collaborators' => $userRepository->findBy(
                 ['manager' => ['id' => '18']],
                 ['lastname' => 'ASC']
             )]);
+    }
+
+    /**
+     * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
+     */
+    public function showChecklist(
+        User $user,
+        UserChecklistRepository $userChecklistRepo
+    ): Response {
+        $checklist = $userChecklistRepo->findBy(['user' => ['id' => $user->getId()]]);
+
+        $items = [];
+        foreach ($checklist as $item) {
+            $items[] = $item->getChecklistItem()->getName();
+        }
+
+
+        return $this->render('manager/checklist.html.twig', [
+            'user' => $user,
+            'checklist' => $checklist,
+            'items' => $items,
+            ]);
     }
 }
