@@ -83,6 +83,7 @@ class User
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="collaborators")
+     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $manager;
 
