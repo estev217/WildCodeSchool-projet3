@@ -1,6 +1,6 @@
 .vertical-nav {
-    min-width: 12rem;
-    width: 12rem;
+    min-width: 10rem;
+    width: 10rem;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -20,20 +20,20 @@
     }
     .cornerlogo {
         width: 100%;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+        margin-top: 1.8rem;
+        margin-bottom: 1.8rem;
         padding: 1rem;
     }
 }
 
 .page-content {
-    width: calc(100% - 12rem);
-    margin-left: 12rem;
+    width: calc(100% - 10rem);
+    margin-left: 10rem;
     transition: all 0.4s;
 }
 
 #sidebar.active {
-    margin-left: -12rem;
+    margin-left: -10rem;
 }
 
 #content.active {
@@ -43,7 +43,7 @@
 
 @media (max-width: 700px) {
     #sidebar {
-        margin-left: -17rem;
+        margin-left: -10rem;
     }
     #sidebar.active {
         margin-left: 0;
@@ -53,7 +53,7 @@
         margin: 0;
     }
     #content.active {
-        margin-left: 17rem;
-        width: calc(100% - 17rem);
+        margin-left: 10rem;
+        width: calc(100% - 10rem);
     }
 }
