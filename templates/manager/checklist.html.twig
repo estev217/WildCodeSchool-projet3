@@ -12,22 +12,18 @@
                         <h3>{{ user.firstname }} {{ user.lastname }} a reçu</h3>
                     </div>
                     <div class="card-body d-flex flex-column align-self-center">
-                        {% for item in items %}
-                         <p>{{ item }}</p>
-                        {% endfor %}
-
                         <div>
                             <input type="checkbox" id="welcomepack" name="welcomepack" checked disabled>
                             <label for="welcomepack">Welcome Pack</label>
                         </div>
 
                         <div>
-                            <input type="checkbox" id="contrat" name="contrat" disabled>
+                            <input type="checkbox" id="contrat" name="contrat" checked disabled>
                             <label for="contrat">Contrat de travail</label>
                         </div>
 
                         <div>
-                            <input type="checkbox" id="dossier" name="dosier" disabled>
+                            <input type="checkbox" id="dossier" name="dosier" checked disabled>
                             <label for="dossier">Dossier d'embauche</label>
                         </div>
 
@@ -55,7 +51,7 @@
                     </div>
                     <div class="card-body d-flex flex-column align-self-center">
                         <div>
-                            <input type="checkbox" id="signer" name="signer" disabled>
+                            <input type="checkbox" id="signer" name="signer" checked disabled>
                             <label for="signer">Signer et renvoyer son contrat</label>
                         </div>
 
@@ -65,7 +61,7 @@
                         </div>
 
                         <div>
-                            <input type="checkbox" id="logement" name="logement" disabled>
+                            <input type="checkbox" id="logement" name="logement" checked disabled>
                             <label for="logement">Remplir l'état des lieux du logement de fonction</label>
                         </div>
 
