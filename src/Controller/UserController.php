@@ -8,6 +8,7 @@ use App\Repository\ChecklistItemRepository;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserChecklistRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,28 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    /**
+     * @Route("/checklist", name="checklist")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function home(Request $request, EntityManagerInterface $em): Response
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => '6']);
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+        }
+
+        return $this->render('checklist.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     /**
      * @Route("/", name="user_index", methods={"GET"})
      */
