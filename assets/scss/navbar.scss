@@ -8,7 +8,6 @@
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
     background: $lightGrey;
-    padding-top: 8rem;
     .nav-title {
         color: $darkBlue;
     }
@@ -18,6 +17,12 @@
         &:hover {
           color: $yellow;
         }
+    }
+    .cornerlogo {
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
     }
 }
 
