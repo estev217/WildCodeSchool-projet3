@@ -58,3 +58,11 @@ header {
     }
   }
 }
+
+@media (max-width: 700px) {
+    header {
+        .head-block {
+          margin-left: 0rem;
+        }
+    }
+}
