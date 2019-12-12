@@ -113,22 +113,22 @@ class User
     private $userSkills;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserChecklist", mappedBy="user", orphanRemoval=true)
-     */
-    private $userChecklists;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Appointment", mappedBy="user", orphanRemoval=true)
      */
     private $appointments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ChecklistItem")
+     */
+    private $checklistItems;
 
     public function __construct()
     {
         $this->collaborators = new ArrayCollection();
         $this->contents = new ArrayCollection();
         $this->userSkills = new ArrayCollection();
-        $this->userChecklists = new ArrayCollection();
         $this->appointments = new ArrayCollection();
+        $this->checklistItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -428,37 +428,6 @@ class User
     }
 
     /**
-     * @return Collection|UserChecklist[]
-     */
-    public function getUserChecklists(): Collection
-    {
-        return $this->userChecklists;
-    }
-
-    public function addUserChecklist(UserChecklist $userChecklist): self
-    {
-        if (!$this->userChecklists->contains($userChecklist)) {
-            $this->userChecklists[] = $userChecklist;
-            $userChecklist->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserChecklist(UserChecklist $userChecklist): self
-    {
-        if ($this->userChecklists->contains($userChecklist)) {
-            $this->userChecklists->removeElement($userChecklist);
-            // set the owning side to null (unless already changed)
-            if ($userChecklist->getUser() === $this) {
-                $userChecklist->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Appointment[]
      */
     public function getAppointments(): Collection
@@ -484,6 +453,32 @@ class User
             if ($appointment->getUser() === $this) {
                 $appointment->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChecklistItem[]
+     */
+    public function getChecklistItems(): Collection
+    {
+        return $this->checklistItems;
+    }
+
+    public function addChecklistItem(ChecklistItem $checklistItem): self
+    {
+        if (!$this->checklistItems->contains($checklistItem)) {
+            $this->checklistItems[] = $checklistItem;
+        }
+
+        return $this;
+    }
+
+    public function removeChecklistItem(ChecklistItem $checklistItem): self
+    {
+        if ($this->checklistItems->contains($checklistItem)) {
+            $this->checklistItems->removeElement($checklistItem);
         }
 
         return $this;

@@ -31,16 +31,6 @@ class ChecklistItem
      */
     private $category;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserChecklist", mappedBy="checklistItem", orphanRemoval=true)
-     */
-    private $userChecklists;
-
-    public function __construct()
-    {
-        $this->userChecklists = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -66,37 +56,6 @@ class ChecklistItem
     public function setCategory(?string $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|UserChecklist[]
-     */
-    public function getUserChecklists(): Collection
-    {
-        return $this->userChecklists;
-    }
-
-    public function addUserChecklist(UserChecklist $userChecklist): self
-    {
-        if (!$this->userChecklists->contains($userChecklist)) {
-            $this->userChecklists[] = $userChecklist;
-            $userChecklist->setChecklistItem($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserChecklist(UserChecklist $userChecklist): self
-    {
-        if ($this->userChecklists->contains($userChecklist)) {
-            $this->userChecklists->removeElement($userChecklist);
-            // set the owning side to null (unless already changed)
-            if ($userChecklist->getChecklistItem() === $this) {
-                $userChecklist->setChecklistItem(null);
-            }
-        }
 
         return $this;
     }
