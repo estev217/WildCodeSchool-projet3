@@ -1,6 +1,6 @@
 .vertical-nav {
-    min-width: 12rem;
-    width: 12rem;
+    min-width: 10rem;
+    width: 10rem;
     height: 100vh;
     position: fixed;
     top: 0;
@@ -8,7 +8,6 @@
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
     background: $lightGrey;
-    padding-top: 8rem;
     .nav-title {
         color: $darkBlue;
     }
@@ -19,36 +18,25 @@
           color: $yellow;
         }
     }
+    .cornerlogo {
+        width: 100%;
+        margin-top: 1.8rem;
+        margin-bottom: 1.8rem;
+        padding: 1rem;
+    }
 }
 
 .page-content {
-    width: calc(100% - 12rem);
-    margin-left: 12rem;
-    transition: all 0.4s;
-}
-
-#sidebar.active {
-    margin-left: -12rem;
-}
-
-#content.active {
-    width: 100%;
-    margin: 0;
+    width: calc(100% - 10rem);
+    margin-left: 10rem;
 }
 
 @media (max-width: 700px) {
     #sidebar {
-        margin-left: -17rem;
+        margin-left: -10rem;
     }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    #content {
+    .page-content {
         width: 100%;
         margin: 0;
-    }
-    #content.active {
-        margin-left: 17rem;
-        width: calc(100% - 17rem);
     }
 }

@@ -105,7 +105,7 @@ class UserController extends AbstractController
         return $this->render('manager/collaborator.html.twig', [
             'residences' => $residenceRepository->findAll(),
             'collaborators' => $userRepository->findBy(
-                ['manager' => ['id' => '18']],
+                ['manager' => ['id' => '22']],
                 ['lastname' => 'ASC']
             )]);
     }
