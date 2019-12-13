@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserTypeChecklist;
 use App\Repository\ChecklistItemRepository;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserChecklistRepository;
@@ -22,18 +23,18 @@ class UserController extends AbstractController
     /**
      * @Route("/checklist", name="checklist")
      * @param Request $request
-     * @param EntityManagerInterface $em
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function home(Request $request, EntityManagerInterface $em): Response
+    public function home(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => '6']);
-        $form = $this->createForm(UserType::class, $user);
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => '8']);
+        $form = $this->createForm(UserTypeChecklist::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+            $entityManager->flush();
         }
 
         return $this->render('checklist.html.twig', [
@@ -53,6 +54,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -128,7 +131,7 @@ class UserController extends AbstractController
         return $this->render('manager/collaborator.html.twig', [
             'residences' => $residenceRepository->findAll(),
             'collaborators' => $userRepository->findBy(
-                ['manager' => ['id' => '18']],
+                ['manager' => ['id' => '3']],
                 ['lastname' => 'ASC']
             )]);
     }
