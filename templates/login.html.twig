@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
-          integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-</head>
-<body>
+{% extends 'base.html.twig' %}
 
-<div class="container-fluid min-vh-100">
+{% block main %}
+<div class="container-fluid container-login min-vh-100">
     <div class="login">
     <img src="{{asset('build/images/logo.png')}}" class="logo" alt="logo">
         {{ form_start(form) }}
             {{ form_row(form.email) }}
             {{ form_row(form.password, {'label' : 'Mot de passe'}) }}
-        <button class="btn btn-primary mt-4">{{ button_label|default('Me connecter') }}</button>
+        <button class="btn btn-primary mt-4">Me connecter</button>
         {{ form_end(form, {'render_rest': false}) }}
     </div>
-
 </div>
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
 {% endblock %}
-</body>
-</html>
 

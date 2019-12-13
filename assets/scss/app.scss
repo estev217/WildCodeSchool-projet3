@@ -4,7 +4,8 @@
 @import "header";
 @import "checklist";
 @import "login_page";
-@import "navbar/navbar.scss";
+@import "navbar";
+@import "timeline";
 
 body {
     font-family: $mainFont;

@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block body %}
     <div class="container">
-
+        <div class="page-header">
+            <h1>Ma checklist</h1>
+        </div>
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
@@ -13,7 +15,7 @@
                         {{ form_start(formTodo) }}
                         <div class="form-group">
                             {{ form_widget(formTodo) }}
-                            <button class="btn btn-primary">{{ button_label|default('Mettre à jour') }}</button>
+                            <button class="btn btn-primary">Mettre à jour</button>
                         </div>
                         {{ form_end(formTodo) }}
                     </div>
@@ -29,7 +31,7 @@
                         {{ form_start(formDoc) }}
                         <div class="form-group">
                             {{ form_widget(formDoc) }}
-                            <button class="btn btn-primary">{{ button_label|default('Mettre à jour') }}</button>
+                            <button class="btn btn-primary">Mettre à jour</button>
                         </div>
                         {{ form_end(formDoc) }}
                     </div>

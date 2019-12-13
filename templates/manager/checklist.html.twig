@@ -1,0 +1,82 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <div class="container mb-5">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
+            <div><a href="{{ path('manager_show') }}">Retour à la liste</a></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 mb-3">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>{{ user.firstname }} {{ user.lastname }} a reçu</h3>
+                    </div>
+                    <div class="card-body d-flex flex-column align-self-center">
+                        <div>
+                            <input type="checkbox" id="welcomepack" name="welcomepack" checked disabled>
+                            <label for="welcomepack">Welcome Pack</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="contrat" name="contrat" checked disabled>
+                            <label for="contrat">Contrat de travail</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="dossier" name="dosier" checked disabled>
+                            <label for="dossier">Dossier d'embauche</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="usb" name="usb" disabled>
+                            <label for="usb">Clé USB</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="book" name="book" disabled>
+                            <label for="book">Book outils</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="carnet" name="carnet" disabled>
+                            <label for="carnet">Carnet de route</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>{{ user.firstname }} {{ user.lastname }} doit</h3>
+                    </div>
+                    <div class="card-body d-flex flex-column align-self-center">
+                        <div>
+                            <input type="checkbox" id="signer" name="signer" checked disabled>
+                            <label for="signer">Signer et renvoyer son contrat</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="embauche" name="embauche" disabled>
+                            <label for="embauche">Retourner le dossier d'embauche</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="logement" name="logement" checked disabled>
+                            <label for="logement">Remplir l'état des lieux du logement de fonction</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="usb" name="usb" disabled>
+                            <label for="retourner">Retourner l'état des lieux au service RH</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="caution" name="caution" disabled>
+                            <label for="caution">Donner le chèque de caution au service RH</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,29 +1,68 @@
-.head-block {
-  background: $lightBlue;
-  height: 9.5rem;
-  min-height: 9rem;
-  margin-left: 12rem;
-  color: white;
-  .rdv {
-    border: 3px $yellow double;
-    padding: 0.6rem;
+header {
+  .user-info {
+    background-color: $veryLightBlue;
   }
-}
-
-.fa-user-circle {
-  color: $darkBlue;
-  font-size: 6rem;
-  &:hover {
-    color: $yellow;
+  .massive-font{
+    font-size: 30px;
+    text-align: center;
+    color: white;
   }
-}
 
-.info, .infoA {
-  font-size: 1.2rem;
-  .my-name {
+  .progress{
+    height:2rem;
+    text-align:center;
+  }
+  li {
     color: $darkBlue;
   }
-  p {
-     margin: .4rem;
-   }
+  .fas {
+    color: $yellow;
+  }
+  .progress-bar {
+    background-color: $yellow;
+  }
+  .list-group-item.active {
+    background-color: $darkBlue;
+  }
+  .head-block {
+    background: $lightBlue;
+    height: 11rem;
+    min-height: 9rem;
+    margin-left: 10rem;
+    color: white;
+
+    .rdv {
+      border: 3px $yellow double;
+      padding: 0.6rem;
+    }
+  }
+
+  .fa-user-circle {
+    color: $darkBlue;
+    font-size: 6rem;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  .info, .infoA {
+    font-size: 1.2rem;
+
+    .my-name {
+      color: $darkBlue;
+    }
+
+    p {
+      margin: .4rem;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+    header {
+        .head-block {
+          margin-left: 0rem;
+        }
+    }
 }
