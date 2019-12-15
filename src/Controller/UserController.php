@@ -4,10 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\UserTypeChecklist;
-use App\Repository\ChecklistItemRepository;
+use App\Form\UserTypeChecklistTodo;
+use App\Form\UserTypeChecklistDoc;
 use App\Repository\ResidenceRepository;
-use App\Repository\UserChecklistRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,16 +28,41 @@ class UserController extends AbstractController
     public function home(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => '8']);
-        $form = $this->createForm(UserTypeChecklist::class, $user);
 
-        $form->handleRequest($request);
+        $formTodo = $this->createForm(UserTypeChecklistTodo::class, $user, ['em' => $entityManager]);
+        $formDoc = $this->createForm(UserTypeChecklistDoc::class, $user, ['em' => $entityManager]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $formTodo->handleRequest($request);
+        $formDoc->handleRequest($request);
+
+        $items = $user->getChecklistItems();
+
+        if ($formTodo->isSubmitted() && $formTodo->isValid()) {
+            foreach ($items as $item) {
+                $category = $item->getCategory();
+                if ($category === 'doc') {
+                    $user->addChecklistItem($item);
+                }
+            }
+            $entityManager->persist($user);
+            $entityManager->flush();
+        }
+
+        if ($formDoc->isSubmitted() && $formDoc->isValid()) {
+            foreach ($items as $item) {
+                $category = $item->getCategory();
+
+                if ($category === 'todo') {
+                    $user->addChecklistItem($item);
+                }
+            }
+            $entityManager->persist($user);
             $entityManager->flush();
         }
 
         return $this->render('checklist.html.twig', [
-            'form' => $form->createView(),
+            'formTodo' => $formTodo->createView(),
+            'formDoc' => $formDoc->createView(),
         ]);
     }
 
@@ -79,6 +103,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
+     * @param User $user
+     * @return Response
      */
     public function show(User $user): Response
     {
@@ -138,23 +164,19 @@ class UserController extends AbstractController
 
     /**
      * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
+     * @param User $user
+     * @param EntityManagerInterface $entityManager
+     * @return Response
      */
-    public function showChecklist(
-        User $user,
-        UserChecklistRepository $userChecklistRepo
-    ): Response {
-        $checklist = $userChecklistRepo->findBy(['user' => ['id' => $user->getId()]]);
-
-        $items = [];
-        foreach ($checklist as $item) {
-            $items[] = $item->getChecklistItem()->getName();
-        }
-
+    public function showChecklist(User $user, EntityManagerInterface $entityManager): Response
+    {
+        $formTodo = $this->createForm(UserTypeChecklistTodo::class, $user, ['em' => $entityManager]);
+        $formDoc = $this->createForm(UserTypeChecklistDoc::class, $user, ['em' => $entityManager]);
 
         return $this->render('manager/checklist.html.twig', [
-            'user' => $user,
-            'checklist' => $checklist,
-            'items' => $items,
-            ]);
+            'collaborator' => $user,
+            'formTodo' => $formTodo->createView(),
+            'formDoc' => $formDoc->createView(),
+        ]);
     }
 }
