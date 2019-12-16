@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\UserTypeChecklistTodo;
+use App\Form\UserTypeChecklist;
 use App\Form\UserTypeChecklistDoc;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
@@ -24,6 +24,7 @@ class UserController extends AbstractController
      * @Route("/checklist/{user}", name="checklist")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
+     * @param User $user
      * @return Response
      */
     public function home(Request $request, EntityManagerInterface $entityManager, User $user): Response
@@ -32,13 +33,12 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
         }
 
         return $this->render('checklist.html.twig', [
-            'formTodo' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -135,7 +135,7 @@ class UserController extends AbstractController
         return $this->render('manager/collaborator.html.twig', [
             'residences' => $residenceRepository->findAll(),
             'collaborators' => $userRepository->findBy(
-                ['manager' => ['id' => '3']],
+                ['manager' => ['id' => '2']],
                 ['lastname' => 'ASC']
             )]);
     }

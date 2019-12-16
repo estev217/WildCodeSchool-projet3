@@ -11,15 +11,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserTypeChecklistDoc extends AbstractType
+class UserTypeChecklist extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('checklistItems', EntityType::class, [
                 'class' => ChecklistItem::class,
-                'choices' => $options['em']->getRepository(ChecklistItem::class)
-                    ->findByCategory(ChecklistItem::DOC),
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
@@ -32,7 +30,6 @@ class UserTypeChecklistDoc extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'em' => null,
         ]);
     }
 }
