@@ -35,7 +35,7 @@ class UserFixtures extends Fixture
         $user->setEmail($faker->email);
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
         $user->setRole($this->getReference('role_2'));
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
 
         // Creates 2 managers
@@ -59,7 +59,7 @@ class UserFixtures extends Fixture
             $user->setEmail($faker->email);
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_0'));
-            $user->setRoles(['ROLE_ADMIN']);
+            $user->setRoles(['ROLE_USER']);
 
             $number = rand(0, 1);
             $user->setManager($this->getReference('manager_' . $number));
