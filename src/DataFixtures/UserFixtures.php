@@ -6,10 +6,18 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
 
 class UserFixtures extends Fixture
 {
+
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
 
     /**
      * Load data fixtures with the passed EntityManager
@@ -25,8 +33,9 @@ class UserFixtures extends Fixture
         $user->setFirstname($faker->firstName);
         $user->setLastname($faker->lastName);
         $user->setEmail($faker->email);
-        $user->setPassword($faker->password);
+        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
         $user->setRole($this->getReference('role_2'));
+        $user->setRoles(['ROLE_USER']);
         $manager->persist($user);
 
         // Creates 2 managers
@@ -35,8 +44,9 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
             $user->setEmail($faker->email);
-            $user->setPassword($faker->password);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_1'));
+            $user->setRoles(['ROLE_MANAGER']);
             $manager->persist($user);
             $this->addReference('manager_' . $i, $user);
         }
@@ -47,8 +57,10 @@ class UserFixtures extends Fixture
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
             $user->setEmail($faker->email);
-            $user->setPassword($faker->password);
+            $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_0'));
+            $user->setRoles(['ROLE_ADMIN']);
+
             $number = rand(0, 1);
             $user->setManager($this->getReference('manager_' . $number));
             $manager->persist($user);
