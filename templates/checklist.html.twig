@@ -6,7 +6,6 @@
             <h1>Ma checklist</h1>
         </div>
         <div class="row">
-
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="card-header">
@@ -15,10 +14,16 @@
                     <div class="card-body">
                         {{ form_start(formTodo) }}
                         <div class="form-group">
-                            {{ form_widget(formTodo.checklistItems) }}
-                            <button class="btn btn-primary">Mettre à jour</button>
+
+                            {% for category, choices in formTodo.children.checklistItems.vars.choices %}
+                                {% if category == 'todo' %}
+                                    {% for key, choice in choices %}
+                                        {{ form_widget(formTodo.checklistItems[key]) }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
                         </div>
-                        {{ form_end(formTodo) }}
                     </div>
                 </div>
             </div>
@@ -29,17 +34,25 @@
                         <h3>Mes documents</h3>
                     </div>
                     <div class="card-body">
-                        {{ form_start(formDoc) }}
                         <div class="form-group">
-                            {{ form_widget(formDoc.checklistItems) }}
-                            <button class="btn btn-primary">Mettre à jour</button>
+
+                            {% for category, choices in formTodo.children.checklistItems.vars.choices %}
+                                {% if category == 'doc' %}
+                                    {% for key, choice in choices %}
+                                        {{ form_widget(formTodo.checklistItems[key]) }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+
                         </div>
-                        {{ form_end(formDoc) }}
+                        <button class="btn btn-primary">Mettre à jour</button>
+                        {{ form_end(formTodo) }}
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
 {% endblock %}

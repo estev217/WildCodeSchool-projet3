@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,54 +21,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/checklist", name="checklist")
+     * @Route("/checklist/{user}", name="checklist")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function home(Request $request, EntityManagerInterface $entityManager): Response
+    public function home(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => '8']);
+        $form = $this->createForm(UserTypeChecklist::class, $user);
 
-        $formTodo = $this->createForm(UserTypeChecklistTodo::class, $user, ['em' => $entityManager]);
-        $formDoc = $this->createForm(UserTypeChecklistDoc::class, $user, ['em' => $entityManager]);
+        $form->handleRequest($request);
 
-        $formTodo->handleRequest($request);
-        $formDoc->handleRequest($request);
 
-        $items = $user->getChecklistItems();
-
-        if ($formTodo->isSubmitted() && $formTodo->isValid()) {
-            foreach ($items as $item) {
-                $category = $item->getCategory();
-                if ($category === 'doc') {
-                    $user->addChecklistItem($item);
-                }
-            }
-            $entityManager->persist($user);
-            $entityManager->flush();
-        }
-
-        if ($formDoc->isSubmitted() && $formDoc->isValid()) {
-            foreach ($items as $item) {
-                $category = $item->getCategory();
-
-                if ($category === 'todo') {
-                    $user->addChecklistItem($item);
-                }
-            }
-            $entityManager->persist($user);
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
         }
 
         return $this->render('checklist.html.twig', [
-            'formTodo' => $formTodo->createView(),
-            'formDoc' => $formDoc->createView(),
+            'formTodo' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/", name="user_index", methods={"GET"})
+     * @param UserRepository $userRepository
+     * @return Response
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -170,13 +148,11 @@ class UserController extends AbstractController
      */
     public function showChecklist(User $user, EntityManagerInterface $entityManager): Response
     {
-        $formTodo = $this->createForm(UserTypeChecklistTodo::class, $user, ['em' => $entityManager]);
-        $formDoc = $this->createForm(UserTypeChecklistDoc::class, $user, ['em' => $entityManager]);
+        $form = $this->createForm(UserTypeChecklist::class, $user);
 
         return $this->render('manager/checklist.html.twig', [
             'collaborator' => $user,
-            'formTodo' => $formTodo->createView(),
-            'formDoc' => $formDoc->createView(),
+            'form' => $form->createView(),
         ]);
     }
 }
