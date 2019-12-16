@@ -1,12 +1,16 @@
 <nav class="vertical-nav" id="sidebar">
 
-    <p class="nav-title font-weight-bold text-uppercase text-center px-3 small py-4 mb-0">Mon Welcome Pack</p>
+    <div>
+        <img src="{{asset('build/images/logo.png')}}" class="cornerlogo" alt="logo">
+    </div>
+
+    <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-4 mb-0">Mon Welcome Pack</p>
 
     <ul class="nav flex-column mb-0">
         <li class="nav-item">
             <a href="{{ path('timeline') }}" class="nav-link">
-                <i class="fas fa-history mr-3 text-primary fa-fw"></i>
-                Parcours d'intégration
+                <i class="fas fa-walking mr-3 text-primary fa-fw"></i>
+                Parcours
             </a>
         </li>
         <li class="nav-item">
@@ -30,19 +34,19 @@
 
     </ul>
 
-    <p class="nav-title font-weight-bold text-uppercase text-center px-3 small pb-4 pt-5 mb-0">Le coin du manager</p>
+    <p class="nav-title font-weight-bold text-uppercase text-center px-2 small pb-4 pt-5 mb-0">Le coin du manager</p>
 
     <ul class="nav flex-column mb-0">
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="fas fa-clipboard-list mr-3 text-primary fa-fw"></i>
-                Ma checklist
+                Checklist
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ path('manager_show') }}" class="nav-link">
-                <i class="fas fa-clipboard-list mr-3 text-primary fa-fw"></i>
-                Mes collaborateurs
+                <i class="fas fa-users mr-3 text-primary fa-fw"></i>
+                Collaborateurs
             </a>
         </li>
     </ul>

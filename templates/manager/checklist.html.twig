@@ -11,10 +11,10 @@
                     <div class="card-header">
                         <h3>Ma liste de choses à faire</h3>
                     </div>
+
                     <div class="card-body">
                         {{ form_start(form) }}
                         <div class="form-group">
-
                             {% for category, choices in form.children.checklistItems.vars.choices %}
                                 {% if category == 'todo' %}
                                     {% for key, choice in choices %}
@@ -22,7 +22,6 @@
                                     {% endfor %}
                                 {% endif %}
                             {% endfor %}
-
                         </div>
                     </div>
                 </div>
@@ -35,7 +34,6 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-
                             {% for category, choices in form.children.checklistItems.vars.choices %}
                                 {% if category == 'doc' %}
                                     {% for key, choice in choices %}
@@ -43,8 +41,6 @@
                                     {% endfor %}
                                 {% endif %}
                             {% endfor %}
-
-
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ header {
     background: $lightBlue;
     height: 11rem;
     min-height: 9rem;
-    margin-left: 12rem;
+    margin-left: 10rem;
     color: white;
 
     .rdv {
@@ -57,4 +57,12 @@ header {
       margin: .4rem;
     }
   }
+}
+
+@media (max-width: 700px) {
+    header {
+        .head-block {
+          margin-left: 0rem;
+        }
+    }
 }

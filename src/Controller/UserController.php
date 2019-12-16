@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
-use App\Form\UserTypeChecklistDoc;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
