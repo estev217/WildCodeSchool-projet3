@@ -24,10 +24,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $form = $this->createForm(UserType::class);
-
-        return $this->render('login.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->redirectToRoute('app_login');
     }
 }
