@@ -89,14 +89,15 @@ class User implements UserInterface
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="collaborators")
+     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $manager;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="manager")
      */
-    private $users;
+    private $collaborators;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Residence", inversedBy="users")
@@ -108,9 +109,15 @@ class User implements UserInterface
      */
     private $residencePilote;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ChecklistItem")
+     */
+    private $checklistItems;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->checklistItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -344,28 +351,28 @@ class User implements UserInterface
     /**
      * @return Collection|self[]
      */
-    public function getUsers(): Collection
+    public function getCollaborators(): Collection
     {
-        return $this->users;
+        return $this->collaborators;
     }
 
-    public function addUser(self $user): self
+    public function addCollaborator(self $collaborator): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setManager($this);
+        if (!$this->collaborators->contains($collaborator)) {
+            $this->collaborators[] = $collaborator;
+            $collaborator->setManager($this);
         }
 
         return $this;
     }
 
-    public function removeUser(self $user): self
+    public function removeCollaborator(self $collaborator): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->collaborators->contains($collaborator)) {
+            $this->collaborators->removeElement($collaborator);
             // set the owning side to null (unless already changed)
-            if ($user->getManager() === $this) {
-                $user->setManager(null);
+            if ($collaborator->getManager() === $this) {
+                $collaborator->setManager(null);
             }
         }
 
@@ -392,6 +399,32 @@ class User implements UserInterface
     public function setResidencePilote(?Residence $residencePilote): self
     {
         $this->residencePilote = $residencePilote;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChecklistItem[]
+     */
+    public function getChecklistItems(): Collection
+    {
+        return $this->checklistItems;
+    }
+
+    public function addChecklistItem(ChecklistItem $checklistItem): self
+    {
+        if (!$this->checklistItems->contains($checklistItem)) {
+            $this->checklistItems[] = $checklistItem;
+        }
+
+        return $this;
+    }
+
+    public function removeChecklistItem(ChecklistItem $checklistItem): self
+    {
+        if ($this->checklistItems->contains($checklistItem)) {
+            $this->checklistItems->removeElement($checklistItem);
+        }
 
         return $this;
     }
