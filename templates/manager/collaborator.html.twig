@@ -26,7 +26,7 @@
                                     <td class="text-center align-middle">{{ collaborator.lastname }}</td>
                                     <td class="text-center align-middle">{{ collaborator.firstname }}</td>
                                     <td class="text-center align-middle">{{ collaborator.email }}</td>
-                                    <td class="text-center align-middle">Responsable de Résidence</td>
+                                    <td class="text-center align-middle">{#{{ collaborator.position.name }}#}</td>
                                     <td class="text-center align-middle">{#{{ collaborator.residence.city }}#}Lacanau</td>
                                     <td class="text-center align-middle">
                                         <a href="{{ path('collaborator_checklist', {'id': collaborator.id}) }}"><i class="fas fa-arrow-circle-right"></i></a>

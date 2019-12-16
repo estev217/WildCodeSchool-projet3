@@ -3,34 +3,33 @@
 namespace App\Form;
 
 use App\Entity\ChecklistItem;
+use App\Entity\Residence;
+use App\Entity\Role;
 use App\Entity\User;
-use App\Entity\UserChecklist;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserChecklistType extends AbstractType
+class UserTypeChecklist extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('checklistItem', EntityType::class, [
+            ->add('checklistItems', EntityType::class, [
                 'class' => ChecklistItem::class,
-                'choices' => $options['em']->getRepository(ChecklistItem::class)
-                    ->findByCategory(ChecklistItem::TODO),
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
+                'group_by' => 'category',
             ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UserChecklist::class,
-            'em' => null,
+            'data_class' => User::class,
         ]);
     }
 }
