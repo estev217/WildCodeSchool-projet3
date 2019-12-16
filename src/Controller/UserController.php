@@ -38,18 +38,15 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/manager/collaborators", name="manager_show", methods={"GET"})
+     * @Route("/{user}/collaborators", name="manager_show", methods={"GET"})
+     * @param User $user
+     * @return Response
      */
-    public function showCollaborators(
-        UserRepository $userRepository,
-        ResidenceRepository $residenceRepository
-    ): Response {
+    public function showCollaborators(User $user): Response
+    {
         return $this->render('manager/collaborator.html.twig', [
-            'residences' => $residenceRepository->findAll(),
-            'collaborators' => $userRepository->findBy(
-                ['manager' => ['id' => '2']],
-                ['lastname' => 'ASC']
-            )]);
+            'collaborators' => $user->getCollaborators(),
+            ]);
     }
     /**
      * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
