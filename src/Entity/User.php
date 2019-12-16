@@ -6,12 +6,13 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,6 +20,22 @@ class User
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -29,16 +46,6 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,6 +63,11 @@ class User
     private $referent;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $startDate;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -64,11 +76,6 @@ class User
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $startDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Position", inversedBy="users")
@@ -82,15 +89,14 @@ class User
     private $role;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="collaborators")
-     * @ORM\JoinColumn(name="manager_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      */
     private $manager;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="manager")
      */
-    private $collaborators;
+    private $users;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Residence", inversedBy="users")
@@ -98,42 +104,91 @@ class User
     private $residence;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Residence", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Residence")
      */
-    private $residencePilot;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="user")
-     */
-    private $contents;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSkill", mappedBy="user", orphanRemoval=true)
-     */
-    private $userSkills;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Appointment", mappedBy="user", orphanRemoval=true)
-     */
-    private $appointments;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ChecklistItem")
-     */
-    private $checklistItems;
+    private $residencePilote;
 
     public function __construct()
     {
-        $this->collaborators = new ArrayCollection();
-        $this->contents = new ArrayCollection();
-        $this->userSkills = new ArrayCollection();
-        $this->appointments = new ArrayCollection();
-        $this->checklistItems = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -160,30 +215,6 @@ class User
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -201,7 +232,7 @@ class User
         return $this->mentor;
     }
 
-    public function setMentor(string $mentor): self
+    public function setMentor(?string $mentor): self
     {
         $this->mentor = $mentor;
 
@@ -213,9 +244,21 @@ class User
         return $this->referent;
     }
 
-    public function setReferent(string $referent): self
+    public function setReferent(?string $referent): self
     {
         $this->referent = $referent;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(?\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
 
         return $this;
     }
@@ -262,18 +305,6 @@ class User
         $this->setUpdatedAt(new DateTimeImmutable());
     }
 
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(?\DateTimeInterface $startDate): self
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
     public function getPosition(): ?Position
     {
         return $this->position;
@@ -313,28 +344,28 @@ class User
     /**
      * @return Collection|self[]
      */
-    public function getCollaborators(): Collection
+    public function getUsers(): Collection
     {
-        return $this->collaborators;
+        return $this->users;
     }
 
-    public function addCollaborator(self $collaborator): self
+    public function addUser(self $user): self
     {
-        if (!$this->collaborators->contains($collaborator)) {
-            $this->collaborators[] = $collaborator;
-            $collaborator->setManager($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setManager($this);
         }
 
         return $this;
     }
 
-    public function removeCollaborator(self $collaborator): self
+    public function removeUser(self $user): self
     {
-        if ($this->collaborators->contains($collaborator)) {
-            $this->collaborators->removeElement($collaborator);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($collaborator->getManager() === $this) {
-                $collaborator->setManager(null);
+            if ($user->getManager() === $this) {
+                $user->setManager(null);
             }
         }
 
@@ -353,133 +384,14 @@ class User
         return $this;
     }
 
-    public function getResidencePilot(): ?Residence
+    public function getResidencePilote(): ?Residence
     {
-        return $this->residencePilot;
+        return $this->residencePilote;
     }
 
-    public function setResidencePilot(?Residence $residencePilot): self
+    public function setResidencePilote(?Residence $residencePilote): self
     {
-        $this->residencePilot = $residencePilot;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Content[]
-     */
-    public function getContents(): Collection
-    {
-        return $this->contents;
-    }
-
-    public function addContent(Content $content): self
-    {
-        if (!$this->contents->contains($content)) {
-            $this->contents[] = $content;
-            $content->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContent(Content $content): self
-    {
-        if ($this->contents->contains($content)) {
-            $this->contents->removeElement($content);
-            // set the owning side to null (unless already changed)
-            if ($content->getUser() === $this) {
-                $content->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|UserSkill[]
-     */
-    public function getUserSkills(): Collection
-    {
-        return $this->userSkills;
-    }
-
-    public function addUserSkill(UserSkill $userSkill): self
-    {
-        if (!$this->userSkills->contains($userSkill)) {
-            $this->userSkills[] = $userSkill;
-            $userSkill->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserSkill(UserSkill $userSkill): self
-    {
-        if ($this->userSkills->contains($userSkill)) {
-            $this->userSkills->removeElement($userSkill);
-            // set the owning side to null (unless already changed)
-            if ($userSkill->getUser() === $this) {
-                $userSkill->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Appointment[]
-     */
-    public function getAppointments(): Collection
-    {
-        return $this->appointments;
-    }
-
-    public function addAppointment(Appointment $appointment): self
-    {
-        if (!$this->appointments->contains($appointment)) {
-            $this->appointments[] = $appointment;
-            $appointment->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAppointment(Appointment $appointment): self
-    {
-        if ($this->appointments->contains($appointment)) {
-            $this->appointments->removeElement($appointment);
-            // set the owning side to null (unless already changed)
-            if ($appointment->getUser() === $this) {
-                $appointment->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ChecklistItem[]
-     */
-    public function getChecklistItems(): Collection
-    {
-        return $this->checklistItems;
-    }
-
-    public function addChecklistItem(ChecklistItem $checklistItem): self
-    {
-        if (!$this->checklistItems->contains($checklistItem)) {
-            $this->checklistItems[] = $checklistItem;
-        }
-
-        return $this;
-    }
-
-    public function removeChecklistItem(ChecklistItem $checklistItem): self
-    {
-        if ($this->checklistItems->contains($checklistItem)) {
-            $this->checklistItems->removeElement($checklistItem);
-        }
+        $this->residencePilote = $residencePilote;
 
         return $this;
     }

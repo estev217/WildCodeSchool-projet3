@@ -41,6 +41,7 @@ class Role
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->users2 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +98,37 @@ class Role
             // set the owning side to null (unless already changed)
             if ($user->getRole() === $this) {
                 $user->setRole(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers2(): Collection
+    {
+        return $this->users2;
+    }
+
+    public function addUsers2(User $users2): self
+    {
+        if (!$this->users2->contains($users2)) {
+            $this->users2[] = $users2;
+            $users2->setRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsers2(User $users2): self
+    {
+        if ($this->users2->contains($users2)) {
+            $this->users2->removeElement($users2);
+            // set the owning side to null (unless already changed)
+            if ($users2->getRole() === $this) {
+                $users2->setRole(null);
             }
         }
 

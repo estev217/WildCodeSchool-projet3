@@ -38,9 +38,11 @@ class Residence
      */
     private $users;
 
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->users2 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +111,37 @@ class Residence
             // set the owning side to null (unless already changed)
             if ($user->getResidence() === $this) {
                 $user->setResidence(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers2(): Collection
+    {
+        return $this->users2;
+    }
+
+    public function addUsers2(User $users2): self
+    {
+        if (!$this->users2->contains($users2)) {
+            $this->users2[] = $users2;
+            $users2->setResidence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsers2(User $users2): self
+    {
+        if ($this->users2->contains($users2)) {
+            $this->users2->removeElement($users2);
+            // set the owning side to null (unless already changed)
+            if ($users2->getResidence() === $this) {
+                $users2->setResidence(null);
             }
         }
 
