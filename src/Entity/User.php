@@ -116,7 +116,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->collaborators = new ArrayCollection();
         $this->checklistItems = new ArrayCollection();
     }
 
@@ -153,8 +153,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_COLLABORATOR
+        $roles[] = 'ROLE_COLLABORATOR';
 
         return array_unique($roles);
     }

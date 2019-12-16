@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setFirstname($faker->firstName);
         $user->setLastname($faker->lastName);
-        $user->setEmail($faker->email);
+        $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
         $user->setRole($this->getReference('role_2'));
         $user->setRoles(['ROLE_ADMIN']);
@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
-            $user->setEmail($faker->email);
+            $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_1'));
             $user->setRoles(['ROLE_MANAGER']);
@@ -56,10 +56,10 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
-            $user->setEmail($faker->email);
+            $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_0'));
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles(['ROLE_COLLABORATOR']);
 
             $number = rand(0, 1);
             $user->setManager($this->getReference('manager_' . $number));
