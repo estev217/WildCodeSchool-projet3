@@ -25,7 +25,7 @@ class UserController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function home(Request $request, EntityManagerInterface $entityManager, User $user): Response
+    public function checklist(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
         $form = $this->createForm(UserTypeChecklist::class, $user);
         $form->handleRequest($request);
