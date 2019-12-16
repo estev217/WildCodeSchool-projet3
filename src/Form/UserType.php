@@ -37,7 +37,7 @@ class UserType extends AbstractType
                 'class' => Residence::class,
                 'choice_label' => 'name',
             ])
-            ->add('residencePilot', EntityType::class, [
+            ->add('residencePilote', EntityType::class, [
                 'class' => Residence::class,
                 'choice_label' => 'name',
             ])
