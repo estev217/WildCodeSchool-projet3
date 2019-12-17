@@ -1,6 +1,28 @@
 header {
+  .head-block {
+    background: darken($darkBlue, 3);
+    height: 11rem;
+    min-height: 9rem;
+    margin-left: 10rem;
+    color: white;
+    padding-top: 1rem;
+  .card {
+    background: $darkerBlue;
+    margin-top: 3rem;
+    height: 13rem;
+  }
   .user-info {
-    background-color: $veryLightBlue;
+    .my-name {
+      color: $lightBlue;
+    }
+    .fa-user-circle {
+      color: $darkBlue;
+      font-size: 6rem;
+
+      &:hover {
+        color: $yellow;
+      }
+    }
   }
   .massive-font{
     font-size: 30px;
@@ -24,27 +46,13 @@ header {
   .list-group-item.active {
     background-color: $darkBlue;
   }
-  .head-block {
-    background: $lightBlue;
-    height: 11rem;
-    min-height: 9rem;
-    margin-left: 10rem;
-    color: white;
-
     .rdv {
       border: 3px $yellow double;
       padding: 0.6rem;
     }
   }
 
-  .fa-user-circle {
-    color: $darkBlue;
-    font-size: 6rem;
 
-    &:hover {
-      color: $yellow;
-    }
-  }
 
   .info, .infoA {
     font-size: 1.2rem;
