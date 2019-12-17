@@ -8,7 +8,7 @@
         <ul class="timeline">
         {% for step in steps %}
             <li class="{{ loop.index is odd ? "" : "timeline-inverted" }}">
-                <div class="timeline-badge"><i class="{{ step.fontAwesome }}"></i></div>
+                <div class="timeline-badge" style="background-color:{{ step.color }};"><i class="{{ step.fontAwesome }}" style="color:#495057;"></i></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
                         <h4 class="timeline-title">{{step.name}}</h4>

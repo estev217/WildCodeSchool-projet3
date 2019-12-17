@@ -17,6 +17,7 @@ class IntegrationStepFixtures extends Fixture
             Visite des locaux',
             'duration' => 1,
             'font_awesome' => 'fab fa-fort-awesome',
+            'color' => '#fff3bf',
         ],
         [
             'name' => 'Intégration au siège',
@@ -24,6 +25,7 @@ class IntegrationStepFixtures extends Fixture
             Bilan des deux jours d\'intégration au siège avec le manager',
             'duration' => 1,
             'font_awesome' => 'fas fa-user-plus',
+            'color' => '#fbd4f2',
 
         ],
         [
@@ -32,6 +34,7 @@ class IntegrationStepFixtures extends Fixture
             Doit comprendre un week-end',
             'duration' => 7,
             'font_awesome' => 'fas fa-home',
+            'color' => '#d8f5a2',
         ],
         [
             'name' => 'Intégration du lieu de travail',
@@ -39,6 +42,7 @@ class IntegrationStepFixtures extends Fixture
             Présentation de l\'équipe',
             'duration' => 14,
             'font_awesome' => 'fas fa-flag-checkered',
+            'color' => '#ffdeeb',
         ],
         [
             'name' => 'Suivi de l\'intégration',
@@ -46,12 +50,14 @@ class IntegrationStepFixtures extends Fixture
             Suivi hebdomadaire',
             'duration' => 14,
             'font_awesome' => 'fas fa-comments',
+            'color' => '#fbd4f2',
         ],
         [
             'name' => 'Bilan de la période écoulée',
             'description' => '. RDV bilan de la période écoulée',
             'duration' => 1,
             'font_awesome' => 'fas fa-user-graduate',
+            'color' => '#fff85b',
         ],
         [
             'name' => 'Suivi mensuel',
@@ -59,6 +65,7 @@ class IntegrationStepFixtures extends Fixture
              Si prolongation de la période d\'essai, 2nd entretien',
             'duration' => 60,
             'font_awesome' => 'fas fa-rocket',
+            'color' => '#b2f2bb',
         ],
         [
             'name' => 'Bilan de la fin d\'intégration',
@@ -66,6 +73,7 @@ class IntegrationStepFixtures extends Fixture
             Elaboration du plan de développement personnalisé',
             'duration' => 180,
             'font_awesome' => 'fas fa-rocket',
+            'color' => '#ffe3e3',
         ],
     ];
 
@@ -80,6 +88,7 @@ class IntegrationStepFixtures extends Fixture
             $step->setDescription($data['description']);
             $step->setDuration($data['duration']);
             $step->setFontAwesome($data['font_awesome']);
+            $step->setColor($data['color']);
             $manager->persist($step);
         }
         $manager->flush();
