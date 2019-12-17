@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ChecklistItem;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
@@ -29,11 +30,18 @@ class UserController extends AbstractController
     {
         $form = $this->createForm(UserTypeChecklist::class, $user, ['write_right' => true]);
         $form->handleRequest($request);
+
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
+
+        $percent = ($userItems * 100) / $totalItems;
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
         }
         return $this->render('checklist.html.twig', [
             'form' => $form->createView(),
+            'percent' => $percent,
         ]);
     }
 
@@ -57,9 +65,16 @@ class UserController extends AbstractController
     public function showChecklist(User $user): Response
     {
         $form = $this->createForm(UserTypeChecklist::class, $user);
+
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
+
+        $percent = ($userItems * 100) / $totalItems;
+
         return $this->render('manager/checklist.html.twig', [
             'collaborator' => $user,
             'form' => $form->createView(),
+            'percent' => $percent,
         ]);
     }
 
