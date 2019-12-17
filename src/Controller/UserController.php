@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,20 +25,44 @@ class UserController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function home(Request $request, EntityManagerInterface $entityManager, User $user): Response
+    public function checklist(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
-        $form = $this->createForm(UserTypeChecklist::class, $user);
-
+        $form = $this->createForm(UserTypeChecklist::class, $user, ['write_right' => true]);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
         }
-
         return $this->render('checklist.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{user}/collaborators", name="manager_show", methods={"GET"})
+     * @param User $user
+     * @return Response
+     */
+    public function showCollaborators(User $user): Response
+    {
+        return $this->render('manager/collaborator.html.twig', [
+            'collaborators' => $user->getCollaborators(),
+            ]);
+    }
+
+    /**
+     * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
+     * @param User $user
+     * @return Response
+     */
+    public function showChecklist(User $user): Response
+    {
+        $form = $this->createForm(UserTypeChecklist::class, $user);
+        return $this->render('manager/checklist.html.twig', [
+            'collaborator' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
 
     /**
      * @Route("/", name="user_index", methods={"GET"})
@@ -92,6 +115,9 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param User $user
+     * @return Response
      */
     public function edit(Request $request, User $user): Response
     {
@@ -122,36 +148,5 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
-    }
-
-    /**
-     * @Route("/manager/collaborators", name="manager_show", methods={"GET"})
-     */
-    public function showCollaborators(
-        UserRepository $userRepository,
-        ResidenceRepository $residenceRepository
-    ): Response {
-        return $this->render('manager/collaborator.html.twig', [
-            'residences' => $residenceRepository->findAll(),
-            'collaborators' => $userRepository->findBy(
-                ['manager' => ['id' => '2']],
-                ['lastname' => 'ASC']
-            )]);
-    }
-
-    /**
-     * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
-     * @param User $user
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function showChecklist(User $user, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(UserTypeChecklist::class, $user);
-
-        return $this->render('manager/checklist.html.twig', [
-            'collaborator' => $user,
-            'form' => $form->createView(),
-        ]);
     }
 }

@@ -22,6 +22,7 @@ class UserTypeChecklist extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'group_by' => 'category',
+                'disabled' => !$options['write_right'],
             ]);
         ;
     }
@@ -30,6 +31,7 @@ class UserTypeChecklist extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'write_right' => false,
         ]);
     }
 }
