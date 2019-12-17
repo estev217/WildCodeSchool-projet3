@@ -28,6 +28,7 @@ class IntegrationStepController extends AbstractController
     {
         $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
         $startDate = $user->getStartDate();
+
         $statuses = $timelineService->generate($steps, $startDate);
 
         return $this->render('timeline/timeline.html.twig', [

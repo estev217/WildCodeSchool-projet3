@@ -16,7 +16,7 @@ class TimelineService
             $sums[] = $totalStepsDays;
         }
         $today = new DateTime();
-        $diff = (date_diff($startDate, $today))->d;
+        $diff = (date_diff($startDate, $today))->m * 30 + (date_diff($startDate, $today))->d;
         $result = [];
         foreach ($steps as $key => $step) {
             if ($sums[$key] < $diff) {
