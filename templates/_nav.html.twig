@@ -9,7 +9,7 @@
     <ul class="nav flex-column mb-0">
         {% if is_granted('ROLE_COLLABORATOR') %}
         <li class="nav-item">
-            <a href="{{ path('timeline') }}" class="nav-link">
+            <a href="{{ path('timeline', {'user': app.user.id }) }}" class="nav-link">
                 <i class="fas fa-walking mr-3 text-primary fa-fw"></i>
                 Parcours
             </a>
