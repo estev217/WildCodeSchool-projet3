@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\User1Type;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Repository\ResidenceRepository;
@@ -28,7 +27,7 @@ class UserController extends AbstractController
      */
     public function checklist(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
-        $form = $this->createForm(UserTypeChecklist::class, $user);
+        $form = $this->createForm(UserTypeChecklist::class, $user, ['write_right' => true]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();

@@ -153,8 +153,6 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_COLLABORATOR
-        $roles[] = 'ROLE_COLLABORATOR';
 
         return array_unique($roles);
     }
