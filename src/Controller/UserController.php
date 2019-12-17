@@ -65,9 +65,16 @@ class UserController extends AbstractController
     public function showChecklist(User $user): Response
     {
         $form = $this->createForm(UserTypeChecklist::class, $user);
+
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
+
+        $percent = ($userItems * 100) / $totalItems;
+
         return $this->render('manager/checklist.html.twig', [
             'collaborator' => $user,
             'form' => $form->createView(),
+            'percent' => $percent,
         ]);
     }
 
