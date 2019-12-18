@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-
-    <header>
-        {% include '_header.html.twig' %}
-
-    </header>
-    <nav>
-        {% include '_nav.html.twig' %}
-    </nav>
-
+    <div class="main d-flex">
+            {% include '_nav.html.twig' %}
+        <div class="main-content">
+            <header>
+                {% include '_header.html.twig' %}
+            </header>
+            <div class="container-fluid">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

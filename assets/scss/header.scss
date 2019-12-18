@@ -1,57 +1,82 @@
 header {
+  .header-pic {
+    width: 100%;
+  }
+
   .head-block {
-    background: darken($darkBlue, 3);
+    background: $darkBackground;
     height: 11rem;
     min-height: 9rem;
-    margin-left: 10rem;
-    color: white;
-    padding-top: 1rem;
-  .card {
-    background: $darkerBlue;
-    margin-top: 3rem;
-    height: 13rem;
-  }
-  .user-info {
-    .my-name {
-      color: $lightBlue;
-    }
-    .fa-user-circle {
-      color: $darkBlue;
-      font-size: 6rem;
+    margin-left: 0.3rem;
+    color: $fontColor;
+    margin-top: -10rem;
 
-      &:hover {
-        color: $yellow;
+    .card {
+      background: $cardsColor;
+      margin-top: 3rem;
+      height: 10rem;
+    }
+
+    .user-info {
+      .my-name {
+        color: $fontColor;
+      }
+
+      .fa-user-circle {
+        color: $darkBlue;
+        font-size: 6rem;
+
+        &:hover {
+          color: $yellow;
+        }
       }
     }
-  }
-  .massive-font{
-    font-size: 30px;
-    text-align: center;
-    color: white;
-  }
 
-  .progress{
-    height:2rem;
-    text-align:center;
-  }
-  li {
-    color: $darkBlue;
-  }
-  .fas {
-    color: $yellow;
-  }
-  .progress-bar {
-    background-color: $yellow;
-  }
-  .list-group-item.active {
-    background-color: $darkBlue;
-  }
+    .massive-font {
+      font-size: 30px;
+      text-align: center;
+      color: $fontColor;
+    }
+
+    .icon {
+      height: 4.5rem;
+      width: 4.5rem;
+
+      .icon-circle {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: rgba(255, 235, 16, 0.3);
+        display: flex;
+        .fas {
+          font-size: 2rem;
+          margin: auto;
+        }
+      }
+    }
+
+
+    li {
+      color: $darkBlue;
+    }
+
+    .fas {
+      color: $yellow;
+    }
+
+    .progress-bar {
+      background-color: $yellow;
+    }
+
+    .list-group-item.active {
+      background-color: $darkBlue;
+    }
+
     .rdv {
       border: 3px $yellow double;
       padding: 0.6rem;
     }
   }
-
 
 
   .info, .infoA {
@@ -68,9 +93,9 @@ header {
 }
 
 @media (max-width: 700px) {
-    header {
-        .head-block {
-          margin-left: 0rem;
-        }
+  header {
+    .head-block {
+      margin-left: 0rem;
     }
+  }
 }

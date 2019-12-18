@@ -1,18 +1,20 @@
 .vertical-nav {
     min-width: 10rem;
     width: 10rem;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
-    background-color: $darkerBlue;
+    background-color: $cardsColor;
+
+    .nav-content {
+        position: fixed;
+        width: 10rem;
+    }
     .nav-title {
         color: $darkBlue;
     }
+
     .nav-link {
-        color: $lightGrey;
+        color: $fontColor;
         padding-right: 2px;
         &:hover {
           color: $yellow;
@@ -26,10 +28,6 @@
     }
 }
 
-.page-content {
-    width: calc(100% - 10rem);
-    margin-left: 10rem;
-}
 
 @media (max-width: 700px) {
     #sidebar {
