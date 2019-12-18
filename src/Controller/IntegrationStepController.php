@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\IntegrationStep;
+use App\Entity\User;
 use App\Form\IntegrationStepType;
 use App\Repository\IntegrationStepRepository;
+use App\Service\TimelineService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,15 +19,21 @@ class IntegrationStepController extends AbstractController
 {
 
     /**
-     * @Route("/timeline", name="timeline")
+     * @Route("/timeline/{user}", name="timeline")
+     * @param User $user
+     * @param TimelineService $timelineService
      * @return Response
      */
-    public function timeline(): Response
+    public function timeline(User $user, TimelineService $timelineService): Response
     {
         $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+        $startDate = $user->getStartDate();
+
+        $statuses = $timelineService->generate($steps, $startDate);
 
         return $this->render('timeline/timeline.html.twig', [
             'steps' => $steps,
+            'statuses' => $statuses,
         ]);
     }
 
