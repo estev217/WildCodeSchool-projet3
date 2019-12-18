@@ -11,13 +11,18 @@ class TimelineService
     {
         $totalStepsDays = 0;
         $sums = [];
+
         foreach ($steps as $step) {
             $totalStepsDays += $step->getDuration();
             $sums[] = $totalStepsDays;
         }
+
         $today = new DateTime();
-        $diff = (date_diff($startDate, $today))->m * 30 + (date_diff($startDate, $today))->d;
+
+        $diff = ($startDate->diff($today))->days;
+
         $result = [];
+
         foreach ($steps as $key => $step) {
             if ($sums[$key] < $diff) {
                 $result[$step->getId()] = 'completed';
@@ -27,6 +32,7 @@ class TimelineService
                 $result[$step->getId()] = 'in-progress';
             }
         }
+
         return $result;
     }
 }
