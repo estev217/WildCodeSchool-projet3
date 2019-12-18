@@ -104,7 +104,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if (in_array('ROLE_MANAGER', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('manager_show', ['user' => $user->getId()]));
         } else {
-            return new RedirectResponse($this->urlGenerator->generate('timeline', ['user' => $user->getId()]));
+            return new RedirectResponse($this->urlGenerator->generate('timeline', [
+                'user' => $user->getId(),
+                '_fragment' => 'active',
+                ]));
         }
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
     }
