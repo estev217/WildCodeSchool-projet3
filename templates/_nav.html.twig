@@ -59,7 +59,10 @@
         <ul class="nav flex-column mb-0">
             <li class="nav-item">
                 {% if app.user %}
-                    <a href="{{ path('app_logout') }}" class="nav-link"> Se déconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="nav-link">
+                        <i class="fas fa-sign-out-alt mr-3 fa-fw"></i>
+                        Déconnexion
+                    </a>
                 {% endif %}
             </li>
         </ul>
