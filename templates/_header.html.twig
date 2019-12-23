@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="icon">
-                    <div class="icon-circle">
+                    <div class="icon-circle circle-rdv">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
                 </div>
@@ -28,37 +28,31 @@
             <div class="card-body d-flex align-items-center justify-content-around">
                 <div>
                     <h4 class="card-title">Mes contacts</h4>
-                {#<h4 class="ml-3 mt-2"><i class="fas fa-hotel"></i> Lacanau</h4>#}
-                <ul >
-                    <li >
-                        <i class="fas fa-user-tie"></i> Manager : Martin Durand
-                    </li>
-                    <li >
-                        <i class="fas fa-user-cog"></i> Référent métier : Baptiste Chameau
-                    </li>
-                    <li >
-                        <i class="fas fa-user-ninja"></i> Parrain : Hélène Richard
-                    </li>
-                </ul>
+                    <p><i class="fas fa-user-tie"></i> Manager : <b>Martin Durand</b></p>
+                    <p><i class="fas fa-user-cog"></i> Référent métier : <b>Baptiste Chameau</b></p>
+                    <p><i class="fas fa-user-ninja"></i> Parrain : <b>Hélène Richard</b></p>
                 </div>
                 <div class="icon">
-                    <div class="icon-circle">
+                    <div class="icon-circle circle-contact">
                         <i class="fas fa-user-cog"></i>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-            <div class="card-body">
-                <div class="info d-flex align-items-center justify-content-around p-4 user-info">
-                    <h4 class="my-name"><strong>{{ app.user.firstname }} {{ app.user.lastname }}</strong></h4>
-                    <h4>Responsable de site</h4>
-
-                    <div class="picture-avatar ml-5">
+            <div class="card-body d-flex align-items-center justify-content-around">
+                <div>
+                    <h4 class="card-title">Mon profil</h4>
+                    <div class="info user-info">
+                        <h4 class="my-name"><strong>{{ app.user.firstname }} {{ app.user.lastname }}</strong></h4>
+                        <h4>Responsable de site</h4>
+                    </div>
+                </div>
+                <div class="icon">
+                    <div class="icon-circle circle-profile">
                         <i class="fas fa-user-circle"></i>
                     </div>
                 </div>
@@ -66,4 +60,5 @@
         </div>
     </div>
 </div>
+
 

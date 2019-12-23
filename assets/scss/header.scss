@@ -21,15 +21,6 @@ header {
       .my-name {
         color: $fontColor;
       }
-
-      .fa-user-circle {
-        color: $darkBlue;
-        font-size: 6rem;
-
-        &:hover {
-          color: $yellow;
-        }
-      }
     }
 
     .massive-font {
@@ -46,22 +37,39 @@ header {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: rgba(255, 235, 16, 0.3);
         display: flex;
+
         .fas {
           font-size: 2rem;
           margin: auto;
         }
+      }
+      .circle-rdv {
+        @extend .icon-circle;
+        background-color: rgba($lightBlue, 0.3);
+      }
+      .fa-calendar-alt {
+        color:$lightBlue;
+      }
+      .circle-contact {
+        @extend .icon-circle;
+        background-color: rgba($darkBlue, 0.3);
+      }
+      .fa-user-cog {
+        color: $darkBlue;
+      }
+      .circle-profile {
+        @extend .icon-circle;
+        background-color: rgba($yellow, 0.3);
+      }
+      .fa-user-circle {
+        color: $yellow;
       }
     }
 
 
     li {
       color: $darkBlue;
-    }
-
-    .fas {
-      color: $yellow;
     }
 
     .progress-bar {
@@ -78,24 +86,20 @@ header {
     }
   }
 
-
-  .info, .infoA {
-    font-size: 1.2rem;
-
-    .my-name {
-      color: $darkBlue;
-    }
-
-    p {
-      margin: .4rem;
-    }
+  .my-name {
+    color: $darkBlue;
   }
+
+  p {
+    margin: .4rem;
+  }
+
 }
 
 @media (max-width: 700px) {
   header {
     .head-block {
-      margin-left: 0rem;
+      margin-left: 0;
     }
   }
 }
