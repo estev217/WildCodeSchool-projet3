@@ -47,6 +47,7 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_1'));
             $user->setRoles(['ROLE_MANAGER']);
+            $user->setPosition($this->getReference('position_0'));
             $manager->persist($user);
             $this->addReference('manager_' . $i, $user);
         }
@@ -60,9 +61,8 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_0'));
             $user->setRoles(['ROLE_COLLABORATOR']);
-
-            $number = rand(0, 1);
-            $user->setManager($this->getReference('manager_' . $number));
+            $user->setManager($this->getReference('manager_' . rand(0, 1)));
+            $user->setPosition($this->getReference('position_' . rand(1, 2)));
             $manager->persist($user);
         }
         $manager->flush();
