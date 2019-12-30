@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\ChecklistItem;
+use App\Entity\IntegrationStep;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
+use App\Service\TimelineService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +23,31 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/profile/{user}", name="profile")
+     * @param User $user
+     * @param TimelineService $timelineService
      * @return Response
      */
-    public function profile(): Response
+    public function profile(User $user, TimelineService $timelineService): Response
     {
-        return $this->render('user/profile.html.twig');
+        //Checklist progress bar
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
+
+        $checklist = ($userItems * 100) / $totalItems;
+
+        //Integration progress bar
+        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+        $totalSteps = count($steps);
+        $startDate = $user->getStartDate();
+        $statuses = $timelineService->generate($steps, $startDate);
+        $userSteps = (array_count_values($statuses)['completed']);
+
+        $integration = ($userSteps * 100) / $totalSteps;
+
+        return $this->render('user/profile.html.twig', [
+            'checklist' => $checklist,
+            'integration' => $integration,
+        ]);
     }
 
     /**

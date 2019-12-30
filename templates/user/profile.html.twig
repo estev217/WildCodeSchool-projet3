@@ -19,6 +19,24 @@
                             <p>Résidence : <b>{{ app.user.residence.name }} à {{ app.user.residence.city }}</b></p>
                             <p>Référent : <b>{{ app.user.referent }}</b></p>
                             <p>Parrain : <b>{{ app.user.mentor }}</b></p>
+                            <div class="d-flex">
+                                <p>Checklist : </p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                                         style="width: {{ checklist }}%"
+                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <p>Intégration : </p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                                         style="width: {{ integration }}%"
+                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="profile-pic">
                             <img src="{{ app.user.picture }}" alt="image de profil">
