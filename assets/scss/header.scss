@@ -54,25 +54,18 @@ header {
           margin: auto;
         }
       }
-      .circle-rdv {
+      .circle-rdv, .circle-profile {
         @extend .icon-circle;
         background-color: rgba($lightBlue, 0.3);
       }
-      .fa-calendar-alt {
+      .fa-calendar-alt, .fa-user-circle {
         color:$lightBlue;
       }
       .circle-contact {
         @extend .icon-circle;
-        background-color: rgba($darkBlue, 0.3);
-      }
-      .fa-user-cog {
-        color: lighten($darkBlue, 0.3);
-      }
-      .circle-profile {
-        @extend .icon-circle;
         background-color: rgba($yellow, 0.3);
       }
-      .fa-user-circle {
+      .fa-user-cog {
         color: $yellow;
       }
     }

@@ -10,11 +10,18 @@
             <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>{{app.user.firstname}} {{ app.user.lastname }}</h3>
+                        <h3>{{ app.user.firstname }} {{ app.user.lastname }}</h3>
                     </div>
-                    <div class="card-body">
-
-
+                    <div class="card-body d-flex align-items-center justify-content-around">
+                        <div>
+                            <p>Email : <b>{{ app.user.email }}</b></p>
+                            <p>Date d'arrivée à Néméa : <b>{{ app.user.startDate|date ("d/m/Y") }}</b></p>
+                            <p>Résidence : <b>{{ app.user.residence.name }} à {{ app.user.residence.city }}</b></p>
+                            <p>Référent : <b>{{ app.user.referent }}</b></p>
+                            <p>Parrain : <b>{{ app.user.mentor }}</b></p>
+                        </div>
+                        <div class="profile-pic">
+                            <img src="{{ app.user.picture }}" alt="image de profil">
                         </div>
                     </div>
                 </div>
