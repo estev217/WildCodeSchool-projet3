@@ -66,6 +66,9 @@ class UserFixtures extends Fixture
             $user->setManager($this->getReference('manager_' . rand(0, 1)));
             $user->setPosition($this->getReference('position_' . rand(1, 2)));
             $user->setResidence($this->getReference('residence_' . rand(0, 4)));
+            $user->setMentor($faker->name);
+            $user->setReferent($faker->name);
+            $user->setStartDate($faker->dateTimeThisYear);
             $manager->persist($user);
         }
         $manager->flush();
