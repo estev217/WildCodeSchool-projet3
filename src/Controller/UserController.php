@@ -20,6 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
+     * @Route("/profile/{user}", name="profile")
+     * @return Response
+     */
+    public function profile(): Response
+    {
+        return $this->render('user/profile.html.twig');
+    }
+
+    /**
      * @Route("/checklist/{user}", name="checklist")
      * @param Request $request
      * @param EntityManagerInterface $entityManager
@@ -62,7 +71,7 @@ class UserController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function showChecklist(User $user): Response
+    public function showCollaboratorChecklist(User $user): Response
     {
         $form = $this->createForm(UserTypeChecklist::class, $user);
 
