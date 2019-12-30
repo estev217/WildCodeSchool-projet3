@@ -21,10 +21,11 @@
 
   .card {
     margin: 2rem;
-    background-color:$darkerBlue;
+    background-color:$cardsColor;
+    color: $fontColor;
 
     .card-header {
-      background-color: $lightBlue;
+      background-color: $cardsColor;
     }
 
     legend {
