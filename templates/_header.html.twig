@@ -27,9 +27,12 @@
             <div class="card-body d-flex align-items-center justify-content-around">
                 <div>
                     <h4 class="card-title">Mes contacts</h4>
-                    <p><i class="fas fa-user-tie mr-3"></i> Manager : <b>{{app.user.manager.firstname}} {{app.user.manager.lastname}}</b></p>
-                    <p><i class="fas fa-user-cog mr-2"></i> Référent métier : <b>{{app.user.referent}}</b></p>
-                    <p><i class="fas fa-user-ninja mr-3"></i> Parrain : <b>{{app.user.mentor}}</b></p>
+                    {% if not is_granted('ROLE_MANAGER') %}
+                        <p><i class="fas fa-user-tie mr-3"></i> Manager :
+                            <b>{{ app.user.manager.firstname }} {{ app.user.manager.lastname }}</b></p>
+                        <p><i class="fas fa-user-cog mr-2"></i> Référent métier : <b>{{ app.user.referent }}</b></p>
+                        <p><i class="fas fa-user-ninja mr-3"></i> Parrain : <b>{{ app.user.mentor }}</b></p>
+                    {% endif %}
                 </div>
                 <div class="icon">
                     <div class="icon-circle circle-contact">

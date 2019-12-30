@@ -45,6 +45,7 @@ class UserController extends AbstractController
         $integration = ($userSteps * 100) / $totalSteps;
 
         return $this->render('user/profile.html.twig', [
+            'user' => $user,
             'checklist' => $checklist,
             'integration' => $integration,
         ]);
