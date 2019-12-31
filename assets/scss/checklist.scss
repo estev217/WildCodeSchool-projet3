@@ -1,7 +1,5 @@
 .container {
 
-  padding-top: 3rem;
-
   .progress {
     margin: auto;
     height:2rem;
@@ -16,6 +14,7 @@
     margin: 2rem;
     background-color:$cardsColor;
     color: $fontColor;
+    font-size: 1.2rem;
 
     .card-header {
       background-color: $cardsColor;
