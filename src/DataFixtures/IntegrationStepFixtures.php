@@ -54,7 +54,7 @@ class IntegrationStepFixtures extends Fixture
         ],
         [
             'name' => 'Bilan de la période écoulée',
-            'description' => '. RDV bilan de la période écoulée',
+            'description' => 'RDV bilan de la période écoulée',
             'duration' => 1,
             'font_awesome' => 'fas fa-user-graduate',
             'color' => '#fff85b',

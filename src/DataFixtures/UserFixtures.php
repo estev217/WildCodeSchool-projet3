@@ -36,6 +36,7 @@ class UserFixtures extends Fixture
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
         $user->setRole($this->getReference('role_2'));
         $user->setRoles(['ROLE_ADMIN']);
+        $user->setResidence($this->getReference('residence_' . rand(0, 4)));
         $manager->persist($user);
 
         // Creates 2 managers
@@ -47,6 +48,8 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_1'));
             $user->setRoles(['ROLE_MANAGER']);
+            $user->setPosition($this->getReference('position_0'));
+            $user->setResidence($this->getReference('residence_' . rand(0, 4)));
             $manager->persist($user);
             $this->addReference('manager_' . $i, $user);
         }
@@ -60,9 +63,12 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_0'));
             $user->setRoles(['ROLE_COLLABORATOR']);
-
-            $number = rand(0, 1);
-            $user->setManager($this->getReference('manager_' . $number));
+            $user->setManager($this->getReference('manager_' . rand(0, 1)));
+            $user->setPosition($this->getReference('position_' . rand(1, 2)));
+            $user->setResidence($this->getReference('residence_' . rand(0, 4)));
+            $user->setMentor($faker->name);
+            $user->setReferent($faker->name);
+            $user->setStartDate($faker->dateTimeThisYear);
             $manager->persist($user);
         }
         $manager->flush();

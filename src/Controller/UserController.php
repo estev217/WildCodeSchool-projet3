@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\ChecklistItem;
+use App\Entity\IntegrationStep;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
+use App\Service\TimelineService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,36 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    /**
+     * @Route("/profile/{user}", name="profile")
+     * @param User $user
+     * @param TimelineService $timelineService
+     * @return Response
+     */
+    public function profile(User $user, TimelineService $timelineService): Response
+    {
+        //Checklist progress bar
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
+
+        $checklist = ($userItems * 100) / $totalItems;
+
+        //Integration progress bar
+        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+        $totalSteps = count($steps);
+        $startDate = $user->getStartDate();
+        $statuses = $timelineService->generate($steps, $startDate);
+        $userSteps = (array_count_values($statuses)['completed']);
+
+        $integration = ($userSteps * 100) / $totalSteps;
+
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            'checklist' => $checklist,
+            'integration' => $integration,
+        ]);
+    }
+
     /**
      * @Route("/checklist/{user}", name="checklist")
      * @param Request $request
@@ -62,7 +94,7 @@ class UserController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function showChecklist(User $user): Response
+    public function showCollaboratorChecklist(User $user): Response
     {
         $form = $this->createForm(UserTypeChecklist::class, $user);
 
