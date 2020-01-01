@@ -1,6 +1,9 @@
 .vertical-nav {
-    min-width: 10rem;
+    z-index: 9999;
+    position: fixed;
+    left: 0;
     width: 10rem;
+    min-height: 101vh;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
     background-color: $cardsColor;
@@ -8,9 +11,14 @@
     .nav-content {
         position: fixed;
         width: 10rem;
+        margin-top: 2rem;
     }
     .nav-title {
         color: $yellow;
+    }
+
+    .menus {
+        margin-top: 4rem;
     }
 
     .nav-link {

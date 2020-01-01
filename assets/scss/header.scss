@@ -10,7 +10,7 @@ header {
   }
 
   .header-pic {
-    width: 100%;
+    width: calc(100vw - 10rem);
   }
 
   .head-block {
@@ -19,7 +19,8 @@ header {
     min-height: 9rem;
     margin-left: 0.3rem;
     color: $fontColor;
-    margin-top: -10rem;
+    margin-top: -8rem;
+    width: calc(100% - 2rem);
 
     .card {
       background: $cardsColor;
