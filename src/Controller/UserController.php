@@ -29,31 +29,25 @@ class UserController extends AbstractController
      */
     public function profile(User $user, TimelineService $timelineService): Response
     {
-        if (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
-            //Checklist progress bar
-            $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
-            $userItems = count($user->getChecklistItems());
+        //Checklist progress bar
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
 
-            $checklist = ($userItems * 100) / $totalItems;
+        $checklist = ($userItems * 100) / $totalItems;
 
-            //Integration progress bar
-            $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
-            $totalSteps = count($steps);
-            $startDate = $user->getStartDate();
-            $statuses = $timelineService->generate($steps, $startDate);
-            $userSteps = (array_count_values($statuses)['completed']);
+        //Integration progress bar
+        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+        $totalSteps = count($steps);
+        $startDate = $user->getStartDate();
+        $statuses = $timelineService->generate($steps, $startDate);
+        $userSteps = (array_count_values($statuses)['completed']);
 
-            $integration = ($userSteps * 100) / $totalSteps;
-
-            return $this->render('user/profile.html.twig', [
-                'user' => $user,
-                'checklist' => $checklist,
-                'integration' => $integration,
-            ]);
-        }
+        $integration = ($userSteps * 100) / $totalSteps;
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
+            'checklist' => $checklist,
+            'integration' => $integration,
         ]);
     }
 
@@ -96,11 +90,11 @@ class UserController extends AbstractController
     {
         return $this->render('manager/collaborator.html.twig', [
             'collaborators' => $user->getCollaborators(),
-            ]);
+        ]);
     }
 
     /**
-     * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
+     * @Route("/manager/collaborator/{user}", name="collaborator_checklist", methods={"GET"})
      * @param User $user
      * @return Response
      */
@@ -113,7 +107,7 @@ class UserController extends AbstractController
 
         $percent = ($userItems * 100) / $totalItems;
 
-        return $this->render('manager/checklist.html.twig', [
+        return $this->render('checklist.html.twig', [
             'collaborator' => $user,
             'form' => $form->createView(),
             'percent' => $percent,
@@ -198,7 +192,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();

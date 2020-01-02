@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container mb-5">
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
-            <div><a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste</a></div>
+            <div><a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes collaborateurs</a></div>
         </div>
         <div class="page-header">
             <h1>Checklist de {{ collaborator.firstname }} {{ collaborator.lastname }}</h1>

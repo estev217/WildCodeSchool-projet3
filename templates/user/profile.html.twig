@@ -13,16 +13,22 @@
                         <h3>{{ user.firstname }} {{ user.lastname }}</h3>
                     </div>
                     <div class="card-body d-flex align-items-center justify-content-around">
-                        <div>
+                        <div class="profile-infos">
                             <p>Email : <b>{{ user.email }}</b></p>
                             <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
                             <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
-                            {% if is_granted('ROLE_COLLABORATOR') %}
+                            {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
                                 <p>Référent : <b>{{ user.referent }}</b></p>
                                 <p>Parrain : <b>{{ user.mentor }}</b></p>
                                 <table>
                                     <tr>
-                                        <td>Checklist :</td>
+                                        <td>
+                                            {% if is_granted('ROLE_MANAGER') %}
+                                                <a href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist :</a>
+                                            {% else %}
+                                                <a href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
+                                            {% endif %}
+                                        </td>
                                         <td class="progress-td">
                                             <div class="progress" style="height: 20px; width: 90%;">
                                                 <div class="progress-bar progress-bar-striped" role="progressbar"
@@ -33,7 +39,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Intégration :</td>
+                                        <td><a href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
                                         <td>
                                             <div class="progress" style="height: 20px; width: 90%;">
                                                 <div class="progress-bar progress-bar-striped bg-info"

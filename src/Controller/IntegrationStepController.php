@@ -34,6 +34,7 @@ class IntegrationStepController extends AbstractController
         return $this->render('timeline/timeline.html.twig', [
             'steps' => $steps,
             'statuses' => $statuses,
+            'user' => $user,
         ]);
     }
 
