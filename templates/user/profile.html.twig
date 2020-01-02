@@ -18,6 +18,7 @@
                             <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
                             <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
                             {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
+                                <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
                                 <p>Référent : <b>{{ user.referent }}</b></p>
                                 <p>Parrain : <b>{{ user.mentor }}</b></p>
                                 <table>

@@ -7,8 +7,9 @@
                 <div>
                     <h4 class="card-title">Mes prochains rendez-vous</h4>
                     <div class="form-group">
-                        <p><a href="">24/01/2020 Première journée d'intégration au siège</a></p>
-                        <p><a href="">25/01/2020 Rencontre de mon manager</a></p>
+                        {% for appointment in app.user.appointments|sort((a, b) => a.date <=> b.date)|slice(0, 2) %}
+                            <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                        {% endfor %}
                     </div>
                 </div>
 
