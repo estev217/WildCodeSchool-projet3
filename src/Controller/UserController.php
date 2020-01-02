@@ -29,25 +29,31 @@ class UserController extends AbstractController
      */
     public function profile(User $user, TimelineService $timelineService): Response
     {
-        //Checklist progress bar
-        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
-        $userItems = count($user->getChecklistItems());
+        if (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
+            //Checklist progress bar
+            $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+            $userItems = count($user->getChecklistItems());
 
-        $checklist = ($userItems * 100) / $totalItems;
+            $checklist = ($userItems * 100) / $totalItems;
 
-        //Integration progress bar
-        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
-        $totalSteps = count($steps);
-        $startDate = $user->getStartDate();
-        $statuses = $timelineService->generate($steps, $startDate);
-        $userSteps = (array_count_values($statuses)['completed']);
+            //Integration progress bar
+            $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+            $totalSteps = count($steps);
+            $startDate = $user->getStartDate();
+            $statuses = $timelineService->generate($steps, $startDate);
+            $userSteps = (array_count_values($statuses)['completed']);
 
-        $integration = ($userSteps * 100) / $totalSteps;
+            $integration = ($userSteps * 100) / $totalSteps;
+
+            return $this->render('user/profile.html.twig', [
+                'user' => $user,
+                'checklist' => $checklist,
+                'integration' => $integration,
+            ]);
+        }
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'checklist' => $checklist,
-            'integration' => $integration,
         ]);
     }
 

@@ -37,6 +37,7 @@ class UserFixtures extends Fixture
         $user->setRole($this->getReference('role_2'));
         $user->setRoles(['ROLE_ADMIN']);
         $user->setResidence($this->getReference('residence_' . rand(0, 4)));
+        $user->setStartDate($faker->dateTimeThisDecade);
         $manager->persist($user);
 
         // Creates 2 managers
@@ -50,6 +51,7 @@ class UserFixtures extends Fixture
             $user->setRoles(['ROLE_MANAGER']);
             $user->setPosition($this->getReference('position_0'));
             $user->setResidence($this->getReference('residence_' . rand(0, 4)));
+            $user->setStartDate($faker->dateTimeThisDecade);
             $manager->persist($user);
             $this->addReference('manager_' . $i, $user);
         }
