@@ -75,6 +75,10 @@ class UserController extends AbstractController
         $percent = ($userItems * 100) / $totalItems;
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash(
+                'success',
+                'Vos changements ont été sauvegardés !'
+            );
             $entityManager->flush();
         }
         return $this->render('checklist.html.twig', [
