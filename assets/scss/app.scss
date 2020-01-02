@@ -9,18 +9,26 @@
 
 body {
     font-family: $mainFont;
-    /*background-image: url("../images/plage-freepik.jpg");
-    background-size: cover;
-    background-position: center;*/
-
-    background-color: #c1e5eb;
-    background-image: url("https://www.transparenttextures.com/patterns/dimension.png");
-
-    /*background-color: #c1e5eb;
-    background-image: url("https://www.transparenttextures.com/patterns/fresh-snow.png");*/
-
+    background-color: $darkBackground;
 }
 
 .container {
-    margin-top: 3rem;
+    margin-top: 5rem;
+}
+
+.main {
+    display: flex;
+}
+
+.main-content {
+    width: calc(100% - 11rem);
+}
+
+h1 {
+    margin-bottom: 2rem;
+    color: $fontColor;
+}
+
+.collaborators {
+    color: $fontColor;
 }

@@ -1,21 +1,40 @@
-.card {
-  margin-left: 4rem;
-  background-color: lighten($lightGrey, 3);
-  box-shadow: 3px 3px 10px #b3abab;
-  .card-header {
-    background-color: $lightBlue;
+.container {
+
+  .progress {
+    margin: auto;
+    height:2rem;
+    width: 70%;
+
+    .progress-bar {
+      background-color: $yellow;
+    }
   }
-  legend {
-    display: none;
-  }
-  button{
-    background-color: $yellow;
-    border: 1px $yellow solid;
-  }
-  .form-check {
-    margin: 0.5rem;
-    .form-check-label {
-      margin-left: 1rem;
+
+  .card {
+    margin: 2rem;
+    background-color:$cardsColor;
+    color: $fontColor;
+    font-size: 1.2rem;
+
+    .card-header {
+      background-color: $cardsColor;
+    }
+
+    legend {
+      display: none;
+    }
+
+    button {
+      background-color: $yellow;
+      border: 1px $yellow solid;
+    }
+
+    .form-check {
+      margin: 0.5rem;
+
+      .form-check-label {
+        margin-left: 1rem;
+      }
     }
   }
 }

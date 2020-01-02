@@ -24,29 +24,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $form = $this->createForm(UserType::class);
-
-        return $this->render('login.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/home", name="home")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-    public function home(Request $request, EntityManagerInterface $em): Response
-    {
-        $checklist = new UserChecklist();
-        $formTodo = $this->createForm(UserChecklistType::class, $checklist, ['em' => $em]);
-
-        $formDoc = $this->createForm(UserChecklistType2::class, $checklist, ['em' => $em]);
-
-        return $this->render('checklist.html.twig', [
-            'formTodo' => $formTodo->createView(),
-            'formDoc' => $formDoc->createView(),
-        ]);
+        return $this->redirectToRoute('app_login');
     }
 }

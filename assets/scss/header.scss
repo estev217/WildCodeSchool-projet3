@@ -1,35 +1,87 @@
 header {
-  .user-info {
-    background-color: $veryLightBlue;
-  }
-  .massive-font{
-    font-size: 30px;
-    text-align: center;
-    color: white;
+
+  a {
+    color: $fontColor;
+    &:hover {
+      text-decoration: none;
+      color: $yellow;
+    }
+
   }
 
-  .progress{
-    height:2rem;
-    text-align:center;
+  .header-pic {
+    width: 100%;
   }
-  li {
-    color: $darkBlue;
-  }
-  .fas {
-    color: $yellow;
-  }
-  .progress-bar {
-    background-color: $yellow;
-  }
-  .list-group-item.active {
-    background-color: $darkBlue;
-  }
+
   .head-block {
-    background: $lightBlue;
+    background: $darkBackground;
     height: 11rem;
     min-height: 9rem;
-    margin-left: 10rem;
-    color: white;
+    margin-left: 0.3rem;
+    color: $fontColor;
+    margin-top: -10rem;
+
+    .card {
+      background: $cardsColor;
+      margin-top: 3rem;
+      height: 10rem;
+    }
+
+    .user-info {
+      .my-name {
+        color: $fontColor;
+      }
+    }
+
+    .massive-font {
+      font-size: 30px;
+      text-align: center;
+      color: $fontColor;
+    }
+
+    .icon {
+      height: 4.5rem;
+      width: 4.5rem;
+
+      .icon-circle {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: flex;
+
+        .fas {
+          font-size: 2rem;
+          margin: auto;
+        }
+      }
+      .circle-rdv, .circle-profile {
+        @extend .icon-circle;
+        background-color: rgba($lightBlue, 0.3);
+      }
+      .fa-calendar-alt, .fa-user-circle {
+        color:$lightBlue;
+      }
+      .circle-contact {
+        @extend .icon-circle;
+        background-color: rgba($yellow, 0.3);
+      }
+      .fa-user-cog {
+        color: $yellow;
+      }
+    }
+
+
+    li {
+      color: $darkBlue;
+    }
+
+    .progress-bar {
+      background-color: $yellow;
+    }
+
+    .list-group-item.active {
+      background-color: $darkBlue;
+    }
 
     .rdv {
       border: 3px $yellow double;
@@ -37,32 +89,20 @@ header {
     }
   }
 
-  .fa-user-circle {
+  .my-name {
     color: $darkBlue;
-    font-size: 6rem;
-
-    &:hover {
-      color: $yellow;
-    }
   }
 
-  .info, .infoA {
-    font-size: 1.2rem;
-
-    .my-name {
-      color: $darkBlue;
-    }
-
-    p {
-      margin: .4rem;
-    }
+  p {
+    margin: .4rem;
   }
+
 }
 
 @media (max-width: 700px) {
-    header {
-        .head-block {
-          margin-left: 0rem;
-        }
+  header {
+    .head-block {
+      margin-left: 0;
     }
+  }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\ChecklistItem;
 use App\Entity\Residence;
 use App\Entity\Role;
 use App\Entity\User;
@@ -25,9 +26,9 @@ class UserType extends AbstractType
             ->add('startDate')
             ->add('position')
             ->add('role', EntityType::class, [
-                    'class' => Role::class,
-                    'choice_label' => 'name',
-                ])
+                'class' => Role::class,
+                'choice_label' => 'name',
+            ])
             ->add('manager', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'lastname',
@@ -36,10 +37,17 @@ class UserType extends AbstractType
                 'class' => Residence::class,
                 'choice_label' => 'name',
             ])
-            ->add('residencePilot', EntityType::class, [
+            ->add('residencePilote', EntityType::class, [
                 'class' => Residence::class,
                 'choice_label' => 'name',
+            ])
+            ->add('checklistItems', EntityType::class, [
+                'class' => ChecklistItem::class,
+                'choice_label' => 'name',
+                'expanded' => true,
+                'multiple' => true,
             ]);
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

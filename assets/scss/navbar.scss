@@ -1,35 +1,50 @@
 .vertical-nav {
     min-width: 10rem;
     width: 10rem;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
-    background: $lightGrey;
-    .nav-title {
-        color: $darkBlue;
+    background-color: $cardsColor;
+
+    .nav-content {
+        position: fixed;
+        width: 10rem;
     }
+    .nav-title {
+        color: $yellow;
+    }
+
     .nav-link {
-        color: #15111d;
+        color: $fontColor;
         padding-right: 2px;
         &:hover {
           color: $yellow;
         }
     }
+
+    .fas {
+        color: $lightBlue;
+    }
+
     .cornerlogo {
-        width: 100%;
+        height: 10rem;
+        width: 10rem;
         margin-top: 1.8rem;
         margin-bottom: 1.8rem;
         padding: 1rem;
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            background-color: rgba($lightGrey, 0.6);
+            img {
+                width: 6.5rem;
+                margin: auto;
+            }
+        }
     }
 }
 
-.page-content {
-    width: calc(100% - 10rem);
-    margin-left: 10rem;
-}
 
 @media (max-width: 700px) {
     #sidebar {

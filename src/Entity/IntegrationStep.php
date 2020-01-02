@@ -36,6 +36,11 @@ class IntegrationStep
      */
     private $fontAwesome;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $color;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class IntegrationStep
     public function setFontAwesome(?string $fontAwesome): self
     {
         $this->fontAwesome = $fontAwesome;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }

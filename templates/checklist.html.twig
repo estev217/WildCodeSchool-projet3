@@ -5,6 +5,12 @@
         <div class="page-header">
             <h1>Ma checklist</h1>
         </div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped" role="progressbar"
+                 style="width: {{ percent }}%"
+                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
@@ -12,12 +18,18 @@
                         <h3>Ma liste de choses à faire</h3>
                     </div>
                     <div class="card-body">
-                        {{ form_start(formTodo) }}
+                        {{ form_start(form) }}
                         <div class="form-group">
-                            {{ form_widget(formTodo) }}
-                            <button class="btn btn-primary">Mettre à jour</button>
+
+                            {% for category, choices in form.children.checklistItems.vars.choices %}
+                                {% if category == 'todo' %}
+                                    {% for key, choice in choices %}
+                                        {{ form_widget(form.checklistItems[key]) }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
                         </div>
-                        {{ form_end(formTodo) }}
                     </div>
                 </div>
             </div>
@@ -28,16 +40,29 @@
                         <h3>Mes documents</h3>
                     </div>
                     <div class="card-body">
-                        {{ form_start(formDoc) }}
                         <div class="form-group">
-                            {{ form_widget(formDoc) }}
-                            <button class="btn btn-primary">Mettre à jour</button>
+
+                            {% for category, choices in form.children.checklistItems.vars.choices %}
+                                {% if category == 'doc' %}
+                                    {% for key, choice in choices %}
+                                        {{ form_widget(form.checklistItems[key]) }}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+
                         </div>
-                        {{ form_end(formDoc) }}
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row justify-content-end">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
+            <button class="btn btn-primary">Mettre à jour</button>
+            {{ form_end(form) }}
+            </div>
+        </div>
     </div>
-    </div>
+
 {% endblock %}
