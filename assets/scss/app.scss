@@ -33,3 +33,10 @@ h1 {
 .collaborators {
     color: $fontColor;
 }
+
+@media (max-width: 700px ) {
+    .main-content {
+        width: 100vw;
+        margin-left: 0rem;
+    }
+}
