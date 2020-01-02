@@ -1,20 +1,25 @@
-.container-fluid {
+.profile-page {
+  margin-top: 5rem;
   width: 85%;
+
+  .profile-card {
+
+    .profile-infos {
+      width: 45%;
+    }
+
+    table {
+      width: 100%;
+
+      td {
+        padding-bottom: 1rem;
+      }
+
+      .progress-td {
+        width: 60%;
+      }
+    }
+  }
 }
 
-.profile-card {
 
-  .profile-infos {
-    width: 45%;
-  }
-
-  table {
-    width: 100%;
-    td {
-      padding-bottom: 1rem;
-    }
-    .progress-td {
-      width: 60%;
-    }
-  }
-}
