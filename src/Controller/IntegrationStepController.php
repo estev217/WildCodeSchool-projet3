@@ -17,28 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class IntegrationStepController extends AbstractController
 {
-
-    /**
-     * @Route("/timeline/{user}", name="timeline")
-     * @param User $user
-     * @param TimelineService $timelineService
-     * @return Response
-     */
-    public function timeline(User $user, TimelineService $timelineService): Response
-    {
-        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
-        $startDate = $user->getStartDate();
-
-        $statuses = $timelineService->generate($steps, $startDate);
-
-        return $this->render('timeline/timeline.html.twig', [
-            'steps' => $steps,
-            'statuses' => $statuses,
-            'user' => $user,
-        ]);
-    }
-
-
     /**
      * @Route("/", name="integration_step_index", methods={"GET"})
      */
