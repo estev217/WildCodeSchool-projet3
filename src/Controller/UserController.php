@@ -69,11 +69,35 @@ class UserController extends AbstractController
         $percent = ($userItems * 100) / $totalItems;
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash(
+                'success',
+                'Vos changements ont été sauvegardés !'
+            );
             $entityManager->flush();
         }
         return $this->render('checklist.html.twig', [
             'form' => $form->createView(),
             'percent' => $percent,
+        ]);
+    }
+
+    /**
+     * @Route("/timeline/{user}", name="timeline")
+     * @param User $user
+     * @param TimelineService $timelineService
+     * @return Response
+     */
+    public function timeline(User $user, TimelineService $timelineService): Response
+    {
+        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+        $startDate = $user->getStartDate();
+
+        $statuses = $timelineService->generate($steps, $startDate);
+
+        return $this->render('timeline/timeline.html.twig', [
+            'steps' => $steps,
+            'statuses' => $statuses,
+            'user' => $user,
         ]);
     }
 
@@ -86,11 +110,11 @@ class UserController extends AbstractController
     {
         return $this->render('manager/collaborator.html.twig', [
             'collaborators' => $user->getCollaborators(),
-            ]);
+        ]);
     }
 
     /**
-     * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
+     * @Route("/manager/collaborator/{user}", name="collaborator_checklist", methods={"GET"})
      * @param User $user
      * @return Response
      */
@@ -103,7 +127,7 @@ class UserController extends AbstractController
 
         $percent = ($userItems * 100) / $totalItems;
 
-        return $this->render('manager/checklist.html.twig', [
+        return $this->render('checklist.html.twig', [
             'collaborator' => $user,
             'form' => $form->createView(),
             'percent' => $percent,
@@ -188,7 +212,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
