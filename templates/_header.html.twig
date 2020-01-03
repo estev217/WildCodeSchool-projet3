@@ -7,8 +7,12 @@
                     <h4 class="card-title">Mes prochains rendez-vous</h4>
                     </div>
                     <div class="form-group">
-                        <p><a href="">24/01/2020 Première journée d'intégration au siège</a></p>
-                        <p><a href="">25/01/2020 Rencontre de mon manager</a></p>
+                        {% if is_granted('ROLE_COLLABORATOR') %}
+                            {% for appointment in app.user.appointments|sort((a, b) => a.date <=> b.date)|slice(0, 2) %}
+                                <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec
+                                    <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="icon align-self-center">
@@ -18,7 +22,8 @@
                 </div>
             </div>
     </div>
-    {% if not is_granted('ROLE_MANAGER') %}
+
+    {% if is_granted('ROLE_COLLABORATOR') %}
     <div class="card desktop">
             <div class="card-body d-flex justify-content-around">
                 <div class="header-text">
@@ -48,9 +53,12 @@
                     <div>
                         <h4 class="card-title"><a href="{{ path('profile', {'user': app.user.id }) }}">Mon profil</a></h4>
                     </div>
+
                     <div class="info user-info">
                         <h4 class="my-name"><b>{{ app.user.firstname }} {{ app.user.lastname }}</b></h4>
-                        <h4>{{ app.user.position.name }}</h4>
+                        {% if is_granted('ROLE_COLLABORATOR') %}
+                            <h4>{{ app.user.position.name }}</h4>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="icon align-self-center">
