@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}User index{% endblock %}
 
@@ -7,37 +7,27 @@
 
     <table class="table">
         <thead>
-            <tr>
+            <tr class="text-white">
                 <th>Id</th>
                 <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
-                <th>Picture</th>
                 <th>Mentor</th>
                 <th>Referent</th>
                 <th>StartDate</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
-            <tr>
+            <tr class="text-white">
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
-                <td>{{ user.picture }}</td>
                 <td>{{ user.mentor }}</td>
                 <td>{{ user.referent }}</td>
                 <td>{{ user.startDate ? user.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
