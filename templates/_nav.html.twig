@@ -22,6 +22,14 @@
                     </a>
                 </li>
             {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a href="{{ path('user_index', {'id' : app.user.id}) }}" class="nav-link">
+                        <i class="fas fa-cubes mr-3 fa-fw"></i>
+                        Listes des collaborateurs
+                    </a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a href="{{ path('toolbox') }}" class="nav-link">
                     <i class="fas fa-toolbox mr-3 fa-fw"></i>
@@ -34,14 +42,6 @@
                     Nemea
                 </a>
             </li>
-            {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item">
-                <a href="{{ path('user_index', {'id' : app.user.id}) }}" class="nav-link">
-                    <i class="fas fa-cubes mr-3 fa-fw"></i>
-                    Listes des collaborateurs
-                </a>
-            </li>
-            {% endif %}
         </ul>
 
         {% if is_granted('ROLE_MANAGER') %}
