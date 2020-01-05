@@ -1,46 +1,90 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="page-header">
-            <h1>Profil</h1>
+    <div class="container-fluid profile-page">
+    {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
+            <div><a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes
+                    collaborateurs</a></div>
         </div>
+    {% endif %}
+    <div class="page-header">
+        <h1>Profil</h1>
+    </div>
 
-        <div class="row">
-            <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>{{ user.firstname }} {{ user.lastname }}</h3>
-                    </div>
-                    <div class="card-body d-flex align-items-center justify-content-around">
-                        <div>
-                            <p>Email : <b>{{ user.email }}</b></p>
-                            <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
-                            <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
+    <div class="row">
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+            <div class="card profile-card">
+                <div class="card-header">
+                    <h3>{{ user.firstname }} {{ user.lastname }}</h3>
+                </div>
+                <div class="card-body d-flex align-items-center justify-content-around">
+                    <div class="profile-infos">
+                        <p>Email : <b>{{ user.email }}</b></p>
+                        <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
+                        <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
+
+                        {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
+                            <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
                             <p>Référent : <b>{{ user.referent }}</b></p>
                             <p>Parrain : <b>{{ user.mentor }}</b></p>
-                            <div class="d-flex">
-                                <p>Checklist : </p>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar"
-                                         style="width: {{ checklist }}%"
-                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <p>Intégration : </p>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped" role="progressbar"
-                                         style="width: {{ integration }}%"
-                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile-pic">
-                            <img src="{{ user.picture }}" alt="image de profil">
-                        </div>
+                            <table>
+                                <tr>
+                                    <td>
+                                        {% if is_granted('ROLE_MANAGER') %}
+                                            <a href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist
+                                                :</a>
+                                        {% else %}
+                                            <a href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="progress-td">
+                                        <div class="progress" style="height: 20px; width: 90%;">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                                 style="width: {{ checklist }}%"
+                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
+                                    <td>
+                                        <div class="progress" style="height: 20px; width: 90%;">
+                                            <div class="progress-bar progress-bar-striped bg-info"
+                                                 role="progressbar"
+                                                 style="width: {{ integration }}%"
+                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_MANAGER') and app.user.id == user.id %}
+                            <p><a href="{{ path('manager_show', {'user': app.user.id }) }}">
+                                    Mes collaborateurs
+                                </a></p>
+                        {% endif %}
+                    </div>
+                    <div class="profile-pic">
+                        <img src="{{ user.picture }}" alt="image de profil">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ">
+                <div class="card-header">
+                    <h3>Rendez-vous</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        {% for appointment in app.user.appointments|sort((a, b) => a.date <=> b.date) %}
+                            <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec
+                                <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
