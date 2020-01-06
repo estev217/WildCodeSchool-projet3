@@ -45,7 +45,7 @@
                     <div class="form-group">
 
                         {% for category, choices in form.children.checklistItems.vars.choices %}
-                            {% if category == 'todo' %}
+                            {% if category == constant('App\\Entity\\ChecklistItem::TODO') %}
                                 {% for key, choice in choices %}
                                     {{ form_widget(form.checklistItems[key]) }}
                                 {% endfor %}
@@ -65,14 +65,14 @@
                     </div>
                 {% else %}
                     <div class="card-header">
-                        <h3>Ma liste de choses à faire</h3>
+                        <h3>Mes documents</h3>
                     </div>
                 {% endif %}
                 <div class="card-body">
                     <div class="form-group">
 
                         {% for category, choices in form.children.checklistItems.vars.choices %}
-                            {% if category == 'doc' %}
+                            {% if category == constant('App\\Entity\\ChecklistItem::DOC') %}
                                 {% for key, choice in choices %}
                                     {{ form_widget(form.checklistItems[key]) }}
                                 {% endfor %}
