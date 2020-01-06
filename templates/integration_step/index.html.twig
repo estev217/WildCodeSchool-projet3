@@ -3,16 +3,17 @@
 {% block title %}IntegrationStep index{% endblock %}
 
 {% block body %}
-    <h1>IntegrationStep index</h1>
+    <div class="container">
+    <h1>L'index des étapes d'intégration</h1>
 
     <table class="table text-white">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
-                <th>Duration</th>
-                <th>FontAwesome</th>
+                <th>Durée</th>
+                <th>Icône FontAwesome</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,17 +26,18 @@
                 <td>{{ integration_step.duration }}</td>
                 <td>{{ integration_step.fontAwesome }}</td>
                 <td>
-                    <a href="{{ path('integration_step_show', {'id': integration_step.id}) }}">show</a>
-                    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">edit</a>
+                    <a href="{{ path('integration_step_show', {'id': integration_step.id}) }}">Voir</a>
+                    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Éditer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">aucun enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('integration_step_new') }}">Create new</a>
+    <a href="{{ path('integration_step_new') }}">Créer</a>
+    </div>
 {% endblock %}

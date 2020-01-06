@@ -23,6 +23,7 @@ class UserTypeChecklist extends AbstractType
                 'multiple' => true,
                 'group_by' => 'category',
                 'disabled' => !$options['write_right'],
+
             ]);
         ;
     }

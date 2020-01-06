@@ -3,9 +3,11 @@
 {% block title %}New IntegrationStep{% endblock %}
 
 {% block body %}
-    <h1>Create new IntegrationStep</h1>
+    <div class="container">
+    <h1>Créer une nouvelle étape d'intégration</h1>
 
-    {{ include('integration_step/_form.html.twig') }}
+    <div class="text-white">{{ include('integration_step/_form.html.twig') }}</div>
 
-    <a href="{{ path('integration_step_index') }}">back to list</a>
+    <a href="{{ path('integration_step_index') }}">Retour à la liste</a>
+    </div>
 {% endblock %}

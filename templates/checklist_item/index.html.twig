@@ -3,14 +3,15 @@
 {% block title %}ChecklistItem index{% endblock %}
 
 {% block body %}
-    <h1>ChecklistItem index</h1>
+    <div class="container">
+    <h1>L'index des éléments Checklist</h1>
 
     <table class="table text-white">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Category</th>
+                <th>Nom</th>
+                <th>Catégorie</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,17 +22,18 @@
                 <td>{{ checklist_item.name }}</td>
                 <td>{{ checklist_item.category }}</td>
                 <td>
-                    <a href="{{ path('checklist_item_show', {'id': checklist_item.id}) }}">show</a>
-                    <a href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">edit</a>
+                    <a href="{{ path('checklist_item_show', {'id': checklist_item.id}) }}">Voir</a>
+                    <a href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">Éditer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">aucun enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('checklist_item_new') }}">Create new</a>
+    <a href="{{ path('checklist_item_new') }}">Créer</a>
+    </div>
 {% endblock %}

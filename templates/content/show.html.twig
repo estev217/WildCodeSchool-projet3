@@ -3,7 +3,8 @@
 {% block title %}Content{% endblock %}
 
 {% block body %}
-    <h1>Content</h1>
+    <div class="container">
+    <h1>Créer un contenu</h1>
 
     <table class="table text-white">
         <tbody>
@@ -12,7 +13,7 @@
                 <td>{{ content.id }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>Contenu</th>
                 <td>{{ content.content }}</td>
             </tr>
             <tr>
@@ -26,9 +27,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('content_index') }}">back to list</a>
+    <a href="{{ path('content_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('content_edit', {'id': content.id}) }}">edit</a>
+    <a href="{{ path('content_edit', {'id': content.id}) }}">Éditer</a>
 
     {{ include('content/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

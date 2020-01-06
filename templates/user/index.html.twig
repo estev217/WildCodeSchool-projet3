@@ -3,18 +3,19 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <div class="container">
+    <h1>L'index des utilisateurs</h1>
 
     <table class="table">
         <thead>
             <tr class="text-white">
                 <th>Id</th>
                 <th>Email</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Prénom</th>
+                <th>Nom</th>
                 <th>Mentor</th>
-                <th>Referent</th>
-                <th>StartDate</th>
+                <th>Référent</th>
+                <th>Date d'entrée</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -29,17 +30,18 @@
                 <td>{{ user.referent }}</td>
                 <td>{{ user.startDate ? user.startDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">Éditer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="13">no records found</td>
+                <td colspan="13">aucun enregistrement</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}">Créer</a>
+    </div>
 {% endblock %}
