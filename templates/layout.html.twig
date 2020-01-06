@@ -5,12 +5,11 @@
             {% include '_nav.html.twig' %}
         <div class="main-content">
             <header>
+                {% include '_nav_mobile.html.twig' %}
                 {% include '_header.html.twig' %}
             </header>
-            <div class="container">
                 {% block body %}
                 {% endblock %}
-            </div>
         </div>
     </div>
 {% endblock %}
