@@ -33,7 +33,7 @@ class UserController extends AbstractController
         $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
         $userItems = count($user->getChecklistItems());
 
-        $checklist = ($userItems * 100) / $totalItems;
+        $percentChecklist = ($userItems * 100) / $totalItems;
 
         //Integration progress bar
         $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
@@ -42,12 +42,12 @@ class UserController extends AbstractController
         $statuses = $timelineService->generate($steps, $startDate);
         $userSteps = (array_count_values($statuses)['completed']);
 
-        $integration = ($userSteps * 100) / $totalSteps;
+        $percentIntegration = ($userSteps * 100) / $totalSteps;
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'checklist' => $checklist,
-            'integration' => $integration,
+            'percentChecklist' => $percentChecklist,
+            'percentIntegration' => $percentIntegration,
         ]);
     }
 
