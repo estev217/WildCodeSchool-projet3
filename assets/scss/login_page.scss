@@ -19,7 +19,13 @@
 }
 
 .logo {
-  width: 30%;
+  width: 150px;
   margin: auto;
   margin-bottom: 2rem;
+}
+
+@media (max-width: 950px) {
+  .login {
+    width: 370px;
+  }
 }
