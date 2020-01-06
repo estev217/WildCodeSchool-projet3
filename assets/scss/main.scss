@@ -1,0 +1,26 @@
+
+body {
+  font-family: $mainFont;
+  background-color: $darkBackground;
+}
+
+.container {
+  margin-top: 5rem;
+}
+
+.main {
+  display: flex;
+}
+
+.main-content {
+  width: calc(100% - 11rem);
+}
+
+h1 {
+  margin-bottom: 2rem;
+  color: $fontColor;
+}
+
+.collaborators {
+  color: $fontColor;
+}
