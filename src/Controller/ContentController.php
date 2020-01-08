@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/content")
@@ -26,11 +27,26 @@ class ContentController extends AbstractController
 
     /**
      * @Route ("/info", name="info")
+     * @param ContentRepository $contentRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
      * @return Response
      */
-    public function showContent(): Response
-    {
-        return $this->render('nemeaContent.html.twig');
+    public function showContent(
+        ContentRepository $contentRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        $data = $contentRepository->findAll();
+        $contents = $paginator->paginate(
+            $data,
+            $request->query->getInt('page', 1),
+            6
+        );
+
+        return $this->render('nemeaContent.html.twig', [
+            'contents' => $contents,
+        ]);
     }
     /**
      * @Route("/", name="content_index", methods={"GET"})
