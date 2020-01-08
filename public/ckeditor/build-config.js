@@ -118,7 +118,6 @@ var CKBUILDER_CONFIG = {
 		'wysiwygarea' : 1
 	},
 	languages : {
-		'en' : 1,
 		'fr' : 1
 	}
 };
