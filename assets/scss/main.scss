@@ -4,7 +4,7 @@ body {
   background-color: $darkBackground;
 }
 
-.container {
+.container, .container-fluid {
   margin-top: 5rem;
 }
 
@@ -15,6 +15,10 @@ body {
 .main-content {
   width: calc(100vw - 10rem);
   margin-left: 10rem;
+}
+
+.table, label {
+  color: $fontColor;
 }
 
 h1 {
