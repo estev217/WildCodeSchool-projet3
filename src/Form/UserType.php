@@ -39,8 +39,8 @@ class UserType extends AbstractType
                 'label' => 'Référent'
             ])
             ->add('startDate', DateType::class, [
-                'label' => 'Date d\'entrée',
                 'format' => 'dd-MM-yyyy',
+                'label' => 'Date d\'entrée',
             ])
 
             ->add('position', EntityType::class, [

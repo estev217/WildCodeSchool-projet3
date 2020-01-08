@@ -7,6 +7,7 @@ use App\Entity\IntegrationStep;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
+use App\Entity\Role;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use App\Service\TimelineService;

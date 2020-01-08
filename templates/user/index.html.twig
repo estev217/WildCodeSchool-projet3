@@ -4,44 +4,52 @@
 
 {% block body %}
     <div class="container">
-    <h1>L'index des utilisateurs</h1>
-
-    <table class="table">
-        <thead>
-            <tr class="text-white">
-
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Mentor</th>
-                <th>Référent</th>
-                <th>Date d'entrée</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr class="text-white">
-
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.mentor }}</td>
-                <td>{{ user.referent }}</td>
-                <td>{{ user.startDate ? user.startDate|date ("d/m/Y") : '' }}</td>
-                <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">aucun enregistrement</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_new') }}">Créer</a>
+        <div class="row">
+            <div class="col-12">
+                <div class="card w-100 m-auto">
+                    <div class="card-header text-center">
+                        <h1>L'index des utilisateurs</h1>
+                    </div>
+                        <table class="table">
+                            <thead>
+                                <tr class="text-white">
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Mentor</th>
+                                    <th>Référent</th>
+                                    <th>Date d'entrée</th>
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr class="text-white">
+                                    <td>{{ user.firstname }}</td>
+                                    <td>{{ user.lastname }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.mentor }}</td>
+                                    <td>{{ user.referent }}</td>
+                                    <td>{{ user.startDate ? user.startDate|date ("d/m/Y") : '' }}</td>
+                                    <td>
+                                        <a class="text-decoration-none" href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
+                                        <a class="text-decoration-none" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="13">aucun enregistrement</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    <div class="col-md">
+                    <button class="btn btn-primary mb-3">
+                        <a class="text-white text-decoration-none" href="{{ path('user_new') }}">Créer</a>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

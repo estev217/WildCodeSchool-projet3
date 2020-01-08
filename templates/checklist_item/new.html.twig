@@ -4,10 +4,22 @@
 
 {% block body %}
     <div class="container">
-    <h1>Créer un nouvel élément checklist</h1>
-
-    <div class="text-white">{{ include('checklist_item/_form.html.twig') }}</div>
-
-    <a href="{{ path('checklist_item_index') }}">Retour à la liste</a>
+        <div class="row">
+            <div class="col-12">
+                <div class="card w-100 m-auto">
+                    <div class="card-header text-center">
+                        <h1>Créer un nouvel élément checklist</h1>
+                    </div>
+                    <div class="text-white m-4">
+                        {{ include('checklist_item/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-md-center mt-3 mb-3">
+        <button class="btn btn-primary">
+            <a class="text-white text-decoration-none" href="{{ path('checklist_item_index') }}">Retour</a>
+        </button>
     </div>
 {% endblock %}

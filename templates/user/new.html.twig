@@ -4,10 +4,22 @@
 
 {% block body %}
     <div class="container">
-    <h1>Créer un nouvel utilisateur</h1>
-    <div class="text-white">
-    {{ include('user/_form.html.twig') }}
+        <div class="row">
+            <div class="col-12">
+                <div class="card w-100 m-auto">
+                    <div class="card-header text-center">
+                        <h1>Créer un nouvel utilisateur</h1>
+                    </div>
+                    <div class="text-white m-3">
+                    {{ include('user/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <a href="{{ path('user_index') }}">Retour à la liste</a>
-    </div>
+        <div class="d-flex justify-content-md-center mt-3 mb-3">
+            <button class="btn btn-primary">
+                <a class="text-white text-decoration-none" href="{{ path('user_index') }}">Retour</a>
+            </button>
+        </div>
 {% endblock %}
