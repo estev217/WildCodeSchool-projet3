@@ -9,7 +9,6 @@
     <table class="table text-white">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
                 <th>Durée</th>
@@ -20,14 +19,13 @@
         <tbody>
         {% for integration_step in integration_steps %}
             <tr>
-                <td>{{ integration_step.id }}</td>
                 <td>{{ integration_step.name }}</td>
                 <td>{{ integration_step.description }}</td>
                 <td>{{ integration_step.duration }}</td>
                 <td>{{ integration_step.fontAwesome }}</td>
                 <td>
                     <a href="{{ path('integration_step_show', {'id': integration_step.id}) }}">Voir</a>
-                    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Éditer</a>
+                    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

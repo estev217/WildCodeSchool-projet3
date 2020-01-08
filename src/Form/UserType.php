@@ -31,14 +31,18 @@ class UserType extends AbstractType
                 'label' => 'Mot de passe'
             ])
             ->add('picture', FileType::class, [
-                'label' => 'Image'
+                'label' => 'Image',
+                'required' => false,
             ])
             ->add('mentor')
             ->add('referent', TextType::class, [
                 'label' => 'Référent'
             ])
             ->add('startDate', DateType::class, [
-                'label' => 'Date d\'entrée'])
+                'label' => 'Date d\'entrée',
+                'format' => 'dd-MM-yyyy',
+            ])
+
             ->add('position', EntityType::class, [
                 'class' => Position::class,
                 'choice_label' => 'name',

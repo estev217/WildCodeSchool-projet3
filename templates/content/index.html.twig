@@ -9,23 +9,17 @@
     <table class="table text-white">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Contenu</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for content in contents %}
             <tr>
-                <td>{{ content.id }}</td>
                 <td>{{ content.content }}</td>
-                <td>{{ content.createdAt ? content.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ content.updatedAt ? content.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('content_show', {'id': content.id}) }}">Voir</a>
-                    <a href="{{ path('content_edit', {'id': content.id}) }}">Éditer</a>
+                    <a href="{{ path('content_edit', {'id': content.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

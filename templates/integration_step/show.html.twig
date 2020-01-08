@@ -8,10 +8,7 @@
 
     <table class="table text-white">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ integration_step.id }}</td>
-            </tr>
+
             <tr>
                 <th>Nom</th>
                 <td>{{ integration_step.name }}</td>
@@ -33,7 +30,7 @@
 
     <a href="{{ path('integration_step_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Éditer</a>
+    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>
 
     {{ include('integration_step/_delete_form.html.twig') }}
     </div>

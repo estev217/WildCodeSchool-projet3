@@ -9,7 +9,6 @@
     <table class="table text-white">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
                 <th>Catégorie</th>
                 <th>actions</th>
@@ -18,12 +17,11 @@
         <tbody>
         {% for checklist_item in checklist_items %}
             <tr>
-                <td>{{ checklist_item.id }}</td>
                 <td>{{ checklist_item.name }}</td>
                 <td>{{ checklist_item.category }}</td>
                 <td>
                     <a href="{{ path('checklist_item_show', {'id': checklist_item.id}) }}">Voir</a>
-                    <a href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">Éditer</a>
+                    <a href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
