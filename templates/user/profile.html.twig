@@ -26,8 +26,8 @@
 
                         {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
                             <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
-                            <p>Référent : <b>{{ user.referent }}</b></p>
-                            <p>Parrain : <b>{{ user.mentor }}</b></p>
+                            <p>Référent : <b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></p>
+                            <p>Parrain : <b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></p>
                             <table>
                                 <tr>
                                     <td>
