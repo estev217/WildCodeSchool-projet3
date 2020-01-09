@@ -12,7 +12,7 @@
                     </div>
                         <table class="table">
                             <thead>
-                                <tr class="text-white">
+                                <tr>
                                     <th>Prénom</th>
                                     <th>Nom</th>
                                     <th>Rôle</th>
@@ -24,7 +24,7 @@
                             </thead>
                             <tbody>
                             {% for user in users %}
-                                <tr class="text-white">
+                                <tr>
                                     <td>{{ user.firstname }}</td>
                                     <td>{{ user.lastname }}</td>
                                     <td>{{ user.role.name }}</td>
@@ -44,9 +44,7 @@
                             </tbody>
                         </table>
                     <div class="col-md">
-                    <button class="btn btn-primary mb-3">
-                        <a class="text-white text-decoration-none" href="{{ path('user_new') }}">Créer</a>
-                    </button>
+                        <a class="btn btn-primary mb-3" href="{{ path('user_new') }}">Créer</a>
                     </div>
                 </div>
             </div>

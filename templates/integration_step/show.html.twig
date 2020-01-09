@@ -10,7 +10,7 @@
                     <div class="card-header text-center">
                         <h1>Étape d'intégration</h1>
                     </div>
-                    <table class="table text-white">
+                    <table class="table">
                         <tbody>
                             <tr>
                                 <th>Nom</th>
@@ -31,9 +31,7 @@
                         </tbody>
                     </table>
                     <div class="d-flex align-items-end">
-                        <button class="btn btn-primary mr-4 ml-4 mb-4">
-                            <a class="text-white text-decoration-none" href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>
-                        </button>
+                            <a class="btn btn-primary mr-4 ml-4 mb-4" href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>
                         <div class="mb-4">
                             {{ include('integration_step/_delete_form.html.twig') }}
                         </div>
@@ -42,9 +40,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <button class="btn btn-primary">
-                    <a class="text-white text-decoration-none" href="{{ path('integration_step_index') }}">Retour</a>
-            </button>
+            <a class="btn btn-primary" href="{{ path('integration_step_index') }}">Retour</a>
         </div>
     </div>
 {% endblock %}

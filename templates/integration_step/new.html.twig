@@ -10,7 +10,7 @@
                     <div class="card-header text-center">
                         <h1>Créer une nouvelle étape d'intégration</h1>
                     </div>
-                    <div class="text-white m-3">
+                    <div class="m-3">
                         {{ include('integration_step/_form.html.twig') }}
                     </div>
                 </div>
@@ -18,8 +18,6 @@
         </div>
     </div>
     <div class="d-flex justify-content-md-center mt-3 mb-3">
-        <button class="btn btn-primary">
-            <a class="text-white text-decoration-none"  href="{{ path('integration_step_index') }}">Retour</a>
-        </button>
+            <a class="btn btn-primary"  href="{{ path('integration_step_index') }}">Retour</a>
     </div>
 {% endblock %}
