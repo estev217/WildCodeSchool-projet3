@@ -38,6 +38,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setRole($this->getReference('role_2'));
         $user->setRoles(['ROLE_ADMIN']);
         $user->setResidence($this->getReference('residence_' . rand(0, 4)));
+        $user->setTelephone($faker->phoneNumber);
         $user->setStartDate($faker->dateTimeThisDecade);
         $manager->persist($user);
 
@@ -52,6 +53,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setRoles(['ROLE_MANAGER']);
             $user->setPosition($this->getReference('position_0'));
             $user->setResidence($this->getReference('residence_' . rand(0, 4)));
+            $user->setTelephone($faker->phoneNumber);
             $user->setStartDate($faker->dateTimeThisDecade);
             $manager->persist($user);
             $this->addReference('manager_' . $i, $user);
@@ -71,6 +73,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setResidence($this->getReference('residence_' . rand(0, 4)));
             $user->setMentor($this->getReference('manager_' . rand(0, 3)));
             $user->setReferent($this->getReference('manager_' . rand(0, 3)));
+            $user->setTelephone($faker->phoneNumber);
             $user->setStartDate($faker->dateTimeThisYear);
             $manager->persist($user);
             $this->addReference('collaborator_' . $i, $user);
