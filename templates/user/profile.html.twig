@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-<div class="container-fluid profile-page">
+    <div class="container-fluid profile-page">
     {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
             <div><a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes
@@ -91,4 +91,4 @@
         </div>
     </div>
 
-    {% endblock %}
+{% endblock %}
