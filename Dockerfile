@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
-    zip \
     jpegoptim optipng pngquant gifsicle \
     vim \
     unzip \
@@ -24,7 +23,14 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     nginx
-
+    
+#add zip for ckeditor
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-configure zip --with-libzip \
+  && docker-php-ext-install zip
+  
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
