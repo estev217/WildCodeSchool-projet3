@@ -41,8 +41,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setStartDate($faker->dateTimeThisDecade);
         $manager->persist($user);
 
-        // Creates 2 managers
-        for ($i = 0; $i < 2; $i++) {
+        // Creates 4 managers
+        for ($i = 0; $i < 4; $i++) {
             $user = new User();
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
@@ -66,11 +66,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
             $user->setRole($this->getReference('role_0'));
             $user->setRoles(['ROLE_COLLABORATOR']);
-            $user->setManager($this->getReference('manager_' . rand(0, 1)));
+            $user->setManager($this->getReference('manager_' . rand(0, 3)));
             $user->setPosition($this->getReference('position_' . rand(1, 2)));
             $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-            $user->setMentor($faker->name);
-            $user->setReferent($faker->name);
+            $user->setMentor($this->getReference('manager_' . rand(0, 3)));
+            $user->setReferent($this->getReference('manager_' . rand(0, 3)));
             $user->setStartDate($faker->dateTimeThisYear);
             $manager->persist($user);
             $this->addReference('collaborator_' . $i, $user);
