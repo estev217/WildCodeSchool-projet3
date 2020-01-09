@@ -28,16 +28,27 @@ class UserType extends AbstractType
             ])
             ->add('email')
             ->add('password', TextType::class, [
-                'label' => 'Mot de passe'
+                'label' => 'Mot de passe',
+                'disabled' => $options['password_disabled']
             ])
             ->add('picture', FileType::class, [
                 'label' => 'Image',
                 'required' => false,
             ])
-            ->add('mentor')
-            ->add('referent', TextType::class, [
-                'label' => 'Référent'
-            ])
+            ->add('mentor', EntityType::class, [
+                'label' => 'Parrain',
+                'class' => User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getFirstname() . ' ' . $user->getLastname();
+                }])
+
+            ->add('referent', EntityType::class, [
+                'label' => 'Référent',
+                'class' => User::class,
+                'choice_label' => function (User $user) {
+                    return $user->getFirstname() . ' ' . $user->getLastname();
+                }])
+
             ->add('startDate', DateType::class, [
                 'format' => 'dd-MM-yyyy',
                 'label' => 'Date d\'entrée',
@@ -77,6 +88,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'password_disabled' => false,
         ]);
     }
 }

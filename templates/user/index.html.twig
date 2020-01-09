@@ -15,9 +15,9 @@
                                 <tr class="text-white">
                                     <th>Prénom</th>
                                     <th>Nom</th>
+                                    <th>Rôle</th>
                                     <th>Email</th>
-                                    <th>Mentor</th>
-                                    <th>Référent</th>
+                                    <th>Téléphone</th>
                                     <th>Date d'entrée</th>
                                     <th>actions</th>
                                 </tr>
@@ -27,9 +27,9 @@
                                 <tr class="text-white">
                                     <td>{{ user.firstname }}</td>
                                     <td>{{ user.lastname }}</td>
+                                    <td>{{ user.role.name }}</td>
                                     <td>{{ user.email }}</td>
-                                    <td>{{ user.mentor }}</td>
-                                    <td>{{ user.referent }}</td>
+                                    <td>{{ user.telephone }}</td>
                                     <td>{{ user.startDate ? user.startDate|date ("d/m/Y") : '' }}</td>
                                     <td>
                                         <a class="text-decoration-none" href="{{ path('user_show', {'id': user.id}) }}">Voir</a>

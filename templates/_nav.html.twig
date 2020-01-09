@@ -22,6 +22,7 @@
                             Checklist
                         </a>
                     </li>
+                {% endif %}
                     <li class="nav-item">
                         <a href="{{ path('toolbox') }}" class="nav-link">
                             <i class="fas fa-toolbox mr-3 fa-fw"></i>
@@ -34,7 +35,7 @@
                             Nemea
                         </a>
                     </li>
-                {% endif %}
+
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
                     <a href="{{ path('user_index') }}" class="nav-link">

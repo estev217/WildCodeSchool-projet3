@@ -206,9 +206,9 @@ class UserController extends AbstractController
      * @param User $user
      * @return Response
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['password_disabled' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -222,9 +222,6 @@ class UserController extends AbstractController
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
-            $plainPassword = $user->getPassword();
-            $encoded = $passwordEncoder->encodePassword($user, $plainPassword);
-            $user->setPassword($encoded);
 
             $this->getDoctrine()->getManager()->flush();
 

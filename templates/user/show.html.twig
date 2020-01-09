@@ -26,20 +26,28 @@
                                     <td>{{ user.email }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Rôles</th>
-                                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                                    <th>Téléphone</th>
+                                    <td>{{ user.telephone }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Rôle</th>
+                                    <td>{{ user.role.name }}</td>
                                 </tr>
                                 <tr>
                                     <th>Image</th>
                                     <td>{{ user.picture }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Mentor</th>
-                                    <td>{{ user.mentor }}</td>
+                                    <th>Manager</th>
+                                    <td>{{ user.manager ? user.manager.firstname ~ ' ' ~ user.manager.lastname : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Parrain</th>
+                                    <td>{{ user.mentor ? user.mentor.firstname ~ ' ' ~ user.mentor.lastname : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Référent</th>
-                                    <td>{{ user.referent }}</td>
+                                    <td>{{ user.referent ? user.referent.firstname ~ ' ' ~ user.referent.lastname : '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Date d'entrée</th>
