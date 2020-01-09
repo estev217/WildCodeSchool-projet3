@@ -29,8 +29,13 @@ h1 {
 .collaborators {
   color: $fontColor;
 }
+
 .collab-list{
     width: 100%;
+}
+
+.vignette {
+  max-height: 200px;
 }
 
 @media (max-width: 700px) {
