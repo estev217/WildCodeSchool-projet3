@@ -58,11 +58,18 @@
             {% endif %}
 
             {% if is_granted('ROLE_ADMIN') %}
+                <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-4 mb-0">Gestion</p>
                 <ul class="nav flex-column mb-0">
                     <li class="nav-item">
                         <a href="{{ path('content_index') }}" class="nav-link">
                             <i class="fas fa-clipboard-list mr-3 fa-fw"></i>
-                            Gérer le contenu
+                            Contenu
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('image_index') }}" class="nav-link">
+                            <i class="fas fa-images mr-3 fa-fw"></i>
+                            Images
                         </a>
                     </li>
                 </ul>
