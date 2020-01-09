@@ -26,8 +26,8 @@
 
                         {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
                             <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
-                            <p>Référent : <b>{{ user.referent }}</b></p>
-                            <p>Parrain : <b>{{ user.mentor }}</b></p>
+                            <p>Référent : <b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></p>
+                            <p>Parrain : <b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></p>
                             <table>
                                 <tr>
                                     <td>
@@ -41,7 +41,7 @@
                                     <td class="progress-td">
                                         <div class="progress" style="height: 20px; width: 90%;">
                                             <div class="progress-bar progress-bar-striped" role="progressbar"
-                                                 style="width: {{ checklist }}%"
+                                                 style="width: {{ percentChecklist }}%"
                                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>
@@ -53,7 +53,7 @@
                                         <div class="progress" style="height: 20px; width: 90%;">
                                             <div class="progress-bar progress-bar-striped bg-info"
                                                  role="progressbar"
-                                                 style="width: {{ integration }}%"
+                                                 style="width: {{ percentIntegration }}%"
                                                  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                             </div>
                                         </div>

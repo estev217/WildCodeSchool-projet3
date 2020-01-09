@@ -43,42 +43,38 @@
                     <div class="card-body">
                         {{ form_start(form) }}
                         <div class="form-group">
-
-                            {% for category, choices in form.children.checklistItems.vars.choices %}
-                                {% if category == 'todo' %}
-                                    {% for key, choice in choices %}
-                                        {{ form_widget(form.checklistItems[key]) }}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-
+                        {% for category, choices in form.children.checklistItems.vars.choices %}
+                            {% if category == constant('App\\Entity\\ChecklistItem::TODO') %}
+                                {% for key, choice in choices %}
+                                    {{ form_widget(form.checklistItems[key]) }}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                {% if is_granted('ROLE_MANAGER') %}
+                    <div class="card-header">
+                        <h3>{{ collaborator.firstname }} {{ collaborator.lastname }} a reçu :</h3>
+                    </div>
+                {% else %}
+                    <div class="card-header">
+                        <h3>Mes documents</h3>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="form-group">
 
-            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                    {% if is_granted('ROLE_MANAGER') %}
-                        <div class="card-header">
-                            <h3>{{ collaborator.firstname }} {{ collaborator.lastname }} a reçu :</h3>
-                        </div>
-                    {% else %}
-                        <div class="card-header">
-                            <h3>Ma liste de choses à faire</h3>
-                        </div>
-                    {% endif %}
-                    <div class="card-body">
-                        <div class="form-group">
-
-                            {% for category, choices in form.children.checklistItems.vars.choices %}
-                                {% if category == 'doc' %}
-                                    {% for key, choice in choices %}
-                                        {{ form_widget(form.checklistItems[key]) }}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-
+                        {% for category, choices in form.children.checklistItems.vars.choices %}
+                            {% if category == constant('App\\Entity\\ChecklistItem::DOC') %}
+                                {% for key, choice in choices %}
+                                    {{ form_widget(form.checklistItems[key]) }}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -92,5 +88,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

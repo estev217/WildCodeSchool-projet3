@@ -4,10 +4,10 @@
 
 {% block body %}
     <div class="container">
-    <h1>Créer un nouveau contenu</h1>
+        <h1>Créer du nouveau contenu</h1>
 
-    <div class="text-white">{{ include('content/_form.html.twig') }}</div>
+        {{ include('content/_form.html.twig') }}
 
-    <a href="{{ path('content_index') }}">Retour à la liste</a>
+        <a href="{{ path('content_index') }}">Retour à la liste</a>
     </div>
 {% endblock %}

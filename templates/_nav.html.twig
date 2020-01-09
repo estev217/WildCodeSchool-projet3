@@ -83,6 +83,17 @@
                     </li>
                 </ul>
             {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <ul class="nav flex-column mb-0">
+                    <li class="nav-item">
+                        <a href="{{ path('content_index') }}" class="nav-link">
+                            <i class="fas fa-clipboard-list mr-3 fa-fw"></i>
+                            Gérer le contenu
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
             <br>
             <ul class="nav flex-column mb-0">
                 <li class="nav-item">
