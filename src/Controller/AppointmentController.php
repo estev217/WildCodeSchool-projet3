@@ -22,7 +22,6 @@ class AppointmentController extends AbstractController
     {
         return $this->render('appointment/index.html.twig', [
             'appointments' => $appointmentRepository->findAll(),
-
         ]);
     }
 
