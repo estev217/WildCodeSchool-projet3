@@ -1,34 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import "vars";
 @import "fonts";
+@import "main";
 @import "header";
 @import "checklist";
 @import "login_page";
 @import "navbar";
 @import "timeline";
+@import "toolbox";
+@import "profile";
 
-body {
-    font-family: $mainFont;
-    background-color: $darkBackground;
-}
-
-.container {
-    margin-top: 5rem;
-}
-
-.main {
-    display: flex;
-}
-
-.main-content {
-    width: calc(100% - 11rem);
-}
-
-h1 {
-    margin-bottom: 2rem;
-    color: $fontColor;
-}
-
-.collaborators {
-    color: $fontColor;
-}

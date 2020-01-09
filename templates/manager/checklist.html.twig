@@ -21,7 +21,7 @@
                         <h3>{{ collaborator.firstname }} {{ collaborator.lastname }} doit :</h3>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body mt-5">
                         {{ form_start(form) }}
                         <div class="form-group">
                             {% for category, choices in form.children.checklistItems.vars.choices %}

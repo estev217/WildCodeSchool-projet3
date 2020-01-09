@@ -1,38 +1,46 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}IntegrationStep{% endblock %}
 
 {% block body %}
-    <h1>IntegrationStep</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ integration_step.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ integration_step.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ integration_step.description }}</td>
-            </tr>
-            <tr>
-                <th>Duration</th>
-                <td>{{ integration_step.duration }}</td>
-            </tr>
-            <tr>
-                <th>FontAwesome</th>
-                <td>{{ integration_step.fontAwesome }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('integration_step_index') }}">back to list</a>
-
-    <a href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">edit</a>
-
-    {{ include('integration_step/_delete_form.html.twig') }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1>Étape d'intégration</h1>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{ integration_step.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td>{{ integration_step.description }}</td>
+                            </tr>
+                            <tr>
+                                <th>Durée</th>
+                                <td>{{ integration_step.duration }}</td>
+                            </tr>
+                            <tr>
+                                <th> Icône FontAwesome</th>
+                                <td>{{ integration_step.fontAwesome }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex align-items-end">
+                            <a class="btn btn-primary mr-4 ml-4 mb-4" href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>
+                        <div class="mb-4">
+                            {{ include('integration_step/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <a class="btn btn-primary" href="{{ path('integration_step_index') }}">Retour</a>
+        </div>
+    </div>
 {% endblock %}

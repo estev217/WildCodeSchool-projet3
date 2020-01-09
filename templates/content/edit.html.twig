@@ -1,13 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Edit Content{% endblock %}
 
 {% block body %}
-    <h1>Edit Content</h1>
+    <div class="container">
+    <h1>Modifier Contenu</h1>
 
-    {{ include('content/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('content/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('content_index') }}">back to list</a>
+    <a href="{{ path('content_index') }}">Retour à la liste</a>
 
     {{ include('content/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

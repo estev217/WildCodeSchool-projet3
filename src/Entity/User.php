@@ -53,12 +53,14 @@ class User implements UserInterface
     private $picture;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="mentor_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $mentor;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="referent_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $referent;
 
@@ -114,10 +116,21 @@ class User implements UserInterface
      */
     private $checklistItems;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Appointment", mappedBy="user", orphanRemoval=true)
+     */
+    private $appointments;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
     public function __construct()
     {
         $this->collaborators = new ArrayCollection();
         $this->checklistItems = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,27 +245,25 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getMentor(): ?string
+    public function getMentor(): ?self
     {
         return $this->mentor;
     }
 
-    public function setMentor(?string $mentor): self
+    public function setMentor(?self $mentor): self
     {
         $this->mentor = $mentor;
-
         return $this;
     }
 
-    public function getReferent(): ?string
+    public function getReferent(): ?self
     {
         return $this->referent;
     }
 
-    public function setReferent(?string $referent): self
+    public function setReferent(?self $referent): self
     {
         $this->referent = $referent;
-
         return $this;
     }
 
@@ -423,6 +434,49 @@ class User implements UserInterface
         if ($this->checklistItems->contains($checklistItem)) {
             $this->checklistItems->removeElement($checklistItem);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Appointment[]
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
+    public function addAppointment(Appointment $appointment): self
+    {
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments[] = $appointment;
+            $appointment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): self
+    {
+        if ($this->appointments->contains($appointment)) {
+            $this->appointments->removeElement($appointment);
+            // set the owning side to null (unless already changed)
+            if ($appointment->getUser() === $this) {
+                $appointment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
 
         return $this;
     }

@@ -1,9 +1,14 @@
-.container {
+.container, .container-fluid {
+
+  .flash-success {
+    color: $lightBlue;
+    font-size: 1.5rem;
+  }
 
   .progress {
     margin: auto;
     height:2rem;
-    width: 70%;
+
 
     .progress-bar {
       background-color: $yellow;
@@ -22,11 +27,6 @@
 
     legend {
       display: none;
-    }
-
-    button {
-      background-color: $yellow;
-      border: 1px $yellow solid;
     }
 
     .form-check {

@@ -7,6 +7,7 @@ use App\Entity\IntegrationStep;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
+use App\Entity\Role;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use App\Service\TimelineService;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
@@ -33,7 +35,7 @@ class UserController extends AbstractController
         $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
         $userItems = count($user->getChecklistItems());
 
-        $checklist = ($userItems * 100) / $totalItems;
+        $percentChecklist = ($userItems * 100) / $totalItems;
 
         //Integration progress bar
         $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
@@ -42,12 +44,12 @@ class UserController extends AbstractController
         $statuses = $timelineService->generate($steps, $startDate);
         $userSteps = (array_count_values($statuses)['completed']);
 
-        $integration = ($userSteps * 100) / $totalSteps;
+        $percentIntegration = ($userSteps * 100) / $totalSteps;
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'checklist' => $checklist,
-            'integration' => $integration,
+            'percentChecklist' => $percentChecklist,
+            'percentIntegration' => $percentIntegration,
         ]);
     }
 
@@ -69,11 +71,35 @@ class UserController extends AbstractController
         $percent = ($userItems * 100) / $totalItems;
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash(
+                'success',
+                'Vos changements ont été sauvegardés !'
+            );
             $entityManager->flush();
         }
         return $this->render('checklist.html.twig', [
             'form' => $form->createView(),
             'percent' => $percent,
+        ]);
+    }
+
+    /**
+     * @Route("/timeline/{user}", name="timeline")
+     * @param User $user
+     * @param TimelineService $timelineService
+     * @return Response
+     */
+    public function timeline(User $user, TimelineService $timelineService): Response
+    {
+        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+        $startDate = $user->getStartDate();
+
+        $statuses = $timelineService->generate($steps, $startDate);
+
+        return $this->render('timeline/timeline.html.twig', [
+            'steps' => $steps,
+            'statuses' => $statuses,
+            'user' => $user,
         ]);
     }
 
@@ -86,11 +112,11 @@ class UserController extends AbstractController
     {
         return $this->render('manager/collaborator.html.twig', [
             'collaborators' => $user->getCollaborators(),
-            ]);
+        ]);
     }
 
     /**
-     * @Route("/manager/collaborator/{id}", name="collaborator_checklist", methods={"GET"})
+     * @Route("/manager/collaborator/{user}", name="collaborator_checklist", methods={"GET"})
      * @param User $user
      * @return Response
      */
@@ -103,7 +129,7 @@ class UserController extends AbstractController
 
         $percent = ($userItems * 100) / $totalItems;
 
-        return $this->render('manager/checklist.html.twig', [
+        return $this->render('checklist.html.twig', [
             'collaborator' => $user,
             'form' => $form->createView(),
             'percent' => $percent,
@@ -128,13 +154,27 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRole()->getName() === 'Collaborateur') {
+                $user->setRoles(['ROLE_COLLABORATOR']);
+            }
+            if ($user->getRole()->getName() === 'Manager') {
+                $user->setRoles(['ROLE_MANAGER']);
+            }
+            if ($user->getRole()->getName() === 'Administrateur') {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+
+            $plainPassword = $user->getPassword();
+            $encoded = $passwordEncoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encoded);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -168,10 +208,21 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['password_disabled' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRole()->getName() === 'Collaborateur') {
+                $user->setRoles(['ROLE_COLLABORATOR']);
+            }
+            if ($user->getRole()->getName() === 'Manager') {
+                $user->setRoles(['ROLE_MANAGER']);
+            }
+            if ($user->getRole()->getName() === 'Administrateur') {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');
@@ -188,7 +239,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
