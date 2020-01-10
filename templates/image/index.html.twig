@@ -13,15 +13,15 @@
             <tr>
                 <th>Image</th>
                 <th>URL de l'image</th>
-                <th>Créée le</th>
-                <th>actions</th>
+                <th>Ajoutée le</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for image in images %}
                 <tr>
                     <td><img src="/upload/images/{{ image.imageName }}" alt="vignette" class="vignette"></td>
-                    <td><input disabled class="copy-text" type="text" id="text-box" size="20" value="/upload/images/{{ image.imageName }}"> <a title="Copier l'URL"> <i class="fas fa-copy copy-button ml-2"></i></a></td>
+                    <td><input class="copy-text" type="text" id="text-box" size="20" value="/upload/images/{{ image.imageName }}"> <a title="Copier l'URL"> <i class="fas fa-copy copy-button ml-2"></i></a></td>
                     <td>{{ image.createdAt ? image.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
                         <a href="{{ path('image_show', {'id': image.id}) }}">Voir</a>
