@@ -4,7 +4,7 @@ body {
   background-color: $darkBackground;
 }
 
-.container {
+.container, .container-fluid {
   margin-top: 5rem;
 }
 
@@ -17,6 +17,10 @@ body {
   margin-left: 10rem;
 }
 
+.table, label {
+  color: $fontColor;
+}
+
 h1 {
   margin-bottom: 2rem;
   color: $fontColor;
@@ -25,11 +29,44 @@ h1 {
 .collaborators {
   color: $fontColor;
 }
+.collab-list{
+    width: 100%;
+}
 
-@media (max-width: 700px ) {
-    .main-content {
+@media (max-width: 700px) {
+    .main-content{
         width: 100vw;
         margin-left: 0rem;
     }
+    .not-mobile{
+        display: none;
+    }
+    .not-upper-mobile{
+        margin-bottom: 0rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .not-under-mobile{
+        display: none;
+    }
+}
+
+@media (min-width: 701px) {
+    .not-upper-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 950px) {
+    .desktop-l{
+        display: none;
+    }
+}
+
+@media (max-width: 1180px) {
+    .desktop-xl{
+        display: none;
+ }
 }
 

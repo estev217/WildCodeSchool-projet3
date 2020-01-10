@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-<div class="container-fluid profile-page">
+    <div class="container-fluid profile-page">
     {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
             <div><a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes
@@ -26,8 +26,8 @@
 
                         {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
                             <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
-                            <p>Référent : <b>{{ user.referent }}</b></p>
-                            <p>Parrain : <b>{{ user.mentor }}</b></p>
+                            <p>Référent : <b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></p>
+                            <p>Parrain : <b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></p>
                             <table>
                                 <tr>
                                     <td>
@@ -91,4 +91,4 @@
         </div>
     </div>
 
-    {% endblock %}
+{% endblock %}

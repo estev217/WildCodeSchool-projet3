@@ -1,5 +1,6 @@
 <img src="{{ asset('build/images/header-sea4.png') }}" class="header-pic">
 <div class="row head-block d-flex justify-content-around">
+    {% if not is_granted('ROLE_ADMIN') %}
     <div class="card not-mobile">
         <div class="card-body d-flex justify-content-around">
             <div>
@@ -22,7 +23,7 @@
             </div>
         </div>
     </div>
-
+    {% endif %}
     {% if is_granted('ROLE_COLLABORATOR') %}
         <div class="card desktop">
             <div class="card-body d-flex justify-content-around">
@@ -34,8 +35,8 @@
                     <div>
                         <p><i class="fas fa-user-tie mr-2"></i> Manager :
                             <b>{{ app.user.manager.firstname }} {{ app.user.manager.lastname }}</b></p>
-                        <p><i class="fas fa-user-cog mr-1"></i> Référent métier : <b>{{ app.user.referent }}</b></p>
-                        <p><i class="fas fa-user-ninja mr-2"></i> Parrain : <b>{{ app.user.mentor }}</b></p>
+                        <p><i class="fas fa-user-cog mr-1"></i> Référent métier : <b>{{ app.user.referent.firstname }} {{ app.user.referent.lastname }}</b></p>
+                        <p><i class="fas fa-user-ninja mr-2"></i> Parrain : <b>{{ app.user.mentor.firstname }} {{ app.user.mentor.lastname }}</b></p>
                     </div>
 
                 </div>
@@ -69,5 +70,3 @@
         </div>
     </div>
 </div>
-
-
