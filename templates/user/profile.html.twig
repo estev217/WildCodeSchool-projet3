@@ -81,7 +81,7 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        {% for appointment in app.user.appointments|sort((a, b) => a.date <=> b.date) %}
+                        {% for appointment in user.appointments|sort((a, b) => a.date <=> b.date) %}
                             <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec
                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
                         {% endfor %}
@@ -91,4 +91,8 @@
         </div>
     </div>
 
+<<<<<<< Updated upstream
     {% endblock %}
+=======
+{% endblock %}
+>>>>>>> Stashed changes

@@ -6,7 +6,6 @@ for (let i = 0; i < copyButtons.length; i++) {
         copyText[i].select();
         // const text = copyText[i].textContent;
         document.execCommand('copy');
-        alert('Copied the text: ' + copyText[i].value);
-        }
-    );
+        alert('URL copiée !');
+    });
 }
