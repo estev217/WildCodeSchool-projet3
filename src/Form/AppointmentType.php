@@ -20,13 +20,15 @@ class AppointmentType extends AbstractType
             ->add('date')
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'firstname',
-                ])
+                'choice_label' => function(user $user) {
+                return $user->getFirstname() . ' ' . $user->getLastname();
+                }])
             ->add('partner', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'firstname',
-            ])
-        ;
+                'choice_label' => function(user $user) {
+                    return $user->getFirstname() . ' ' . $user->getLastname();
+                }])
+            ->add( 'message', null, ['mapped' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
