@@ -2,35 +2,35 @@
 
 {% block body %}
     <div class="container">
-    {% if is_granted('ROLE_MANAGER') %}
-        <a href="{{ path('profile', {'user': user.id }) }}">Retour au profil de mon
-            collaborateur</a>
+        {% if is_granted('ROLE_MANAGER') %}
+            <a href="{{ path('profile', {'user': user.id }) }}">Retour au profil de mon
+                collaborateur</a>
 
-        <div class="page-header">
-            <h1>Parcours d'intégration de {{ user.firstname }} {{ user.lastname }}</h1>
-        </div>
-    {% else %}
-        <div class="page-header">
-            <h1>Mon parcours d'intégration</h1>
-        </div>
-    {% endif %}
-    <ul class="timeline">
-        {% for step in steps %}
-            <li class="{{ loop.index is odd ? '' : 'timeline-inverted' }}" {{ statuses[step.id] == 'in-progress' ? 'id="active"' : '' }}>
-                <div class="timeline-badge" style="background-color:{{ step.color }};"><i
-                            class="{{ step.fontAwesome }}" style="color:#495057;"></i></div>
-                <div class="timeline-panel {{ statuses[step.id] }}">
-                    <div class="timeline-heading">
-                        <h4 class="timeline-title">{{ step.name }}</h4>
-                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Durée
-                                : {{ step.duration }} {{ step.duration > 1 ? 'jours' : 'jour' }}</small></p>
+            <div class="page-header">
+                <h1>Parcours d'intégration de {{ user.firstname }} {{ user.lastname }}</h1>
+            </div>
+        {% else %}
+            <div class="page-header">
+                <h1>Mon parcours d'intégration</h1>
+            </div>
+        {% endif %}
+        <ul class="timeline">
+            {% for step in steps %}
+                <li class="{{ loop.index is odd ? '' : 'timeline-inverted' }}" {{ statuses[step.id] == 'in-progress' ? 'id="active"' : '' }}>
+                    <div class="timeline-badge" style="background-color:{{ step.color }};"><i
+                                class="{{ step.fontAwesome }}" style="color:#495057;"></i></div>
+                    <div class="timeline-panel {{ statuses[step.id] }}">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">{{ step.name }}</h4>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Durée
+                                    : {{ step.duration }} {{ step.duration > 1 ? 'jours' : 'jour' }}</small></p>
+                        </div>
+                        <div class="timeline-body">
+                            <p>{{ step.description|nl2br }}</p>
+                        </div>
                     </div>
-                    <div class="timeline-body">
-                        <p>{{ step.description|nl2br }}</p>
-                    </div>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

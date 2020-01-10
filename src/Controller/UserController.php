@@ -7,6 +7,7 @@ use App\Entity\IntegrationStep;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
+use App\Entity\Role;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use App\Service\TimelineService;
@@ -15,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
@@ -152,13 +154,27 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRole()->getName() === 'Collaborateur') {
+                $user->setRoles(['ROLE_COLLABORATOR']);
+            }
+            if ($user->getRole()->getName() === 'Manager') {
+                $user->setRoles(['ROLE_MANAGER']);
+            }
+            if ($user->getRole()->getName() === 'Administrateur') {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+
+            $plainPassword = $user->getPassword();
+            $encoded = $passwordEncoder->encodePassword($user, $plainPassword);
+            $user->setPassword($encoded);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -192,10 +208,21 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['password_disabled' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRole()->getName() === 'Collaborateur') {
+                $user->setRoles(['ROLE_COLLABORATOR']);
+            }
+            if ($user->getRole()->getName() === 'Manager') {
+                $user->setRoles(['ROLE_MANAGER']);
+            }
+            if ($user->getRole()->getName() === 'Administrateur') {
+                $user->setRoles(['ROLE_ADMIN']);
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');

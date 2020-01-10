@@ -1,11 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}New IntegrationStep{% endblock %}
 
 {% block body %}
-    <h1>Create new IntegrationStep</h1>
-
-    {{ include('integration_step/_form.html.twig') }}
-
-    <a href="{{ path('integration_step_index') }}">back to list</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card w-100 m-auto">
+                    <div class="card-header text-center">
+                        <h1>Créer une nouvelle étape d'intégration</h1>
+                    </div>
+                    <div class="m-3">
+                        {{ include('integration_step/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-md-center mt-3 mb-3">
+            <a class="btn btn-primary"  href="{{ path('integration_step_index') }}">Retour</a>
+    </div>
 {% endblock %}
