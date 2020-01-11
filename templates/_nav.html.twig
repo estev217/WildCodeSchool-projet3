@@ -23,18 +23,40 @@
                         </a>
                     </li>
                 {% endif %}
+                    <li class="nav-item">
+                        <a href="{{ path('toolbox') }}" class="nav-link">
+                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
+                            Boîte à outils
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('info') }}" class="nav-link">
+                            <i class="fas fa-cubes mr-3 fa-fw"></i>
+                            Nemea
+                        </a>
+                    </li>
+
+                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a href="{{ path('toolbox') }}" class="nav-link">
+                    <a href="{{ path('user_index') }}" class="nav-link">
                         <i class="fas fa-toolbox mr-3 fa-fw"></i>
-                        Boîte à outils
+                        Collaborateurs
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('info') }}" class="nav-link">
-                        <i class="fas fa-cubes mr-3 fa-fw"></i>
-                        Nemea
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ path('checklist_item_index') }}" class="nav-link">
+                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
+                            Checklist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('integration_step_index') }}" class="nav-link">
+                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
+                            Étapes d'intégration
+                        </a>
+                    </li>
+                {% endif %}
+
             </ul>
 
             {% if is_granted('ROLE_MANAGER') %}

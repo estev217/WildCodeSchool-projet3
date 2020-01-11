@@ -4,10 +4,10 @@ namespace App\Form;
 
 use App\Entity\Content;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ContentType extends AbstractType
 {
@@ -19,8 +19,7 @@ class ContentType extends AbstractType
             ])
             ->add('content', CKEditorType::class, [
                 'label'=> 'Texte'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

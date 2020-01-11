@@ -2,48 +2,47 @@
 
 {% block body %}
     <div class="container">
-    {% if is_granted('ROLE_MANAGER') %}
-        <a href="{{ path('profile', {'user': collaborator.id }) }}">Retour au profil de mon
-            collaborateur</a>
+        {% if is_granted('ROLE_MANAGER') %}
+            <a href="{{ path('profile', {'user': collaborator.id }) }}">Retour au profil de mon
+                collaborateur</a>
 
-        <div class="page-header">
-            <h1>Checklist de {{ collaborator.firstname }} {{ collaborator.lastname }}</h1>
-        </div>
-    {% else %}
-        <div class="page-header">
-            <h1>Ma checklist</h1>
-        </div>
-    {% endif %}
-    <div class="progress" style="width: 70%;">
-        <div class="progress-bar progress-bar-striped" role="progressbar"
-             style="width: {{ percent }}%"
-             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        {% for message in app.flashes('success') %}
-            <div class="col-xs-12 flash-success">
-                {{ message }}
+            <div class="page-header">
+                <h1>Checklist de {{ collaborator.firstname }} {{ collaborator.lastname }}</h1>
             </div>
-        {% endfor %}
-    </div>
-    <div class="row">
+        {% else %}
+            <div class="page-header">
+                <h1>Ma checklist</h1>
+            </div>
+        {% endif %}
+        <div class="progress" style="width: 70%;">
+            <div class="progress-bar progress-bar-striped" role="progressbar"
+                 style="width: {{ percent }}%"
+                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for message in app.flashes('success') %}
+                <div class="col-xs-12 flash-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
 
-        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                {% if is_granted('ROLE_MANAGER') %}
-                    <div class="card-header">
-                        <h3>{{ collaborator.firstname }} {{ collaborator.lastname }} doit :</h3>
-                    </div>
-                {% else %}
-                    <div class="card-header">
-                        <h3>Ma liste de choses à faire</h3>
-                    </div>
-                {% endif %}
-                <div class="card-body">
-                    {{ form_start(form) }}
-                    <div class="form-group">
-
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    {% if is_granted('ROLE_MANAGER') %}
+                        <div class="card-header">
+                            <h3>{{ collaborator.firstname }} {{ collaborator.lastname }} doit :</h3>
+                        </div>
+                    {% else %}
+                        <div class="card-header">
+                            <h3>Ma liste de choses à faire</h3>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="form-group">
                         {% for category, choices in form.children.checklistItems.vars.choices %}
                             {% if category == constant('App\\Entity\\ChecklistItem::TODO') %}
                                 {% for key, choice in choices %}
@@ -51,12 +50,10 @@
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}
-
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 {% if is_granted('ROLE_MANAGER') %}
@@ -78,19 +75,17 @@
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}
-
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row justify-content-end">
-        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
-            <button class="btn btn-primary mb-3">Mettre à jour</button>
-            {{ form_end(form) }}
+        <div class="row justify-content-end">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
+                <button class="btn btn-primary mb-3">Mettre à jour</button>
+                {{ form_end(form) }}
+            </div>
         </div>
     </div>
-    </div>
-
 {% endblock %}

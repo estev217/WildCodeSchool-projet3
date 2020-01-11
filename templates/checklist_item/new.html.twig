@@ -1,11 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}New ChecklistItem{% endblock %}
 
 {% block body %}
-    <h1>Create new ChecklistItem</h1>
-
-    {{ include('checklist_item/_form.html.twig') }}
-
-    <a href="{{ path('checklist_item_index') }}">back to list</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card w-100 m-auto">
+                    <div class="card-header text-center">
+                        <h1>Créer un nouvel élément checklist</h1>
+                    </div>
+                    <div class="m-4">
+                        {{ include('checklist_item/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-md-center mt-3 mb-3">
+        <a class="btn btn-primary" href="{{ path('checklist_item_index') }}">Retour</a>
+    </div>
 {% endblock %}
