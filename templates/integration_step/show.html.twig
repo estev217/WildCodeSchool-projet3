@@ -21,13 +21,17 @@
                                 <td>{{ integration_step.description }}</td>
                             </tr>
                             <tr>
-                                <th>Durée</th>
+                                <th>Durée (en jours)</th>
                                 <td>{{ integration_step.duration }}</td>
                             </tr>
                             <tr>
                                 <th> Icône FontAwesome</th>
                                 <td>{{ integration_step.fontAwesome }}</td>
                             </tr>
+                        <tr>
+                            <th>Couleur héxadécimale</th>
+                            <td class="col-icon"><div class="color-icon" style="background-color: {{ integration_step.color }};"></div><span>{{ integration_step.color }}</span></td>
+                        </tr>
                         </tbody>
                     </table>
                     <div class="d-flex align-items-end">

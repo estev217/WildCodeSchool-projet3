@@ -15,8 +15,9 @@ class IntegrationStepType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Nom'])
             ->add('description')
-            ->add('duration', TextType::class, ['label' => 'Durée'])
+            ->add('duration', TextType::class, ['label' => 'Durée (en jours)'])
             ->add('fontAwesome', TextType::class, ['label' => 'Icône FontAwesome'])
+            ->add('color', TextType::class, ['label' => 'Couleur hexadécimale #xxxxxx'])
         ;
     }
 

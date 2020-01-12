@@ -83,6 +83,7 @@ class AppointmentController extends AbstractController
                 $mail->send();
 
             return $this->redirectToRoute('appointment_index');
+
         }
 
         return $this->render('appointment/new.html.twig', [
