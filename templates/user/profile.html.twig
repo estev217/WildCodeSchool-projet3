@@ -26,16 +26,16 @@
 
                         {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
                             <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
-                            <p>Référent : <b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></p>
+                            <p>Référent :<b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></p>
                             <p>Parrain : <b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></p>
                             <table>
                                 <tr>
                                     <td>
                                         {% if is_granted('ROLE_MANAGER') %}
-                                            <a href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist
+                                            <a class="link-profile text-decoration-none" href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist
                                                 :</a>
                                         {% else %}
-                                            <a href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
+                                            <a class="link-profile text-decoration-none" href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
                                         {% endif %}
                                     </td>
                                     <td class="progress-td">
@@ -48,7 +48,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
+                                    <td><a class="link-profile text-decoration-none" href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
                                     <td>
                                         <div class="progress" style="height: 20px; width: 90%;">
                                             <div class="progress-bar progress-bar-striped bg-info"

@@ -18,6 +18,13 @@
       .progress-td {
         width: 60%;
       }
+      .link-profile {
+        color: $fontColor;
+        padding-right: 2px;
+        &:hover {
+          color: $yellow;
+        }
+      }
     }
   }
 }
