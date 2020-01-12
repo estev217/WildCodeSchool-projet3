@@ -6,6 +6,8 @@
     <div class="container">
         <h1>Créer du nouveau contenu</h1>
 
+        <a href="{{ path('image_index') }}" target="_blank">Voir les images disponibles</a>
+
         {{ include('content/_form.html.twig') }}
 
         <a href="{{ path('content_index') }}">Retour à la liste</a>
