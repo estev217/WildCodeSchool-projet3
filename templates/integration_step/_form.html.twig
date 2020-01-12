@@ -7,10 +7,11 @@
         <div class="col-md-12">{{ form_row ( form.description ) }}</div>
     </div>
     <div class="row">
-        <div class="col-md-6">{{ form_row ( form.duration) }}</div>
-        <div class="col-md-6">{{ form_row ( form.fontAwesome ) }}</div>
+        <div class="col-md-4">{{ form_row ( form.duration) }}</div>
+        <div class="col-md-4">{{ form_row ( form.fontAwesome ) }}</div>
+        <div class="col-md-4">{{ form_row ( form.color ) }}</div>
     </div>
 </div>
     {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Sauvegarder') }}</button>
+    <button class="btn btn-primary mb-3">{{ button_label|default('Sauvegarder') }}</button>
 {{ form_end(form) }}
