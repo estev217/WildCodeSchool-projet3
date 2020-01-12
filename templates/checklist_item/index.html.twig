@@ -1,30 +1,31 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}ChecklistItem index{% endblock %}
+{% block title %}Gestion de la checklist{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="card w-100 m-auto">
+            <div class="col-12 mb-5">
+                <div class="card w-75 m-auto">
                     <div class="card-header text-center">
-                        <h1>L'index des éléments Checklist</h1>
+                        <h1>Gestion de la checklist</h1>
                     </div>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>Nom</th>
+                            <tr class="text-center">
+                                <th class="col-6">Nom</th>
                                 <th>Catégorie</th>
-                                <th>actions</th>
+                                <th class="col-2">
+                                    <a class="btn btn-primary" href="{{ path('checklist_item_new') }}">Créer</a>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for checklist_item in checklist_items %}
                             <tr>
-                                <td>{{ checklist_item.name }}</td>
-                                <td>{{ checklist_item.category }}</td>
-                                <td>
-                                    <a class="text-decoration-none" href="{{ path('checklist_item_show', {'id': checklist_item.id}) }}">Voir</a>
+                                <td class="align-middle">{{ checklist_item.name }}</td>
+                                <td class="text-center align-middle">{{ checklist_item.category }}</td>
+                                <td class="text-center align-middle">
                                     <a class="text-decoration-none" href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">Modifier</a>
                                 </td>
                             </tr>
@@ -35,9 +36,6 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    <div class="col-md">
-                        <a class="btn btn-primary mb-3" href="{{ path('checklist_item_new') }}">Créer</a>
-                    </div>
                 </div>
             </div>
         </div>
