@@ -161,13 +161,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user->getRole()->getName() === 'Collaborateur') {
+            if ($user->getRole()->getIdentifier() === 'collab') {
                 $user->setRoles(['ROLE_COLLABORATOR']);
             }
-            if ($user->getRole()->getName() === 'Manager') {
+            if ($user->getRole()->getIdentifier() === 'manager') {
                 $user->setRoles(['ROLE_MANAGER']);
             }
-            if ($user->getRole()->getName() === 'Administrateur') {
+            if ($user->getRole()->getIdentifier() === 'admin') {
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
@@ -212,13 +212,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user->getRole()->getName() === 'Collaborateur') {
+            if ($user->getRole()->getIdentifier() === 'collab') {
                 $user->setRoles(['ROLE_COLLABORATOR']);
             }
-            if ($user->getRole()->getName() === 'Manager') {
+            if ($user->getRole()->getIdentifier() === 'manager') {
                 $user->setRoles(['ROLE_MANAGER']);
             }
-            if ($user->getRole()->getName() === 'Administrateur') {
+            if ($user->getRole()->getIdentifier() === 'admin') {
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
