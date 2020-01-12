@@ -32,16 +32,18 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/new/{user}", name="appointment_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="appointment_new", methods={"GET","POST"})
      */
     public function new(Request $request, ParameterBagInterface $parameterBag): Response
     {
+        $manager = $this->getUser();
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $appointment->setPartner($manager);
             $entityManager->persist($appointment);
             $entityManager->flush();
 

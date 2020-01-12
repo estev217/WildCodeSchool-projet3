@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Appointment;
 use App\Entity\User;
-use Nette\Neon\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -18,6 +17,9 @@ class AppointmentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $thisYear = getDate()['year'];
+        $nextYear = ( $thisYear + 1 );
+
         $builder
             ->add('date', DateTimeType::class, [
                 'label' => ' ',
@@ -30,18 +32,12 @@ class AppointmentType extends AbstractType
                     00, 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55
                 ],
                 'years' => [
-                    2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035,
+                    $thisYear, $nextYear,
                 ]
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'label' => 'Collaborateur',
-                'choice_label' => function (user $user) {
-                    return $user->getFirstname() . ' ' . $user->getLastname();
-                }])
-            ->add('partner', EntityType::class, [
-                'class' => User::class,
-                'label' => 'Manager',
                 'choice_label' => function (user $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
