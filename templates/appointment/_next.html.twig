@@ -1,0 +1,4 @@
+{% for appointment in nextAppointments|sort((a, b) => a.date <=> b.date)|slice(0, 2) %}
+    <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+{% endfor %}

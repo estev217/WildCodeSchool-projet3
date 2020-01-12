@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use DateTime;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -21,6 +22,25 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AppointmentController extends AbstractController
 {
+
+    public function nextAppointments(AppointmentRepository $appointmentRepository, User $user): Response
+    {
+        $allAppointments = $appointmentRepository->findBy(['user' => $user->getId()]);
+        $today = new DateTime();
+
+        $nextAppointments = [];
+
+        foreach ($allAppointments as $appointment) {
+            if ($appointment->getDate() > $today) {
+                $nextAppointments[] = $appointment;
+            }
+        }
+
+        return $this->render('appointment/_next.html.twig', [
+            'nextAppointments' => $nextAppointments,
+        ]);
+    }
+
     /**
      * @Route("/", name="appointment_index", methods={"GET"})
      */
@@ -82,8 +102,7 @@ class AppointmentController extends AbstractController
 
                 $mail->send();
 
-            return $this->redirectToRoute('appointment_index');
-
+                return $this->redirectToRoute('appointment_index');
         }
 
         return $this->render('appointment/new.html.twig', [
