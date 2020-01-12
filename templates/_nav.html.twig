@@ -23,40 +23,18 @@
                         </a>
                     </li>
                 {% endif %}
-                    <li class="nav-item">
-                        <a href="{{ path('toolbox') }}" class="nav-link">
-                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
-                            Boîte à outils
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('info') }}" class="nav-link">
-                            <i class="fas fa-cubes mr-3 fa-fw"></i>
-                            Nemea
-                        </a>
-                    </li>
-
-                {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item">
-                    <a href="{{ path('user_index') }}" class="nav-link">
+                    <a href="{{ path('toolbox') }}" class="nav-link">
                         <i class="fas fa-toolbox mr-3 fa-fw"></i>
-                        Collaborateurs
+                        Boîte à outils
                     </a>
                 </li>
-                    <li class="nav-item">
-                        <a href="{{ path('checklist_item_index') }}" class="nav-link">
-                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
-                            Checklist
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('integration_step_index') }}" class="nav-link">
-                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
-                            Étapes d'intégration
-                        </a>
-                    </li>
-                {% endif %}
-
+                <li class="nav-item">
+                    <a href="{{ path('info') }}" class="nav-link">
+                        <i class="fas fa-cubes mr-3 fa-fw"></i>
+                        Nemea
+                    </a>
+                </li>
             </ul>
 
             {% if is_granted('ROLE_MANAGER') %}
@@ -82,6 +60,24 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-4 mb-0">Gestion</p>
                 <ul class="nav flex-column mb-0">
+                    <li class="nav-item">
+                        <a href="{{ path('user_index') }}" class="nav-link">
+                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
+                            Collaborateurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('checklist_item_index') }}" class="nav-link">
+                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
+                            Checklist
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('integration_step_index') }}" class="nav-link">
+                            <i class="fas fa-toolbox mr-3 fa-fw"></i>
+                            Parcours
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ path('content_index') }}" class="nav-link">
                             <i class="fas fa-clipboard-list mr-3 fa-fw"></i>
