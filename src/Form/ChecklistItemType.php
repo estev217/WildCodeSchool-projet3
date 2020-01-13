@@ -13,7 +13,9 @@ class ChecklistItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['label' => 'Nom'])
+            ->add('name', TextType::class, [
+                'label' => 'Nom',
+            ])
             ->add('category', TextType::class, ['label' => 'Catégorie'])
         ;
     }

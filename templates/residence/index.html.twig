@@ -19,7 +19,6 @@
                         <tr>
                             <th>Nom</th>
                             <th>Ville</th>
-                            <th>Description</th>
                             <th>actions</th>
                         </tr>
                         </thead>
@@ -28,7 +27,6 @@
                             <tr>
                                 <td>{{ residence.name }}</td>
                                 <td>{{ residence.city }}</td>
-                                <td>{{ residence.description }}</td>
                                 <td>
                                     <a href="{{ path('residence_show', {'id': residence.id}) }}">voir</a>
                                     <a href="{{ path('residence_edit', {'id': residence.id}) }}">modifier</a>
