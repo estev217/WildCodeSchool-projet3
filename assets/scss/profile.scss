@@ -21,5 +21,11 @@
     }
   }
 }
+.link-profile {
+  color: $fontColor;
+  &:hover {
+    color: $yellow;
+  }
+}
 
 

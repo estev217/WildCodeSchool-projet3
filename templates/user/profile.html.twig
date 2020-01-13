@@ -1,5 +1,6 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Profil{% endblock %}
 {% block body %}
     <div class="container-fluid profile-page">
     {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
@@ -25,17 +26,17 @@
                         <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
 
                         {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
-                            <p>Manager : <b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></p>
-                            <p>Référent : <b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></p>
-                            <p>Parrain : <b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></p>
+                            <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-manager"><b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></a></p>
+                            <p>Référent : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-referent"><b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></a></p>
+                            <p>Parrain : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-mentor"><b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></a></p>
                             <table>
                                 <tr>
                                     <td>
                                         {% if is_granted('ROLE_MANAGER') %}
-                                            <a href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist
+                                            <a class="link-profile text-decoration-none" href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist
                                                 :</a>
                                         {% else %}
-                                            <a href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
+                                            <a class="link-profile text-decoration-none" href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
                                         {% endif %}
                                     </td>
                                     <td class="progress-td">
@@ -48,7 +49,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><a href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
+                                    <td><a class="link-profile text-decoration-none" href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
                                     <td>
                                         <div class="progress" style="height: 20px; width: 90%;">
                                             <div class="progress-bar progress-bar-striped bg-info"
@@ -90,5 +91,5 @@
             </div>
         </div>
     </div>
-
+</div>
 {% endblock %}
