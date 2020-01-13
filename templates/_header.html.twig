@@ -8,11 +8,9 @@
                     <h4 class="card-title">Mes prochains rendez-vous</h4>
                 </div>
                 <div class="form-group">
-                    {% if is_granted('ROLE_COLLABORATOR') %}
-                        {% for appointment in app.user.appointments|sort((a, b) => a.date <=> b.date)|slice(0, 2) %}
-                            <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec
-                                <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
-                        {% endfor %}
+                    {% if not is_granted('ROLE_ADMIN') %}
+                        {{ render(controller('App\\Controller\\AppointmentController::nextAppointments',
+                            {'user' : app.user.id }))}}
                     {% endif %}
                 </div>
             </div>

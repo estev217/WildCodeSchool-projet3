@@ -2,7 +2,7 @@
 
 {% block title %}Profil{% endblock %}
 {% block body %}
-    <div class="container-fluid profile-page">
+<div class="container-fluid profile-page">
     {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
             <div><a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes
@@ -82,14 +82,20 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        {% for appointment in user.appointments|sort((a, b) => a.date <=> b.date) %}
-                            <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec
+                        {% for appointment in appointments %}
+                            <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+                            {% if is_granted('ROLE_MANAGER') %}
+                                <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b></p>
+                            {% elseif is_granted('ROLE_COLLABORATOR') %}
                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 {% endblock %}
+
