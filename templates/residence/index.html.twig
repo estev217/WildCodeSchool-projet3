@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Residence index{% endblock %}
+
+{% block body %}
+    <h1>Residence index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for residence in residences %}
+            <tr>
+                <td>{{ residence.id }}</td>
+                <td>{{ residence.name }}</td>
+                <td>{{ residence.city }}</td>
+                <td>{{ residence.description }}</td>
+                <td>
+                    <a href="{{ path('residence_show', {'id': residence.id}) }}">show</a>
+                    <a href="{{ path('residence_edit', {'id': residence.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('residence_new') }}">Create new</a>
+{% endblock %}
