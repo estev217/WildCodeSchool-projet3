@@ -31,20 +31,28 @@ class UserType extends AbstractType
                 'label' => 'Mot de passe',
                 'disabled' => $options['password_disabled']
             ])
+            ->add('telephone', TextType::class, [
+                'label' => 'Numéro de téléphone',
+                'required' => false,
+            ])
             ->add('picture', FileType::class, [
                 'label' => 'Image',
                 'required' => false,
             ])
             ->add('mentor', EntityType::class, [
                 'label' => 'Parrain',
+                'required' => false,
                 'class' => User::class,
+                'placeholder' => 'Choisir un parrain',
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
 
             ->add('referent', EntityType::class, [
                 'label' => 'Référent',
+                'required' => false,
                 'class' => User::class,
+                'placeholder' => 'Choisir un référent métier',
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
@@ -56,6 +64,8 @@ class UserType extends AbstractType
 
             ->add('position', EntityType::class, [
                 'class' => Position::class,
+                'required' => false,
+                'placeholder' => 'Choisir un métier',
                 'choice_label' => 'name',
                 'label' => 'Métier',
             ])
@@ -66,6 +76,8 @@ class UserType extends AbstractType
             ])
             ->add('manager', EntityType::class, [
                 'class' => User::class,
+                'required' => false,
+                'placeholder' => 'Choisir un manager',
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
@@ -73,11 +85,15 @@ class UserType extends AbstractType
             ])
             ->add('residence', EntityType::class, [
                 'class' => Residence::class,
+                'required' => false,
+                'placeholder' => 'Choisir une résidence',
                 'choice_label' => 'name',
                 'label' => 'Résidence',
             ])
             ->add('residencePilote', EntityType::class, [
                 'class' => Residence::class,
+                'required' => false,
+                'placeholder' => 'Choisir une résidence pilote',
                 'choice_label' => 'name',
                 'label' => 'Résidence pilote',
 

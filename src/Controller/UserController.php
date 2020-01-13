@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Entity\Role;
+use App\Repository\AppointmentRepository;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use App\Service\TimelineService;
@@ -29,8 +30,11 @@ class UserController extends AbstractController
      * @param TimelineService $timelineService
      * @return Response
      */
-    public function profile(User $user, TimelineService $timelineService): Response
-    {
+    public function profile(
+        User $user,
+        TimelineService $timelineService,
+        AppointmentRepository $appointmentRepository
+    ): Response {
         //Checklist progress bar
         $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
         $userItems = count($user->getChecklistItems());
@@ -46,10 +50,22 @@ class UserController extends AbstractController
 
         $percentIntegration = ($userSteps * 100) / $totalSteps;
 
+        $appointments = [];
+        if (in_array('ROLE_MANAGER', $user->getRoles())) {
+            $appointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
+        } elseif (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
+            $appointments = $appointmentRepository->findBy(['user' => $user->getId()]);
+        }
+
+        usort($appointments, function ($a, $b) {
+            return ($a->getDate()) <=> ($b->getDate());
+        });
+
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'percentChecklist' => $percentChecklist,
             'percentIntegration' => $percentIntegration,
+            'appointments' => $appointments,
         ]);
     }
 
