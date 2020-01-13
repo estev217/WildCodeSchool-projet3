@@ -26,11 +26,17 @@
                             </tr>
                             <tr>
                                 <th> Icône FontAwesome</th>
-                                <td><i class="{{ integration_step.fontAwesome }}"></i></td>
+                                <td>
+                                    <i class="{{ integration_step.fontAwesome }}"></i>
+                                    <span>{{ integration_step.fontAwesome }}</span>
+                                </td>
                             </tr>
                         <tr>
                             <th>Couleur héxadécimale</th>
-                            <td><div class="color-icon" style="background-color: {{ integration_step.color }};"></div><span>{{ integration_step.color }}</span></td>
+                            <td>
+                                <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
+                                <span class="ml-1">{{ integration_step.color }}</span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

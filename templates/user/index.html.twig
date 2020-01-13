@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}Gestion des utilisateurs{% endblock %}
 
 {% block body %}
 
@@ -9,10 +9,10 @@
             <div class="col-12 mb-5">
                 <div class="card w-100 m-auto">
                     <div class="card-header text-center">
-                        <h1>Liste des utilisateurs</h1>
+                        <h1 class="">Gestion des utilisateurs</h1>
                     </div>
-                    <div>
-                        <a class="btn btn-primary ml-3" href="{{ path('user_new') }}">Créer un nouvel utilisateur</a>
+                    <div class="text-center my-2">
+                        <a class="btn btn-primary ml-3" href="{{ path('user_new') }}">Ajouter un utilisateur</a>
                     </div>
                         <table class="table">
                             <thead>

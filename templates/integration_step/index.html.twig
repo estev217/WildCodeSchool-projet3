@@ -10,7 +10,7 @@
                     <div class="card-header text-center">
                         <h1>Gestion des étapes du parcours d'intégration</h1>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center my-2">
                         <a class="btn btn-primary" href="{{ path('integration_step_new') }}">Ajouter une étape</a>
                     </div>
                     <table class="table">
@@ -20,6 +20,7 @@
                                 <th>Description</th>
                                 <th class="text-center">Durée</th>
                                 <th class="text-center">Icône</th>
+                                <th class="text-center">Couleur</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -29,7 +30,14 @@
                                 <td class="align-middle">{{ integration_step.name }}</td>
                                 <td class="align-middle">{{ integration_step.description }}</td>
                                 <td class="text-center align-middle">{{ integration_step.duration }}</td>
-                                <td class="text-center align-middle"><i class="{{ integration_step.fontAwesome }}"></i></td>
+                                <td class="text-center align-middle">
+                                    <i class="{{ integration_step.fontAwesome }}"></i>
+                                    <span>{{ integration_step.fontAwesome }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
+                                    <span>{{ integration_step.color }}</span>
+                                </td>
                                 <td class="text-center">
                                     <a class="text-decoration-none" href="{{ path('integration_step_show', {'id': integration_step.id}) }}">Voir</a>
                                     <a class="text-decoration-none" href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>

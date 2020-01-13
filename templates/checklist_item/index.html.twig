@@ -10,14 +10,15 @@
                     <div class="card-header text-center">
                         <h1>Gestion de la checklist</h1>
                     </div>
+                    <div class="text-center my-2">
+                        <a class="btn btn-primary" href="{{ path('checklist_item_new') }}">Ajouter un élément</a>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr class="text-center">
                                 <th class="col-6">Nom</th>
                                 <th>Catégorie</th>
-                                <th class="col-2">
-                                    <a class="btn btn-primary" href="{{ path('checklist_item_new') }}">Créer</a>
-                                </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
