@@ -8,7 +8,7 @@
                     <h4 class="card-title">Mes prochains rendez-vous</h4>
                 </div>
                 <div class="form-group">
-                    {% if is_granted('ROLE_COLLABORATOR') %}
+                    {% if not is_granted('ROLE_ADMIN') %}
                         {{ render(controller('App\\Controller\\AppointmentController::nextAppointments',
                             {'user' : app.user.id }))}}
                     {% endif %}

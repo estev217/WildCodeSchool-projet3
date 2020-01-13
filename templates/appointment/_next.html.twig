@@ -1,4 +1,8 @@
 {% for appointment in nextAppointments|slice(0, 2) %}
     <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+    {% if is_granted('ROLE_MANAGER') %}
+        <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b></p>
+    {% elseif is_granted('ROLE_COLLABORATOR') %}
         <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+    {% endif %}
 {% endfor %}

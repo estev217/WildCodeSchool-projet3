@@ -25,7 +25,13 @@ class AppointmentController extends AbstractController
 
     public function nextAppointments(AppointmentRepository $appointmentRepository, User $user): Response
     {
-        $allAppointments = $appointmentRepository->findBy(['user' => $user->getId()]);
+        $allAppointments = '';
+        if ($this->isGranted('ROLE_MANAGER')) {
+            $allAppointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
+        } elseif ($this->isGranted('ROLE_COLLABORATOR')) {
+            $allAppointments = $user->getAppointments();
+        }
+
         $today = new DateTime();
 
         $nextAppointments = [];
@@ -42,6 +48,7 @@ class AppointmentController extends AbstractController
 
         return $this->render('appointment/_next.html.twig', [
             'nextAppointments' => $nextAppointments,
+            'ok' => 'ok',
         ]);
     }
 
@@ -70,43 +77,43 @@ class AppointmentController extends AbstractController
             $entityManager->flush();
 
             $mail = new PHPMailer(true);
-                /*Uncomment next line to see SMTP debug after process*/
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-                /* Tells PHPMailer to use SMTP. */
-                $mail->isSMTP();
-                /* SMTP server address. */
-                $mail->Host = 'smtp-mail.outlook.com';
-                /* Use SMTP authentication. */
-                $mail->SMTPAuth = true;
-                /* SMTP authentication username. */
-                $mail->Username = $this->getParameter('mail_from');
-                /* SMTP authentication password. */
-                $mail->Password = $this->getParameter('mail_password');
-                /* Set the encryption system. */
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                /* Set the SMTP port. */
-                $mail->Port = 587;
+            /*Uncomment next line to see SMTP debug after process*/
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            /* Tells PHPMailer to use SMTP. */
+            $mail->isSMTP();
+            /* SMTP server address. */
+            $mail->Host = 'smtp-mail.outlook.com';
+            /* Use SMTP authentication. */
+            $mail->SMTPAuth = true;
+            /* SMTP authentication username. */
+            $mail->Username = $this->getParameter('mail_from');
+            /* SMTP authentication password. */
+            $mail->Password = $this->getParameter('mail_password');
+            /* Set the encryption system. */
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            /* Set the SMTP port. */
+            $mail->Port = 587;
 
-                $mail->setFrom($this->getParameter('mail_from'));
-                //$mail->addAddress($form['user']->getData()->getEmail());
-                $mail->addAddress($this->getParameter('mail_from'));
-                $mail->isHTML(true);
-                $mail->Subject = 'Rendez-vous du';
-                $mail->Body = $form['message']->getData();
-                /*$mail->AltBody = '';*/
+            $mail->setFrom($this->getParameter('mail_from'));
+            //$mail->addAddress($form['user']->getData()->getEmail());
+            $mail->addAddress($this->getParameter('mail_from'));
+            $mail->isHTML(true);
+            $mail->Subject = 'Rendez-vous du';
+            $mail->Body = $form['message']->getData();
+            /*$mail->AltBody = '';*/
 
-                /* Disable some SSL checks. */
-                $mail->SMTPOptions = array(
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true
-                    )
-                );
+            /* Disable some SSL checks. */
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
 
-                $mail->send();
+            $mail->send();
 
-                return $this->redirectToRoute('appointment_index');
+            return $this->redirectToRoute('appointment_index');
         }
 
         return $this->render('appointment/new.html.twig', [
@@ -150,7 +157,7 @@ class AppointmentController extends AbstractController
      */
     public function delete(Request $request, Appointment $appointment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$appointment->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $appointment->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($appointment);
             $entityManager->flush();
