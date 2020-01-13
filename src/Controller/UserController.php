@@ -54,7 +54,7 @@ class UserController extends AbstractController
         if (in_array('ROLE_MANAGER', $user->getRoles())) {
             $appointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
         } elseif (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
-            $appointments = $user->getAppointments();
+            $appointments = $appointmentRepository->findBy(['user' => $user->getId()]);
         }
 
         usort($appointments, function ($a, $b) {
