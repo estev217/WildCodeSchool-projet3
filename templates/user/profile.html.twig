@@ -84,27 +84,29 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-                <div class="card ">
-                    <div class="card-header">
-                        <h3>Rendez-vous</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            {% for appointment in appointments %}
-                                <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
-                                {% if is_granted('ROLE_COLLABORATOR') %}
-                                    <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
-                                {% elseif is_granted('ROLE_MANAGER') and user.id != app.user.id %}
-                                    <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
-                                {% elseif is_granted('ROLE_MANAGER') and user.id == app.user.id %}
-                                    <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b></p>
-                                {% endif %}
-                            {% endfor %}
+            {% if not is_granted('ROLE_ADMIN') %}
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card ">
+                        <div class="card-header">
+                            <h3>Rendez-vous</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                {% for appointment in appointments %}
+                                    <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+                                    {% if is_granted('ROLE_COLLABORATOR') %}
+                                        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                                    {% elseif is_granted('ROLE_MANAGER') and user.id != app.user.id %}
+                                        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                                    {% elseif is_granted('ROLE_MANAGER') and user.id == app.user.id %}
+                                        <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b></p>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
 
     </div>
