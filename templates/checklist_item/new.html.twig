@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New ChecklistItem{% endblock %}
+{% block title %}Créer un élément de checklist{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card w-100 m-auto">
                     <div class="card-header text-center">
-                        <h1>Créer un nouvel élément checklist</h1>
+                        <h1>Créer un nouvel élément de checklist</h1>
                     </div>
                     <div class="m-4">
                         {{ include('checklist_item/_form.html.twig') }}
@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-md-center mt-3 mb-3">
+    <div class="d-flex justify-content-md-center mt-3 mb-5">
         <a class="btn btn-primary" href="{{ path('checklist_item_index') }}">Retour</a>
     </div>
 {% endblock %}

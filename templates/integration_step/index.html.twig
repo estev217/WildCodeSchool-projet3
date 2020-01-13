@@ -1,38 +1,44 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}IntegrationStep index{% endblock %}
+{% block title %}Gestion du parcours d'intégration{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mb-5">
                 <div class="card w-100 m-auto">
                     <div class="card-header text-center">
-                        <h1>L'index des étapes d'intégration</h1>
+                        <h1>Gestion des étapes du parcours d'intégration</h1>
                     </div>
-                    <div class="col-md">
-                        <a class="btn btn-primary mb-3" href="{{ path('integration_step_new') }}">Ajouter une étape</a>
+                    <div class="text-center my-2">
+                        <a class="btn btn-primary" href="{{ path('integration_step_new') }}">Ajouter une étape</a>
                     </div>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th>Nom</th>
                                 <th>Description</th>
-                                <th>Durée</th>
-                                <th>Icône FontAwesome</th>
-                                <th>Couleur</th>
-                                <th>actions</th>
+                                <th class="text-center">Durée</th>
+                                <th class="text-center">Icône</th>
+                                <th class="text-center">Couleur</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for integration_step in integration_steps %}
                             <tr>
-                                <td>{{ integration_step.name }}</td>
-                                <td>{{ integration_step.description }}</td>
-                                <td>{{ integration_step.duration }}</td>
-                                <td>{{ integration_step.fontAwesome }}</td>
-                                <td class="col-icon"><div class="color-icon" style="background-color: {{ integration_step.color }};"></div><span>{{ integration_step.color }}</span></td>
-                                <td>
+                                <td class="align-middle">{{ integration_step.name }}</td>
+                                <td class="align-middle">{{ integration_step.description }}</td>
+                                <td class="text-center align-middle">{{ integration_step.duration }}</td>
+                                <td class="text-center align-middle">
+                                    <i class="{{ integration_step.fontAwesome }}"></i>
+                                    <span>{{ integration_step.fontAwesome }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
+                                    <span>{{ integration_step.color }}</span>
+                                </td>
+                                <td class="text-center">
                                     <a class="text-decoration-none" href="{{ path('integration_step_show', {'id': integration_step.id}) }}">Voir</a>
                                     <a class="text-decoration-none" href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">Modifier</a>
                                 </td>
