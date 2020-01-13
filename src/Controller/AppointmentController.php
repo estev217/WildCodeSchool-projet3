@@ -36,6 +36,10 @@ class AppointmentController extends AbstractController
             }
         }
 
+        usort($nextAppointments, function ($a, $b) {
+            return ($a->getDate()) <=> ($b->getDate());
+        });
+
         return $this->render('appointment/_next.html.twig', [
             'nextAppointments' => $nextAppointments,
         ]);
