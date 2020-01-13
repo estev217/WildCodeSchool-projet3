@@ -50,16 +50,16 @@ class UserController extends AbstractController
 
         $percentIntegration = ($userSteps * 100) / $totalSteps;
 
-        $appointments = '';
-        if ($this->isGranted('ROLE_MANAGER')) {
+        $appointments = [];
+        if (in_array('ROLE_MANAGER', $user->getRoles())) {
             $appointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
-        } elseif ($this->isGranted('ROLE_COLLABORATOR')) {
+        } elseif (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
             $appointments = $user->getAppointments();
         }
 
-        usort($appointments, function ($a, $b) {
+        /*usort($appointments, function ($a, $b) {
             return ($a->getDate()) <=> ($b->getDate());
-        });
+        });*/
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
