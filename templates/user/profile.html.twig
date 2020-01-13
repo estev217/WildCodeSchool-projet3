@@ -9,6 +9,12 @@
                     collaborateurs</a></div>
         </div>
     {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 mb-3">
+            <div><a href="{{ path('user_index') }}">Retour à la liste des
+                    utilisateurs</a></div>
+        </div>
+    {% endif %}
     <div class="page-header">
         <h1>Profil</h1>
     </div>
@@ -25,16 +31,24 @@
                         <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
                         <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
 
-                        {% if is_granted('ROLE_COLLABORATOR') or app.user.id != user.id %}
-                            <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-manager"><b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></a></p>
-                            <p>Référent : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-referent"><b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></a></p>
-                            <p>Parrain : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-mentor"><b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></a></p>
+                            {% if user.manager %}
+                                <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-manager"><b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></a></p>
+                            {% endif %}
+                            {% if user.referent %}
+                                <p>Référent : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-referent"><b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></a></p>
+                            {% endif %}
+                            {% if user.mentor %}
+                                <p>Parrain : <a class="link-profile text-decoration-none" href="" data-toggle="modal" data-target="#modal-mentor"><b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></a></p>
+                            {% endif %}
+
+                        {%  if user.manager %}
                             <table>
                                 <tr>
                                     <td>
-                                        {% if is_granted('ROLE_MANAGER') %}
-                                            <a class="link-profile text-decoration-none" href="{{ path('collaborator_checklist', {'user': user.id }) }}">Checklist
-                                                :</a>
+                                        {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
+                                            <a class="link-profile text-decoration-none" href="{{ path('collaborator_checklist', {'user': user.id }) }}">
+                                                Checklist :
+                                            </a>
                                         {% else %}
                                             <a class="link-profile text-decoration-none" href="{{ path('checklist', {'user': user.id }) }}">Checklist :</a>
                                         {% endif %}
