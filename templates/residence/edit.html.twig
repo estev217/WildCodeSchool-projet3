@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Edit Residence{% endblock %}
 
@@ -7,7 +7,7 @@
 
     {{ include('residence/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('residence_index') }}">back to list</a>
+    <a href="{{ path('residence_index') }}">Retour</a>
 
     {{ include('residence/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,39 +1,49 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Residence index{% endblock %}
+{% block title %}Gestion des résidences{% endblock %}
 
 {% block body %}
-    <h1>Residence index</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-5">
+                <div class="card w-75 m-auto">
+                    <div class="card-header text-center">
+                        <h1>Gestion des résidences</h1>
+                    </div>
+                    <div class="text-center my-2">
+                        <a class="btn btn-primary" href="{{ path('residence_new') }}">Ajouter une résidence</a>
+                    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>City</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for residence in residences %}
-            <tr>
-                <td>{{ residence.id }}</td>
-                <td>{{ residence.name }}</td>
-                <td>{{ residence.city }}</td>
-                <td>{{ residence.description }}</td>
-                <td>
-                    <a href="{{ path('residence_show', {'id': residence.id}) }}">show</a>
-                    <a href="{{ path('residence_edit', {'id': residence.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Ville</th>
+                            <th>Description</th>
+                            <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for residence in residences %}
+                            <tr>
+                                <td>{{ residence.name }}</td>
+                                <td>{{ residence.city }}</td>
+                                <td>{{ residence.description }}</td>
+                                <td>
+                                    <a href="{{ path('residence_show', {'id': residence.id}) }}">voir</a>
+                                    <a href="{{ path('residence_edit', {'id': residence.id}) }}">modifier</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5">aucun enregistrement</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('residence_new') }}">Create new</a>
 {% endblock %}
