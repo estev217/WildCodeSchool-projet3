@@ -57,9 +57,9 @@ class UserController extends AbstractController
             $appointments = $user->getAppointments();
         }
 
-        /*usort($appointments, function ($a, $b) {
+        usort($appointments, function ($a, $b) {
             return ($a->getDate()) <=> ($b->getDate());
-        });*/
+        });
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
