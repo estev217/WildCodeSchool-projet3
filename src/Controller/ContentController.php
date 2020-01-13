@@ -16,6 +16,8 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class ContentController extends AbstractController
 {
+    const ITEMS_PER_PAGE = 6;
+
     /**
      * @Route ("/toolbox", name="toolbox")
      * @return Response
@@ -41,7 +43,7 @@ class ContentController extends AbstractController
         $contents = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
-            6
+            self::ITEMS_PER_PAGE
         );
 
         return $this->render('nemeaContent.html.twig', [

@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\ChecklistItem;
 use App\Entity\Position;
 use App\Entity\Residence;
 use App\Entity\Role;
@@ -11,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +27,7 @@ class UserType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('email')
-            ->add('password', TextType::class, [
+            ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'disabled' => $options['password_disabled']
             ])

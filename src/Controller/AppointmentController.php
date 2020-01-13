@@ -32,18 +32,22 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="appointment_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="appointment_new", methods={"GET","POST"})
      */
     public function new(Request $request, ParameterBagInterface $parameterBag): Response
     {
+        $manager = $this->getUser();
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $appointment->setPartner($manager);
             $entityManager->persist($appointment);
             $entityManager->flush();
+
+            $date = date_format(($form['date']->getData()), 'd-m H:i');
 
             $mail = new PHPMailer(true);
                 /*Uncomment next line to see SMTP debug after process*/
@@ -67,7 +71,7 @@ class AppointmentController extends AbstractController
                 //$mail->addAddress($form['user']->getData()->getEmail());
                 $mail->addAddress($this->getParameter('mail_from'));
                 $mail->isHTML(true);
-                $mail->Subject = 'Rendez-vous du';
+                $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . $form['subject']->getData();
                 $mail->Body = $form['message']->getData();
                 /*$mail->AltBody = '';*/
 
@@ -82,7 +86,7 @@ class AppointmentController extends AbstractController
 
                 $mail->send();
 
-            return $this->redirectToRoute('appointment_index');
+                return $this->redirectToRoute('appointment_index');
         }
 
         return $this->render('appointment/new.html.twig', [
