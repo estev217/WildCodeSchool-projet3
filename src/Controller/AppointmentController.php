@@ -29,7 +29,7 @@ class AppointmentController extends AbstractController
         if ($this->isGranted('ROLE_MANAGER')) {
             $allAppointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
         } elseif ($this->isGranted('ROLE_COLLABORATOR')) {
-            $allAppointments = $user->getAppointments();
+            $allAppointments = $appointmentRepository->findBy(['user' => $user->getId()]);
         }
 
         $today = new DateTime();

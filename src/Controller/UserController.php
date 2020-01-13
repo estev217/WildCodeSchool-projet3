@@ -50,11 +50,11 @@ class UserController extends AbstractController
 
         $percentIntegration = ($userSteps * 100) / $totalSteps;
 
-        $appointments = '';
-        if ($this->isGranted('ROLE_MANAGER')) {
+        $appointments = [];
+        if (in_array('ROLE_MANAGER', $user->getRoles())) {
             $appointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
-        } elseif ($this->isGranted('ROLE_COLLABORATOR')) {
-            $appointments = $user->getAppointments();
+        } elseif (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
+            $appointments = $appointmentRepository->findBy(['user' => $user->getId()]);
         }
 
         usort($appointments, function ($a, $b) {
