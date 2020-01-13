@@ -27,6 +27,7 @@
                     <div class="card-body d-flex align-items-center justify-content-around">
                         <div class="profile-infos">
                             <p>Email : <b>{{ user.email }}</b></p>
+                            <p>Téléphone : <b>{{ user.telephone }}</b></p>
                             <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
                             <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
 
@@ -96,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            {% if not is_granted('ROLE_ADMIN') %}
+            {% if not is_granted('ROLE_ADMIN') or user.id != app.user.id %}
                 <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
                         <div class="card-header">
@@ -108,7 +109,7 @@
                                     <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
                                     {% if is_granted('ROLE_COLLABORATOR') %}
                                         <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
-                                    {% elseif is_granted('ROLE_MANAGER') and user.id != app.user.id %}
+                                    {% elseif is_granted(['ROLE_MANAGER', 'ROLE_ADMIN']) and user.id != app.user.id %}
                                         <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
                                     {% elseif is_granted('ROLE_MANAGER') and user.id == app.user.id %}
                                         <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b></p>
