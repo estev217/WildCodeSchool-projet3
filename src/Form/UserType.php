@@ -87,14 +87,18 @@ class UserType extends AbstractType
                 'class' => Residence::class,
                 'required' => false,
                 'placeholder' => 'Choisir une résidence',
-                'choice_label' => 'name',
+                'choice_label' => function (Residence $residence) {
+                    return $residence->getName() . ' - ' . $residence->getCity();
+                },
                 'label' => 'Résidence',
             ])
             ->add('residencePilote', EntityType::class, [
                 'class' => Residence::class,
                 'required' => false,
                 'placeholder' => 'Choisir une résidence pilote',
-                'choice_label' => 'name',
+                'choice_label' => function (Residence $residence) {
+                    return $residence->getName() . ' - ' . $residence->getCity();
+                },
                 'label' => 'Résidence pilote',
 
             ]);
