@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modifier la checklist{% endblock %}
+{% block title %}Modifier la résidence{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -8,18 +8,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h1>Modifier la checklist</h1>
+                        <h1>Modifier la résidence</h1>
                     </div>
                     <div class="m-3">
-                        {{ include('checklist_item/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
-                        {{ include('checklist_item/_delete_form.html.twig') }}
+                        {{ include('residence/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+                        {{ include('residence/_delete_form.html.twig') }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-center mt-3 mb-5">
-        <a class="btn btn-primary" href="{{ path('checklist_item_index') }}">Retour</a>
+        <a class="btn btn-primary" href="{{ path('residence_index') }}">Retour</a>
     </div>
 
 {% endblock %}

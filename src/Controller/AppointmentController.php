@@ -48,7 +48,6 @@ class AppointmentController extends AbstractController
 
         return $this->render('appointment/_next.html.twig', [
             'nextAppointments' => $nextAppointments,
-            'ok' => 'ok',
         ]);
     }
 
