@@ -27,6 +27,9 @@
                     <div class="card-body d-flex align-items-center justify-content-around">
                         <div class="profile-infos">
                             <p>Email : <b>{{ user.email }}</b></p>
+                            {% if not is_granted('ROLE_MANAGER') %}
+                                <p><a href="{{ path('password_reset', {'user': user.id} ) }}"> Modification du mot de passe</a></p>
+                            {% endif %}
                             <p>Téléphone : <b>{{ user.telephone }}</b></p>
                             <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
                             <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
@@ -67,6 +70,7 @@
                                                      style="width: {{ percentChecklist }}%"
                                                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>

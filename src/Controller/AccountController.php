@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\User;
@@ -17,13 +16,13 @@ class AccountController extends AbstractController
 {
 
     /**
-     * @Route("/user/reset/{id}", name="password_reset", methods={"GET","POST"})
+     * @Route("/user/reset/{user}", name="password_reset", methods={"GET","POST"})
+     * @param User $user
      * @param Request $request
      * @return Response
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function reset(User $user, Request $request, UserPasswordEncoderInterface $encoder): Response
     {
-        $user = $this->getUser();
         $form = $this->createForm(ResetPasswordType::class, $user);
 
         $form->handleRequest($request);
@@ -40,11 +39,10 @@ class AccountController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Nouveau mot de passe enregistré !');
-
-            $this->redirectToRoute('app_login');
         }
         return $this->render('security/reset.html.twig', [
             'form' => $form->createView(),
+            'User' => $user,
         ]);
     }
 }
