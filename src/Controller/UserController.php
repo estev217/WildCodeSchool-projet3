@@ -71,59 +71,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/checklist/{user}", name="checklist")
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param User $user
-     * @return Response
-     */
-    public function checklist(Request $request, EntityManagerInterface $entityManager, User $user): Response
-    {
-        $form = $this->createForm(UserTypeChecklist::class, $user, ['write_right' => true]);
-        $form->handleRequest($request);
-
-        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
-        $userItems = count($user->getChecklistItems());
-
-        $percent = ($userItems * 100) / $totalItems;
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash(
-                'success',
-                'Vos changements ont été sauvegardés !'
-            );
-            $entityManager->flush();
-        }
-        return $this->render('checklist.html.twig', [
-            'form' => $form->createView(),
-            'percent' => $percent,
-        ]);
-    }
-
-    /**
-     * @Route("/timeline/{user}", name="timeline")
-     * @param User $user
-     * @param TimelineService $timelineService
-     * @return Response
-     */
-    public function timeline(
-        User $user,
-        TimelineService $timelineService,
-        IntegrationStepRepository $integrationStepRepository
-    ): Response {
-        $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
-        $startDate = $user->getStartDate();
-
-        $statuses = $timelineService->generate($steps, $startDate);
-
-        return $this->render('timeline/timeline.html.twig', [
-            'steps' => $steps,
-            'statuses' => $statuses,
-            'user' => $user,
-        ]);
-    }
-
-    /**
      * @Route("/{user}/collaborators", name="manager_show", methods={"GET"})
      * @param User $user
      * @return Response

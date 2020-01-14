@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\ChecklistItem;
+use App\Entity\User;
 use App\Form\ChecklistItemType;
+use App\Form\UserTypeChecklist;
 use App\Repository\ChecklistItemRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +18,35 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ChecklistItemController extends AbstractController
 {
+    /**
+     * @Route("/checklist/{user}", name="checklist")
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param User $user
+     * @return Response
+     */
+    public function checklist(Request $request, EntityManagerInterface $entityManager, User $user): Response
+    {
+        $form = $this->createForm(UserTypeChecklist::class, $user, ['write_right' => true]);
+        $form->handleRequest($request);
+
+        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
+        $userItems = count($user->getChecklistItems());
+
+        $percent = ($userItems * 100) / $totalItems;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash(
+                'success',
+                'Vos changements ont été sauvegardés !'
+            );
+            $entityManager->flush();
+        }
+        return $this->render('checklist.html.twig', [
+            'form' => $form->createView(),
+            'percent' => $percent,
+        ]);
+    }
 
     /**
      * @Route("/", name="index", methods={"GET"})
