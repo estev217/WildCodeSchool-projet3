@@ -12,6 +12,7 @@ class IntegrationStepFixtures extends Fixture
 
     const STEPS = [
         [
+            'number' => '1',
             'name' => 'Intégration au siège',
             'description' => 'Accueil par le responsable de pôle 
             Visite des locaux',
@@ -20,6 +21,7 @@ class IntegrationStepFixtures extends Fixture
             'color' => '#fff3bf',
         ],
         [
+            'number' => '2',
             'name' => 'Intégration au siège',
             'description' => 'Suivi du parcours de rencontre 
             Bilan des deux jours d\'intégration au siège avec le manager',
@@ -29,6 +31,7 @@ class IntegrationStepFixtures extends Fixture
 
         ],
         [
+            'number' => '3',
             'name' => 'Intégration sur la résidence pilote - Mise en situation',
             'description' => 'Mise en situation aux côtés du référent métier
             Doit comprendre un week-end',
@@ -37,6 +40,7 @@ class IntegrationStepFixtures extends Fixture
             'color' => '#d8f5a2',
         ],
         [
+            'number' => '4',
             'name' => 'Intégration du lieu de travail',
             'description' => 'Visite des locaux
             Présentation de l\'équipe',
@@ -45,6 +49,7 @@ class IntegrationStepFixtures extends Fixture
             'color' => '#ffdeeb',
         ],
         [
+            'number' => '5',
             'name' => 'Suivi de l\'intégration',
             'description' => 'Point avec les services supports
             Suivi hebdomadaire',
@@ -53,6 +58,7 @@ class IntegrationStepFixtures extends Fixture
             'color' => '#fbd4f2',
         ],
         [
+            'number' => '6',
             'name' => 'Bilan de la période écoulée',
             'description' => 'RDV bilan de la période écoulée',
             'duration' => 1,
@@ -60,6 +66,7 @@ class IntegrationStepFixtures extends Fixture
             'color' => '#fff85b',
         ],
         [
+            'number' => '7',
             'name' => 'Suivi mensuel',
             'description' => 'Entretien de suivi avec le responsable de pôle
              Si prolongation de la période d\'essai, 2nd entretien',
@@ -68,6 +75,7 @@ class IntegrationStepFixtures extends Fixture
             'color' => '#b2f2bb',
         ],
         [
+            'number' => '8',
             'name' => 'Bilan de la fin d\'intégration',
             'description' => 'Entretien de suivi mensuel
             Elaboration du plan de développement personnalisé',
@@ -84,6 +92,7 @@ class IntegrationStepFixtures extends Fixture
     {
         foreach (self::STEPS as $data) {
             $step = new IntegrationStep();
+            $step->setNumber($data['number']);
             $step->setName($data['name']);
             $step->setDescription($data['description']);
             $step->setDuration($data['duration']);
