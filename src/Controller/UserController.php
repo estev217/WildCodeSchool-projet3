@@ -9,6 +9,7 @@ use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Entity\Role;
 use App\Repository\AppointmentRepository;
+use App\Repository\IntegrationStepRepository;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use App\Service\TimelineService;
@@ -105,9 +106,12 @@ class UserController extends AbstractController
      * @param TimelineService $timelineService
      * @return Response
      */
-    public function timeline(User $user, TimelineService $timelineService): Response
-    {
-        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
+    public function timeline(
+        User $user,
+        TimelineService $timelineService,
+        IntegrationStepRepository $integrationStepRepository
+    ): Response {
+        $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
         $startDate = $user->getStartDate();
 
         $statuses = $timelineService->generate($steps, $startDate);

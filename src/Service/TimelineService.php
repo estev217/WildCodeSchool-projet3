@@ -4,9 +4,17 @@
 namespace App\Service;
 
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 
 class TimelineService
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     public function generate(array $steps, $startDate)
     {
         $totalStepsDays = 0;
@@ -34,5 +42,17 @@ class TimelineService
         }
 
         return $result;
+    }
+
+    public function rearrange($steps, $newStep)
+    {
+        $newNumber = $newStep->getNumber();
+        foreach ($steps as $step) {
+            if ($step->getNumber() >= $newNumber) {
+                $step->setNumber($step->getNumber() +1);
+                $this->entityManager->persist($step);
+            }
+        }
+        $this->entityManager->flush();
     }
 }

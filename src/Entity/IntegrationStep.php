@@ -41,6 +41,11 @@ class IntegrationStep
      */
     private $color;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $number;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class IntegrationStep
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getNumber(): ?int
+    {
+        return $this->number;
+    }
+
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
 
         return $this;
     }

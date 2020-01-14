@@ -29,14 +29,24 @@ class IntegrationStepController extends AbstractController
 
     /**
      * @Route("/new", name="integration_step_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param TimelineService $timelineService
+     * @param IntegrationStepRepository $integrationStepRepository
+     * @return Response
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        TimelineService $timelineService,
+        IntegrationStepRepository $integrationStepRepository
+    ): Response {
         $integrationStep = new IntegrationStep();
         $form = $this->createForm(IntegrationStepType::class, $integrationStep);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
+            $timelineService->rearrange($steps, $integrationStep);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($integrationStep);
             $entityManager->flush();

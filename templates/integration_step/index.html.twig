@@ -16,6 +16,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Numéro</th>
                                 <th>Nom</th>
                                 <th>Description</th>
                                 <th class="text-center">Durée</th>
@@ -27,6 +28,7 @@
                         <tbody>
                         {% for integration_step in integration_steps %}
                             <tr>
+                                <td class="align-middle">{{ integration_step.number }}</td>
                                 <td class="align-middle">{{ integration_step.name }}</td>
                                 <td class="align-middle">{{ integration_step.description }}</td>
                                 <td class="text-center align-middle">{{ integration_step.duration }}</td>
