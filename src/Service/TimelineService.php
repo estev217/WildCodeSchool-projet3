@@ -32,7 +32,7 @@ class TimelineService
         $result = [];
 
         foreach ($steps as $key => $step) {
-            if ($sums[$key] < $diff) {
+            if ($sums[$key] <= $diff) {
                 $result[$step->getId()] = 'completed';
             } elseif ($sums[$key] > $diff && ($sums[$key] - $diff) > $step->getDuration()) {
                 $result[$step->getId()] = 'future';
