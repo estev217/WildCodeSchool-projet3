@@ -45,8 +45,9 @@ class IntegrationStepController extends AbstractController
      */
     public function index(IntegrationStepRepository $integrationStepRepository): Response
     {
+        $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
         return $this->render('integration_step/index.html.twig', [
-            'integration_steps' => $integrationStepRepository->findAll(),
+            'integration_steps' => $steps,
         ]);
     }
 
