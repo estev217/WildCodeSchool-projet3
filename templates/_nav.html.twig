@@ -58,56 +58,11 @@
             {% endif %}
 
             {% if is_granted('ROLE_ADMIN') %}
-                <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-4 mb-0">Gestion</p>
                 <ul class="nav flex-column mb-0">
                     <li class="nav-item">
-                        <a href="{{ path('user_index') }}" class="nav-link">
+                        <a href="{{ path('admin') }}" class="nav-link">
                             <i class="fas fa-users mr-3 fa-fw"></i>
-                            Collaborateurs
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('checklist_item_index') }}" class="nav-link">
-                            <i class="fas fa-tasks mr-3 fa-fw"></i>
-                            Checklist
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('integration_step_index') }}" class="nav-link">
-                            <i class="fas fa-walking mr-3 fa-fw"></i>
-                            Parcours
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ path('residence_index') }}" class="nav-link">
-                            <i class="fas fa-home mr-3 fa-fw"></i>
-                            Résidences
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('content_index') }}" class="nav-link">
-                            <i class="fas fa-file-word mr-3 fa-fw"></i>
-                            Contenu
-                        </a>
-                    </li>
-                    <li class="nav-item">
-
-                        <a href="{{ path('document_index_texts') }}" class="nav-link">
-                            <i class="fas fa-images mr-3 fa-fw"></i>
-                            Documents
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('document_index_images') }}" class="nav-link">
-                            <i class="fas fa-images mr-3 fa-fw"></i>
-                            Images
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('category_index') }}" class="nav-link">
-                            <i class="fas fa-folder-open mr-3 fa-fw"></i>
-                            Catégories
+                            Gestion
                         </a>
                     </li>
                 </ul>
