@@ -3,8 +3,8 @@
 {% block title %}Mon parcours d'intégration{% endblock %}
 {% block body %}
     <div class="container">
-        {% if is_granted('ROLE_MANAGER') %}
-            <a href="{{ path('profile', {'user': user.id }) }}">Retour au profil de mon
+        {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('profile', {'user': user.id }) }}">Retour au profil du
                 collaborateur</a>
 
             <div class="page-header">
@@ -23,8 +23,8 @@
                     <div class="timeline-panel {{ statuses[step.id] }}">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">{{ step.name }}</h4>
-                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Durée
-                                    : {{ step.duration }} {{ step.duration > 1 ? 'jours' : 'jour' }}</small></p>
+                            <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Durée : {{ durations[step.id] }}
+                                  </small></p>
                         </div>
                         <div class="timeline-body">
                             <p>{{ step.description|nl2br }}</p>

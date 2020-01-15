@@ -18,25 +18,60 @@ use Symfony\Component\Routing\Annotation\Route;
 class IntegrationStepController extends AbstractController
 {
     /**
+     * @Route("/timeline/{user}", name="timeline")
+     * @param User $user
+     * @param TimelineService $timelineService
+     * @return Response
+     */
+    public function timeline(
+        User $user,
+        TimelineService $timelineService,
+        IntegrationStepRepository $integrationStepRepository
+    ): Response {
+        $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
+        $startDate = $user->getStartDate();
+
+        $statuses = $timelineService->generate($steps, $startDate);
+        $durations = $timelineService->convertDays($steps);
+        return $this->render('timeline/timeline.html.twig', [
+            'steps' => $steps,
+            'statuses' => $statuses,
+            'user' => $user,
+            'durations' => $durations,
+        ]);
+    }
+
+    /**
      * @Route("/", name="integration_step_index", methods={"GET"})
      */
     public function index(IntegrationStepRepository $integrationStepRepository): Response
     {
+        $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
         return $this->render('integration_step/index.html.twig', [
-            'integration_steps' => $integrationStepRepository->findAll(),
+            'integration_steps' => $steps,
         ]);
     }
 
     /**
      * @Route("/new", name="integration_step_new", methods={"GET","POST"})
+     * @param Request $request
+     * @param TimelineService $timelineService
+     * @param IntegrationStepRepository $integrationStepRepository
+     * @return Response
      */
-    public function new(Request $request): Response
-    {
+    public function new(
+        Request $request,
+        TimelineService $timelineService,
+        IntegrationStepRepository $integrationStepRepository
+    ): Response {
         $integrationStep = new IntegrationStep();
         $form = $this->createForm(IntegrationStepType::class, $integrationStep);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
+            $timelineService->rearrange($steps, $integrationStep);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($integrationStep);
             $entityManager->flush();

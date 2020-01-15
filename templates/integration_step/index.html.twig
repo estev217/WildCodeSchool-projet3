@@ -16,6 +16,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Position</th>
                                 <th>Nom</th>
                                 <th>Description</th>
                                 <th class="text-center">Durée</th>
@@ -27,16 +28,15 @@
                         <tbody>
                         {% for integration_step in integration_steps %}
                             <tr>
+                                <td class="align-middle">{{ integration_step.number }}</td>
                                 <td class="align-middle">{{ integration_step.name }}</td>
                                 <td class="align-middle">{{ integration_step.description }}</td>
                                 <td class="text-center align-middle">{{ integration_step.duration }}</td>
                                 <td class="text-center align-middle">
                                     <i class="{{ integration_step.fontAwesome }}"></i>
-                                    <span>{{ integration_step.fontAwesome }}</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
-                                    <span>{{ integration_step.color }}</span>
                                 </td>
                                 <td class="text-center">
                                     <a class="text-decoration-none" href="{{ path('integration_step_show', {'id': integration_step.id}) }}">Voir</a>

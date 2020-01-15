@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
+use DateTime;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -21,6 +22,35 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AppointmentController extends AbstractController
 {
+
+    public function nextAppointments(AppointmentRepository $appointmentRepository, User $user): Response
+    {
+        $allAppointments = '';
+        if ($this->isGranted('ROLE_MANAGER')) {
+            $allAppointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
+        } elseif ($this->isGranted('ROLE_COLLABORATOR')) {
+            $allAppointments = $appointmentRepository->findBy(['user' => $user->getId()]);
+        }
+
+        $today = new DateTime();
+
+        $nextAppointments = [];
+
+        foreach ($allAppointments as $appointment) {
+            if ($appointment->getDate() > $today) {
+                $nextAppointments[] = $appointment;
+            }
+        }
+
+        usort($nextAppointments, function ($a, $b) {
+            return ($a->getDate()) <=> ($b->getDate());
+        });
+
+        return $this->render('appointment/_next.html.twig', [
+            'nextAppointments' => $nextAppointments,
+        ]);
+    }
+
     /**
      * @Route("/", name="appointment_index", methods={"GET"})
      */
@@ -50,6 +80,7 @@ class AppointmentController extends AbstractController
             $date = date_format(($form['date']->getData()), 'd-m H:i');
 
             $mail = new PHPMailer(true);
+
                 /*Uncomment next line to see SMTP debug after process*/
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 /* Tells PHPMailer to use SMTP. */
@@ -130,7 +161,7 @@ class AppointmentController extends AbstractController
      */
     public function delete(Request $request, Appointment $appointment): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$appointment->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $appointment->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($appointment);
             $entityManager->flush();

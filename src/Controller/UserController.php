@@ -8,6 +8,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Entity\Role;
+use App\Repository\AppointmentRepository;
+use App\Repository\IntegrationStepRepository;
 use App\Repository\ResidenceRepository;
 use App\Repository\UserRepository;
 use App\Service\TimelineService;
@@ -29,8 +31,11 @@ class UserController extends AbstractController
      * @param TimelineService $timelineService
      * @return Response
      */
-    public function profile(User $user, TimelineService $timelineService): Response
-    {
+    public function profile(
+        User $user,
+        TimelineService $timelineService,
+        AppointmentRepository $appointmentRepository
+    ): Response {
         //Checklist progress bar
         $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
         $userItems = count($user->getChecklistItems());
@@ -46,60 +51,22 @@ class UserController extends AbstractController
 
         $percentIntegration = ($userSteps * 100) / $totalSteps;
 
+        $appointments = [];
+        if (in_array('ROLE_MANAGER', $user->getRoles())) {
+            $appointments = $appointmentRepository->findBy(['partner' => $user->getId()]);
+        } elseif (in_array('ROLE_COLLABORATOR', $user->getRoles())) {
+            $appointments = $appointmentRepository->findBy(['user' => $user->getId()]);
+        }
+
+        usort($appointments, function ($a, $b) {
+            return ($a->getDate()) <=> ($b->getDate());
+        });
+
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'percentChecklist' => $percentChecklist,
             'percentIntegration' => $percentIntegration,
-        ]);
-    }
-
-    /**
-     * @Route("/checklist/{user}", name="checklist")
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @param User $user
-     * @return Response
-     */
-    public function checklist(Request $request, EntityManagerInterface $entityManager, User $user): Response
-    {
-        $form = $this->createForm(UserTypeChecklist::class, $user, ['write_right' => true]);
-        $form->handleRequest($request);
-
-        $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
-        $userItems = count($user->getChecklistItems());
-
-        $percent = ($userItems * 100) / $totalItems;
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash(
-                'success',
-                'Vos changements ont été sauvegardés !'
-            );
-            $entityManager->flush();
-        }
-        return $this->render('checklist.html.twig', [
-            'form' => $form->createView(),
-            'percent' => $percent,
-        ]);
-    }
-
-    /**
-     * @Route("/timeline/{user}", name="timeline")
-     * @param User $user
-     * @param TimelineService $timelineService
-     * @return Response
-     */
-    public function timeline(User $user, TimelineService $timelineService): Response
-    {
-        $steps = $this->getDoctrine()->getRepository(IntegrationStep::class)->findAll();
-        $startDate = $user->getStartDate();
-
-        $statuses = $timelineService->generate($steps, $startDate);
-
-        return $this->render('timeline/timeline.html.twig', [
-            'steps' => $steps,
-            'statuses' => $statuses,
-            'user' => $user,
+            'appointments' => $appointments,
         ]);
     }
 
@@ -144,8 +111,9 @@ class UserController extends AbstractController
      */
     public function index(UserRepository $userRepository): Response
     {
+        $users = $userRepository->findBy([], ['lastname' => 'ASC']);
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $users,
         ]);
     }
 
