@@ -41,6 +41,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setTelephone($faker->phoneNumber);
         $user->setStartDate($faker->dateTimeThisDecade);
         $manager->persist($user);
+        $this->addReference('admin', $user);
 
         // Creates 1 random admin
         $user = new User();
