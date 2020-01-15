@@ -1,6 +1,7 @@
 
 body {
   font-family: $mainFont;
+  color: $fontColor;
   background-color: $darkBackground;
 }
 
@@ -36,6 +37,10 @@ h1 {
 
 a:hover {
   text-decoration: none;
+}
+
+hr {
+  background-color: $yellow;
 }
 
 @media (max-width: 700px) {

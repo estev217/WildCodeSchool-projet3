@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Nouveau document{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Ajouter un document</h1>
+
+        <p>Type acceptés : PDF, DOC, DOCX</p>
+        <hr>
+
+        {{ include('document/_form.html.twig') }}
+
+        <a href="{{ path('document_index_texts') }}">Retour à la liste</a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('inputDocument') }}
+{% endblock %}
+

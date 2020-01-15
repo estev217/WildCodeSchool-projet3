@@ -15,7 +15,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker  =  Faker\Factory::create('fr_FR');
-        for ($i=0;$i<=5; $i++) {
+        for ($i=0; $i<=5; $i++) {
             $content = new Content();
             $content->setTitle($faker->sentence);
             $content->setUser($this->getReference('admin'));
@@ -35,5 +35,4 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
     {
         return [CategoryFixtures::class, UserFixtures::class];
     }
-
 }
