@@ -14,6 +14,7 @@ class VerifyPasswordType extends AbstractType
     {
         $builder
             ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'mapped' => false,
                 'attr' => [
                     'class' => 'password-field',
