@@ -14,7 +14,7 @@ class IntegrationStepType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number', IntegerType::class, ['label' => 'number'])
+            ->add('number', IntegerType::class, ['label' => 'Position'])
             ->add('name', TextType::class, ['label' => 'Nom'])
             ->add('description')
             ->add('duration', TextType::class, ['label' => 'Durée (en jours)'])
