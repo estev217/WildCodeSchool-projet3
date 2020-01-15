@@ -10,11 +10,11 @@
             <tbody>
             <tr>
                 <th>Document</th>
-                <td><img src="/upload/images/{{ document.documentName }}" alt="vignette" class="vignette"></td>
+                <td>{{ document.documentName }}</td>
             </tr>
             <tr>
                 <th>ULR du document</th>
-                <td><input class="copy-text" type="text" id="text-box" size="50" value="/upload/{{ document.documentName }}"> <a title="Copier l'URL"> <i class="fas fa-copy copy-button ml-2"></i></a></td>
+                <td><input class="copy-text" type="text" id="text-box" size="50" value="/upload/documents/{{ document.documentName }}"> <a title="Copier l'URL"> <i class="fas fa-copy copy-button ml-2"></i></a></td>
             </tr>
             <tr>
                 <th>Ajouté le</th>
@@ -23,9 +23,9 @@
             </tbody>
         </table>
 
-        <a href="{{ path('document_index') }}" class="btn btn-primary mb-3">Retour à la liste</a>
+        <a href="{{ path('document_index_texts') }}" class="btn btn-primary mb-3">Retour à la liste</a>
 
-        {{ include('document/_delete_form.html.twig') }}
+        {{ include('document/_delete_form_text.html.twig') }}
     </div>
 {% endblock %}
 

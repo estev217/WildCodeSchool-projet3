@@ -1,17 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New document{% endblock %}
+{% block title %}Nouveau document{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1>Ajouter un document</h1>
-        <p>Type d'images : JPEG, JPG, PNG, GIF</p>
-        <p>Type de textes : PDF, DOC, DOCX</p>
+        <p>Type acceptés : JPEG, JPG, PNG, GIF</p>
+
         <hr>
 
         {{ include('document/_form.html.twig') }}
 
-        <a href="{{ path('document_index') }}">Retour à la liste</a>
+        <a href="{{ path('document_index_images') }}">Retour à la liste</a>
     </div>
 {% endblock %}
 

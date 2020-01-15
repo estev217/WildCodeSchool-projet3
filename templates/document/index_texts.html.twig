@@ -1,0 +1,44 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Index Documents{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Tous les documents</h1>
+
+        <a href="{{ path('document_new_text') }}" class="btn btn-primary mb-3">Ajouter un document</a>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>URL du document</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for text in texts %}
+                        <tr>
+                            <td>{{ text.documentName }}</td>
+                            <td><input class="copy-text" type="text" id="text-box" size="20"
+                                       value="/upload/documents/{{ text.documentName }}"> <a title="Copier l'URL"> <i
+                                            class="fas fa-copy copy-button ml-2"></i></a></td>
+                            <td>
+                                <a href="{{ path('document_show_text', {'id': text.id}) }}">Voir</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">Aucun document</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('copyURL') }}
+{% endblock %}
+

@@ -29,49 +29,94 @@ class DocumentController extends AbstractController
     ];
 
     /**
-     * @Route("/", name="document_index", methods={"GET"})
+     * @Route("/text", name="document_index_texts", methods={"GET"})
      */
-    public function index(DocumentRepository $documentRepository): Response
+    public function indexTexts(DocumentRepository $documentRepository): Response
     {
-        return $this->render('document/index.html.twig', [
-            'documents' => $documentRepository->findAll(),
+        $texts = $documentRepository->findBy(['type' => Document::TEXT]);
+
+        return $this->render('document/index_texts.html.twig', [
+            'texts' => $texts,
         ]);
     }
 
     /**
-     * @Route("/new", name="document_new", methods={"GET","POST"})
+     * @Route("/image", name="document_index_images", methods={"GET"})
      */
-    public function new(Request $request): Response
+    public function indexImages(DocumentRepository $documentRepository): Response
+    {
+        $images = $documentRepository->findBy(['type' => Document::IMAGE]);
+
+        return $this->render('document/index_images.html.twig', [
+            'images' => $images,
+        ]);
+    }
+
+    /**
+     * @Route("/new/text", name="document_new_text", methods={"GET","POST"})
+     */
+    public function newText(Request $request): Response
     {
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (in_array($document->getDocumentFile()->getMimeType(), self::IMAGE_TYPES)) {
-                $document->setType(Document::IMAGE);
-            } else {
-                $document->setType(Document::TEXT);
-            }
+            $document->setType(Document::TEXT);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($document);
             $entityManager->flush();
 
-            return $this->redirectToRoute('document_index');
+            return $this->redirectToRoute('document_index_texts');
         }
 
-        return $this->render('document/new.html.twig', [
+        return $this->render('document/new_text.html.twig', [
             'document' => $document,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="document_show", methods={"GET"})
+     * @Route("/new/image", name="document_new_image", methods={"GET","POST"})
      */
-    public function show(Document $document): Response
+    public function newImage(Request $request): Response
     {
-        return $this->render('document/show.html.twig', [
+        $document = new Document();
+        $form = $this->createForm(DocumentType::class, $document);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $document->setType(Document::IMAGE);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($document);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('document_index_images');
+        }
+
+        return $this->render('document/new_image.html.twig', [
+            'document' => $document,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/text/{id}", name="document_show_text", methods={"GET"})
+     */
+    public function showText(Document $document): Response
+    {
+        return $this->render('document/show_text.html.twig', [
+            'document' => $document,
+        ]);
+    }
+
+    /**
+     * @Route("/image/{id}", name="document_show_image", methods={"GET"})
+     */
+    public function showImage(Document $document): Response
+    {
+        return $this->render('document/show_image.html.twig', [
             'document' => $document,
         ]);
     }
@@ -97,9 +142,9 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="document_delete", methods={"DELETE"})
+     * @Route("/text/{id}", name="document_delete_text", methods={"DELETE"})
      */
-    public function delete(Request $request, Document $document): Response
+    public function deleteText(Request $request, Document $document): Response
     {
         if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -107,6 +152,20 @@ class DocumentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('document_index');
+        return $this->redirectToRoute('document_index_texts');
+    }
+
+    /**
+     * @Route("/image/{id}", name="document_delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Request $request, Document $document): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$document->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($document);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('document_index_images');
     }
 }
