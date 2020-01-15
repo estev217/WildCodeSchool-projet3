@@ -39,6 +39,6 @@ security:
         - { path: ^/integration, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
         - { path: ^/content, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
         - { path: ^/checklistitem, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
-        - { path: ^/image, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
+        - { path: ^/document, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
 
 
