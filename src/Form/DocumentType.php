@@ -20,7 +20,7 @@ class DocumentType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '10000k',
+                        'maxSize' => '2000k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',

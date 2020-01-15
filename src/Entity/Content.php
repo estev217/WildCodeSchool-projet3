@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
+
+    const MAX_STRING = 500;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -143,5 +146,31 @@ class Content
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getBegin(): string
+    {
+        /*$maxString = self::MAX_STRING;
+        $content = substr($this->getContent(), 0, $maxString);
+        while (!$this->isTagClosed($content)) {
+            $content = substr($this->getContent(), 0, $maxString++);
+        }
+        return $content . '...';*/
+
+        return strip_tags(substr($this->getContent(), 0, self::MAX_STRING));
+    }
+
+    private function isTagClosed(string $content): bool
+    {
+        $isTagClosed = true;
+        for ($i = 0; $i < strlen($content); $i++) {
+            if ($content[$i] === '<') {
+                $isTagClosed = false;
+            } elseif ($content[$i] === '>') {
+                $isTagClosed = true;
+            }
+        }
+
+        return $isTagClosed;
     }
 }

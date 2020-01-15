@@ -39,6 +39,7 @@ class ContentController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
+
         $data = $contentRepository->findAll();
         $contents = $paginator->paginate(
             $data,
@@ -90,6 +91,16 @@ class ContentController extends AbstractController
     public function show(Content $content): Response
     {
         return $this->render('content/show.html.twig', [
+            'content' => $content,
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id}", name="content_article", methods={"GET"})
+     */
+    public function showArticle(Content $content): Response
+    {
+        return $this->render('content/show_article.html.twig', [
             'content' => $content,
         ]);
     }

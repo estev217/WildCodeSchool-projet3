@@ -9,9 +9,12 @@
                 {% for content in contents %}
                     <div class="col-12 col-lg-6">
                         <div class="card">
-                            <h5 class="card-header font-weight-bold text-uppercase text-center py-4 mb-0">{{ content.title }}</h5>
-                            <div class="card-body">
-                                {{ content.content|raw }}
+                            <a href="{{ path('content_article', {'id': content.id}) }}">
+                                <h5 class="card-header font-weight-bold text-uppercase text-center py-4 mb-0">{{ content.title }}</h5>
+                            </a>
+
+                            <div class="card-body nemea-content">
+                                {{ content.begin|raw }}
                             </div>
                         </div>
                     </div>
