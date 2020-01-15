@@ -1,14 +1,14 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New Image{% endblock %}
+{% block title %}New document{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Ajouter une image</h1>
+        <h1>Ajouter un document</h1>
 
-        {{ include('image/_form.html.twig') }}
+        {{ include('document/_form.html.twig') }}
 
-        <a href="{{ path('image_index') }}">Retour à la liste</a>
+        <a href="{{ path('document_index') }}">Retour à la liste</a>
     </div>
 {% endblock %}
 

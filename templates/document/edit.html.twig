@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Modifier Document{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier le document</h1>
+
+        {{ include('document/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+        <a href="{{ path('document_index') }}">Retour à la liste</a>
+
+        {{ include('document/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
