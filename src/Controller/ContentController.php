@@ -16,7 +16,7 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class ContentController extends AbstractController
 {
-    const ITEMS_PER_PAGE = 6;
+    const ITEMS_PER_PAGE = 9;
 
     /**
      * @Route ("/toolbox", name="toolbox")
