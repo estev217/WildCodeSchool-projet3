@@ -18,7 +18,8 @@
                     <tbody>
                     {% for text in texts %}
                         <tr>
-                            <td>{{ text.documentName }}</td>
+                            <td><a href="/upload/documents/{{ text.documentName }}"
+                                   target="_blank">{{ text.documentName }}</a></td>
                             <td><input class="copy-text" type="text" id="text-box" size="20"
                                        value="/upload/documents/{{ text.documentName }}"> <a title="Copier l'URL"> <i
                                             class="fas fa-copy copy-button ml-2"></i></a></td>
