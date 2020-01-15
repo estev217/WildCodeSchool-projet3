@@ -81,12 +81,12 @@ class AppointmentController extends AbstractController
 
             $mail = new PHPMailer(true);
 
-                /*Uncomment next line to see SMTP debug after process*/
+                /*Enable verbose debug output*/
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
                 /* Tells PHPMailer to use SMTP. */
                 $mail->isSMTP();
                 /* SMTP server address. */
-                $mail->Host = 'smtp-mail.outlook.com';
+                $mail->Host = $this->getParameter('mail_server');
                 /* Use SMTP authentication. */
                 $mail->SMTPAuth = true;
                 /* SMTP authentication username. */
@@ -97,14 +97,14 @@ class AppointmentController extends AbstractController
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 /* Set the SMTP port. */
                 $mail->Port = 587;
-
                 $mail->setFrom($this->getParameter('mail_from'));
-                //$mail->addAddress($form['user']->getData()->getEmail());
                 $mail->addAddress($this->getParameter('mail_from'));
+                //$mail->addAddress($form['user']->getData()->getEmail());
+                /*$mail->addCC($manager->getEmail());
+                $mail->addReplyTo($manager->getEmail());*/
                 $mail->isHTML(true);
-                $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . $form['subject']->getData();
-                $mail->Body = $form['message']->getData();
-                /*$mail->AltBody = '';*/
+                $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
+                $mail->Body = utf8_decode($form['message']->getData());
 
                 /* Disable some SSL checks. */
                 $mail->SMTPOptions = array(

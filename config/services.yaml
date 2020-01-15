@@ -8,6 +8,7 @@ parameters:
     app.path.images: /upload/images
     mail_from: '%env(MAIL_FROM)%'
     mail_password: '%env(MAIL_PASSWORD)%'
+    mail_server: '%env(MAIL_SERVER)%'
 
 services:
     # default configuration for services in *this* file
