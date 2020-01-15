@@ -45,6 +45,11 @@ class Appointment
      */
     private $partner;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $summary;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +130,18 @@ class Appointment
     public function setPartner(?User $partner): self
     {
         $this->partner = $partner;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }
