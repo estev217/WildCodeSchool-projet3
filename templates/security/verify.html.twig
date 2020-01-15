@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modification du mot de passe{% endblock %}
+{% block title %}Validation du mot de passe{% endblock %}
 
 {% block body %}
     <div class="container mb-5">
@@ -9,7 +9,7 @@
                 <div class="col-lg-8 col-sm-12">
                     <div class="card">
                         <div class="card-header text-center">
-                            <h1>Modifier le mot de passe</h1>
+                            <h1>Validez votre mot de passe actuel</h1>
                         </div>
                         <div class="m-3">
                             <form method="post">
@@ -17,7 +17,7 @@
                                     {{ form_start(form) }}
                                     {{ form_widget(form) }}
                                     <div class="d-flex justify-content-center">
-                                        <button class="btn btn-primary mb-5 mt-3">{{ button_label|default('Modifier') }}</button>
+                                        <button class="btn btn-primary mb-5 mt-3">{{ button_label|default('Valider') }}</button>
                                     </div>
                                     {{ form_end(form) }}
                                 </div>

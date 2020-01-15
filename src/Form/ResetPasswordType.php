@@ -19,21 +19,13 @@ class ResetPasswordType extends AbstractType
                 'invalid_message' => 'Les deux mots de passe doivent être identiques',
                 'first_name' => 'Nouveau_mot_de_passe',
                 'second_name' => 'Confirmer_le_nouveau_mot_de_passe',
-                'options' => array(
-                    'attr' => array(
+                'options' => [
+                    'attr' => [
                         'class' => 'password-field',
-                        'label' => "Mot",
-                    )
-                ),
+                    ]
+                ],
                 'required' => true,
-
-            ])
-            /*->add('submit', SubmitType::class, array(
-                'attr' => array(
-                    'class' => 'btn btn-primary btn-block'
-                )
-            ))*/
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
