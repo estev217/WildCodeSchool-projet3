@@ -14,27 +14,27 @@ class CategoryFixtures extends Fixture
     const CATEGORIES = [
         [
             'name' => 'Le groupe',
-            'identifier' => 'Présentation de l\entreprise'
+            'identifier' => 'group'
         ],
         [
             'name' => 'Nos métiers ',
-            'identifier' => 'L\efficacité du réseau'
+            'identifier' => 'occupation'
         ],
         [
             'name' => 'Cap 2022',
-            'identifier' => 'Notre politique de croissance'
+            'identifier' => 'futur'
         ],
         [
             'name' => 'Memo pratique',
-            'identifier' => 'Guide du nouveau collaborateur'
+            'identifier' => 'memo'
         ],
         [
             'name' => 'Annuaire',
-            'identifier' => 'Qui contacter en cas de besoin'
+            'identifier' => 'contact'
         ],
         [
             'name' => 'Nos produits',
-            'identifier' => 'Les différents types de résidences'
+            'identifier' => 'offer'
         ],
 
     ];

@@ -21,7 +21,8 @@
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Identifier</th>
-                                    <th>actions</th>
+                                    <th>Voir</th>
+                                    <th>Modifier</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,10 +31,8 @@
                                     <td>{{ category.id }}</td>
                                     <td>{{ category.name }}</td>
                                     <td>{{ category.identifier }}</td>
-                                    <td>
-                                        <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                                        <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                                    </td>
+                                    <td><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></td>
+                                    <td> <a href="{{ path('category_edit', {'id': category.id}) }}">Modifier</a></td>
                                 </tr>
                             {% else %}
                                 <tr>
