@@ -47,10 +47,12 @@ class TimelineService
     public function rearrange($steps, $newStep)
     {
         $newNumber = $newStep->getNumber();
+        $i = 1;
         foreach ($steps as $step) {
             if ($step->getNumber() >= $newNumber) {
-                $step->setNumber($step->getNumber() +1);
+                $step->setNumber($newNumber + $i);
                 $this->entityManager->persist($step);
+                $i++;
             }
         }
         $this->entityManager->flush();
