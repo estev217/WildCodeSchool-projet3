@@ -10,12 +10,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use DateTimeImmutable;
 
 /**
- * @ORM\Entity(repositoryClass="DocumentRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DocumentRepository")
  * @Vich\Uploadable()
  * @ORM\HasLifecycleCallbacks
  */
 class Document
 {
+
+    const TEXT = 'text';
+    const IMAGE = 'image';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

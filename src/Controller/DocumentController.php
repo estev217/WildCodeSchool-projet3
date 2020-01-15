@@ -15,6 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class DocumentController extends AbstractController
 {
+    const TEXT_TYPES = [
+        'application/pdf',
+        'application/x-pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+
+    const IMAGE_TYPES = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+    ];
+
     /**
      * @Route("/", name="document_index", methods={"GET"})
      */
@@ -35,6 +48,11 @@ class DocumentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (in_array($document->getDocumentFile()->getMimeType(), self::IMAGE_TYPES)) {
+                $document->setType(Document::IMAGE);
+            } else {
+                $document->setType(Document::TEXT);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($document);
             $entityManager->flush();
