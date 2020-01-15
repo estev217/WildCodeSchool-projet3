@@ -32,11 +32,12 @@ class IntegrationStepController extends AbstractController
         $startDate = $user->getStartDate();
 
         $statuses = $timelineService->generate($steps, $startDate);
-
+        $durations = $timelineService->convertDays($steps);
         return $this->render('timeline/timeline.html.twig', [
             'steps' => $steps,
             'statuses' => $statuses,
             'user' => $user,
+            'durations' => $durations,
         ]);
     }
 
