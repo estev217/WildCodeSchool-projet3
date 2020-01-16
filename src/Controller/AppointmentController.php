@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\SummaryAppointmentType;
 use App\Repository\UserRepository;
 use DateTime;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -156,6 +157,25 @@ class AppointmentController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/summary/{id}", name="summary", methods={"GET","POST"})
+     */
+    public function editSummary(Request $request, Appointment $summary, Appointment $appointment): Response
+    {
+        $form = $this->createForm(SummaryAppointmentType::class, $summary);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('appointment_index');
+        }
+
+        return $this->render('manager/summaryAppointment.html.twig', [
+            'summary' => $summary,
+            'form' => $form->createView(),
+        ]);
+    }
     /**
      * @Route("/{id}", name="appointment_delete", methods={"DELETE"})
      */
