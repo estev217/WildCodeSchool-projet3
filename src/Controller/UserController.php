@@ -26,6 +26,15 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
+     * @Route("/admin", name="admin")
+     * @return Response
+     */
+    public function adminPage(): Response
+    {
+        return $this->render('admin.html.twig');
+    }
+
+    /**
      * @Route("/profile/{user}", name="profile")
      * @param User $user
      * @param TimelineService $timelineService
