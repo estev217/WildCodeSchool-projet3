@@ -41,6 +41,10 @@ class AccountController extends AbstractController
             $manager->flush();
 
             $this->addFlash('success', 'Nouveau mot de passe enregistré !');
+
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' => $user->getId(),
+            ]));
         }
         return $this->render('security/reset.html.twig', [
             'form' => $form->createView(),

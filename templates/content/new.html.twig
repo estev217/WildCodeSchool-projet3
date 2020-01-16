@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New Content{% endblock %}
+{% block title %}Nouveau Contenu{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -12,7 +12,8 @@
                     </div>
                     <div class="m-3">
                         {{ include('content/_form.html.twig') }}
-                        <a href="{{ path('image_index') }}" target="_blank">Voir les images disponibles</a>
+                        <a class="btn btn-primary mt-3" href="{{ path('document_index_texts') }}" target="_blank">Voir les documents disponibles</a>
+                        <a class="btn btn-primary mt-3" href="{{ path('document_index_images') }}" target="_blank">Voir les images disponibles</a>
                     </div>
                 </div>
             </div>
