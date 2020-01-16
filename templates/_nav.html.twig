@@ -36,6 +36,11 @@
                     </a>
                 </li>
             </ul>
+            <div>
+                {{ render ( controller (
+                    'App\\Controller\\CategoryController::navigation'
+                )) }}
+            </div>
 
             {% if is_granted('ROLE_MANAGER') %}
                 <p class="nav-title font-weight-bold text-uppercase text-center px-2 small pb-4 pt-5 mb-0">Le coin du
