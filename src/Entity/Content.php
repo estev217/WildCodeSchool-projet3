@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
+
+    const MAX_STRING = 500;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -143,5 +146,10 @@ class Content
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getBegin(): string
+    {
+        return strip_tags(substr($this->getContent(), 0, self::MAX_STRING)) . '...';
     }
 }

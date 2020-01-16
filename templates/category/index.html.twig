@@ -18,9 +18,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Identifier</th>
+                                    <th>Nom</th>
                                     <th>Voir</th>
                                     <th>Modifier</th>
                                 </tr>
@@ -28,9 +26,7 @@
                             <tbody>
                             {% for category in categories %}
                                 <tr>
-                                    <td>{{ category.id }}</td>
                                     <td>{{ category.name }}</td>
-                                    <td>{{ category.identifier }}</td>
                                     <td><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></td>
                                     <td> <a href="{{ path('category_edit', {'id': category.id}) }}">Modifier</a></td>
                                 </tr>
@@ -46,7 +42,5 @@
             </div>
         </div>
     </div>
-
-
 
 {% endblock %}

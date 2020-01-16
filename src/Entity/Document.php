@@ -10,12 +10,16 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use DateTimeImmutable;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DocumentRepository")
  * @Vich\Uploadable()
  * @ORM\HasLifecycleCallbacks
  */
-class Image
+class Document
 {
+
+    const TEXT = 'text';
+    const IMAGE = 'image';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,13 +30,13 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $imageName;
+    private $documentName;
 
     /**
-     * @Vich\UploadableField(mapping="image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="document", fileNameProperty="documentName")
      * @var File
      */
-    private $imageFile;
+    private $documentFile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -44,19 +48,24 @@ class Image
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getImageName(): ?string
+    public function getDocumentName(): ?string
     {
-        return $this->imageName;
+        return $this->documentName;
     }
 
-    public function setImageName(?string $imageName): self
+    public function setDocumentName(?string $documentName): self
     {
-        $this->imageName = $imageName;
+        $this->documentName = $documentName;
 
         return $this;
     }
@@ -64,20 +73,20 @@ class Image
     /**
      * @return null|File
      */
-    public function getImageFile(): ?File
+    public function getDocumentFile(): ?File
     {
-        return $this->imageFile;
+        return $this->documentFile;
     }
 
     /**
-     * @param File $imageFile
-     * @return Image
+     * @param File $documentFile
+     * @return Document
      * @throws Exception
      */
-    public function setImageFile(File $imageFile): Image
+    public function setDocumentFile(File $documentFile): Document
     {
-        $this->imageFile = $imageFile;
-        if ($this->imageFile instanceof UploadedFile) {
+        $this->documentFile = $documentFile;
+        if ($this->documentFile instanceof UploadedFile) {
             $this->updatedAt = new DateTimeImmutable();
         }
         return $this;
@@ -123,5 +132,17 @@ class Image
     public function handleUpdateDate()
     {
         $this->setUpdatedAt(new DateTimeImmutable());
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
     }
 }

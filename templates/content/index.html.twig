@@ -18,6 +18,7 @@
                         <thead>
                         <tr>
                             <th>Titre</th>
+                            <th>Catégorie</th>
                             <th>Crée le</th>
                             <th>Crée par</th>
                             <th>Mis à jour le</th>
@@ -29,6 +30,7 @@
                         {% for content in contents %}
                             <tr>
                                 <td>{{ content.title }}</td>
+                                <td>{{ content.category.name }}</td>
                                 <td>{{ content.createdAt ? content.createdAt|date('d/m/Y') : '' }}</td>
                                 <td>{{ content.user.firstname}} {{ content.user.lastname}}</td>
                                 <td>{{ content.updatedAt ? content.updatedAt|date('d/m/Y') : '' }}</td>
