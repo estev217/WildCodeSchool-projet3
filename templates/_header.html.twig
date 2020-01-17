@@ -8,11 +8,9 @@
                     <h4 class="card-title">Mes prochains rendez-vous</h4>
                 </div>
                 <div class="form-group">
-                    {% if is_granted('ROLE_COLLABORATOR') %}
-                        {% for appointment in app.user.appointments|sort((a, b) => a.date <=> b.date)|slice(0, 2) %}
-                            <p>Le {{ appointment.date|date ("d/m/Y à h:i") }} avec
-                                <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
-                        {% endfor %}
+                    {% if not is_granted('ROLE_ADMIN') %}
+                        {{ render(controller('App\\Controller\\AppointmentController::nextAppointments',
+                            {'user' : app.user.id }))}}
                     {% endif %}
                 </div>
             </div>
@@ -33,13 +31,16 @@
                     </div>
 
                     <div>
-                        <p><i class="fas fa-user-tie mr-2"></i> Manager :
-                            <b>{{ app.user.manager.firstname }} {{ app.user.manager.lastname }}</b></p>
-                        <p><i class="fas fa-user-cog mr-1"></i> Référent métier : <b>{{ app.user.referent.firstname }} {{ app.user.referent.lastname }}</b></p>
-                        <p><i class="fas fa-user-ninja mr-2"></i> Parrain : <b>{{ app.user.mentor.firstname }} {{ app.user.mentor.lastname }}</b></p>
+                        <p><i class="fas fa-user-tie mr-2"></i><a href="" data-toggle="modal" data-target="#modal-manager"> Manager :
+                                <b>{{ app.user.manager.firstname }} {{ app.user.manager.lastname }}</b></a></p>
+                        <p><i class="fas fa-user-cog mr-1"></i><a href="" data-toggle="modal" data-target="#modal-referent"> Référent métier :
+                            <b>{{ app.user.referent.firstname }} {{ app.user.referent.lastname }}</b></a></p>
+                        <p><i class="fas fa-user-ninja mr-2"></i><a href="" data-toggle="modal" data-target="#modal-mentor"> Parrain :
+                            <b>{{ app.user.mentor.firstname }} {{ app.user.mentor.lastname }}</b></a></p>
                     </div>
-
+                    {% include 'user/modal_profile.html.twig' %}
                 </div>
+            </div>
                 <div class="icon align-self-center">
                     <div class="icon-circle circle-contact">
                         <i class="fas fa-user-cog"></i>

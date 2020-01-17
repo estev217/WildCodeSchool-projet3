@@ -1,7 +1,8 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Mes collaborateurs{% endblock %}
 {% block body %}
-
+    <div class="container">
         <div class="row">
             <div class="collab-list">
                 <div class="card">
@@ -10,6 +11,7 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-striped collaborators">
+                            <caption class="agenda"><a href="{{ path('appointment_new', {'id': app.user.id}) }}"><i class="far fa-calendar-check fa-lg"></i> Planifier un rendez-vous</a></caption>
                             <thead>
                             <tr>
                                 <th scope="col" class="col-1 text-uppercase text-center">Nom</th>
@@ -45,5 +47,5 @@
             </div>
 
         </div>
-
+    </div>
 {% endblock %}

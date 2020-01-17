@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}IntegrationStep{% endblock %}
+{% block title %}Détails de l'étape d'intégration{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -12,6 +12,10 @@
                     </div>
                     <table class="table">
                         <tbody>
+                        <tr>
+                            <th>Position</th>
+                            <td>{{ integration_step.number }}</td>
+                        </tr>
                             <tr>
                                 <th>Nom</th>
                                 <td>{{ integration_step.name }}</td>
@@ -21,13 +25,23 @@
                                 <td>{{ integration_step.description }}</td>
                             </tr>
                             <tr>
-                                <th>Durée</th>
+                                <th>Durée (en jours)</th>
                                 <td>{{ integration_step.duration }}</td>
                             </tr>
                             <tr>
                                 <th> Icône FontAwesome</th>
-                                <td>{{ integration_step.fontAwesome }}</td>
+                                <td>
+                                    <i class="{{ integration_step.fontAwesome }}"></i>
+                                    <span>{{ integration_step.fontAwesome }}</span>
+                                </td>
                             </tr>
+                        <tr>
+                            <th>Couleur héxadécimale</th>
+                            <td>
+                                <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
+                                <span class="ml-1">{{ integration_step.color }}</span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <div class="d-flex align-items-end">
@@ -39,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mb-3">
+        <div class="d-flex justify-content-center mb-5">
             <a class="btn btn-primary" href="{{ path('integration_step_index') }}">Retour</a>
         </div>
     </div>

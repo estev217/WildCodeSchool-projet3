@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Content
 {
+
+    const MAX_STRING = 500;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -43,6 +46,12 @@ class Content
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="contents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -125,5 +134,22 @@ class Content
         $this->title = $title;
 
         return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getBegin(): string
+    {
+        return strip_tags(substr($this->getContent(), 0, self::MAX_STRING)) . '...';
     }
 }

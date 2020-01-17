@@ -16,6 +16,8 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class ContentController extends AbstractController
 {
+    const ITEMS_PER_PAGE = 9;
+
     /**
      * @Route ("/toolbox", name="toolbox")
      * @return Response
@@ -37,11 +39,12 @@ class ContentController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ): Response {
+
         $data = $contentRepository->findAll();
         $contents = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
-            6
+            self::ITEMS_PER_PAGE
         );
 
         return $this->render('nemeaContent.html.twig', [
@@ -88,6 +91,16 @@ class ContentController extends AbstractController
     public function show(Content $content): Response
     {
         return $this->render('content/show.html.twig', [
+            'content' => $content,
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id}", name="content_article", methods={"GET"})
+     */
+    public function showArticle(Content $content): Response
+    {
+        return $this->render('content/show_article.html.twig', [
             'content' => $content,
         ]);
     }

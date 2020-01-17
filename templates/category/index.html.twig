@@ -1,0 +1,46 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card w-100 m-auto">
+                    <div class="card-header text-center">
+                        <h1>Catégories d'articles</h1>
+                    </div>
+                    <div class="d-flex justify-content-md-start ml-4 mt-3">
+                        <a href="{{ path('category_new') }}" class="btn btn-primary  mb-3">Créer une nouvelle catégorie</a>
+                        <a href="{{ path('content_new') }}" class="btn btn-primary ml-3 mb-3">Créer un nouveau contenu</a>
+                    </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Voir</th>
+                                    <th>Modifier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for category in categories %}
+                                <tr>
+                                    <td>{{ category.name }}</td>
+                                    <td><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></td>
+                                    <td> <a href="{{ path('category_edit', {'id': category.id}) }}">Modifier</a></td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

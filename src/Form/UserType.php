@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\ChecklistItem;
 use App\Entity\Position;
 use App\Entity\Residence;
 use App\Entity\Role;
@@ -11,6 +10,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,9 +27,13 @@ class UserType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('email')
-            ->add('password', TextType::class, [
+            ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'disabled' => $options['password_disabled']
+            ])
+            ->add('telephone', TextType::class, [
+                'label' => 'Numéro de téléphone',
+                'required' => false,
             ])
             ->add('picture', FileType::class, [
                 'label' => 'Image',
@@ -37,14 +41,18 @@ class UserType extends AbstractType
             ])
             ->add('mentor', EntityType::class, [
                 'label' => 'Parrain',
+                'required' => false,
                 'class' => User::class,
+                'placeholder' => 'Choisir un parrain',
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
 
             ->add('referent', EntityType::class, [
                 'label' => 'Référent',
+                'required' => false,
                 'class' => User::class,
+                'placeholder' => 'Choisir un référent métier',
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
@@ -56,6 +64,8 @@ class UserType extends AbstractType
 
             ->add('position', EntityType::class, [
                 'class' => Position::class,
+                'required' => false,
+                'placeholder' => 'Choisir un métier',
                 'choice_label' => 'name',
                 'label' => 'Métier',
             ])
@@ -66,6 +76,8 @@ class UserType extends AbstractType
             ])
             ->add('manager', EntityType::class, [
                 'class' => User::class,
+                'required' => false,
+                'placeholder' => 'Choisir un manager',
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
@@ -73,12 +85,20 @@ class UserType extends AbstractType
             ])
             ->add('residence', EntityType::class, [
                 'class' => Residence::class,
-                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Choisir une résidence',
+                'choice_label' => function (Residence $residence) {
+                    return $residence->getName() . ' - ' . $residence->getCity();
+                },
                 'label' => 'Résidence',
             ])
             ->add('residencePilote', EntityType::class, [
                 'class' => Residence::class,
-                'choice_label' => 'name',
+                'required' => false,
+                'placeholder' => 'Choisir une résidence pilote',
+                'choice_label' => function (Residence $residence) {
+                    return $residence->getName() . ' - ' . $residence->getCity();
+                },
                 'label' => 'Résidence pilote',
 
             ]);

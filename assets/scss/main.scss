@@ -1,6 +1,7 @@
 
 body {
   font-family: $mainFont;
+  color: $fontColor;
   background-color: $darkBackground;
 }
 
@@ -29,20 +30,29 @@ h1 {
 .collaborators {
   color: $fontColor;
 }
+
 .collab-list{
     width: 100%;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+hr {
+  background-color: $yellow;
 }
 
 @media (max-width: 700px) {
     .main-content{
         width: 100vw;
-        margin-left: 0rem;
+        margin-left: 0;
     }
     .not-mobile{
         display: none;
     }
     .not-upper-mobile{
-        margin-bottom: 0rem;
+        margin-bottom: 0;
     }
 }
 
