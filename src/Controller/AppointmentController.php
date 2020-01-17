@@ -13,6 +13,7 @@ use App\Entity\Appointment;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,7 +78,7 @@ class AppointmentController extends AbstractController
             $entityManager->persist($appointment);
             $entityManager->flush();
 
-            $date = date_format(($form['date']->getData()), 'd-m H:i');
+            $date = date_format(($form['date']->getData()), 'd-m-Y H:i');
 
             $mail = new PHPMailer(true);
 
@@ -117,7 +118,11 @@ class AppointmentController extends AbstractController
 
                 $mail->send();
 
-                return $this->redirectToRoute('appointment_index');
+                $this->addFlash('success', 'Rendez-vous et e-mail envoyés !');
+
+                return new RedirectResponse($this->generateUrl('manager_show', [
+                'user' => $manager->getId(),
+                ]));
         }
 
         return $this->render('appointment/new.html.twig', [
