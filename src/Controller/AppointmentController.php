@@ -53,7 +53,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/", name="appointment_index", methods={"GET"})
+     * @Route("/admin/index", name="appointment_index", methods={"GET"})
      */
     public function index(AppointmentRepository $appointmentRepository): Response
     {
@@ -63,7 +63,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="appointment_new", methods={"GET","POST"})
+     * @Route("/admin/new/{id}", name="appointment_new", methods={"GET","POST"})
      */
     public function new(Request $request, ParameterBagInterface $parameterBag): Response
     {
@@ -132,7 +132,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="appointment_show", methods={"GET"})
+     * @Route("/admin/{id}", name="appointment_show", methods={"GET"})
      */
     public function show(Appointment $appointment): Response
     {
@@ -142,7 +142,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="appointment_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="appointment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Appointment $appointment): Response
     {
@@ -162,7 +162,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="appointment_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="appointment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Appointment $appointment): Response
     {
