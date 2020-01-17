@@ -109,7 +109,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
                 '_fragment' => 'active',
                 ]));
         } else {
-            return new RedirectResponse($this->urlGenerator->generate('user_index'));
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
