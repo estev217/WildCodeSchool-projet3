@@ -52,7 +52,7 @@ class ContentController extends AbstractController
         ]);
     }
     /**
-     * @Route("/", name="content_index", methods={"GET"})
+     * @Route("/admin/index", name="content_index", methods={"GET"})
      */
     public function index(ContentRepository $contentRepository): Response
     {
@@ -62,7 +62,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="content_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="content_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -86,7 +86,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="content_show", methods={"GET"})
+     * @Route("/admin/{id}", name="content_show", methods={"GET"})
      */
     public function show(Content $content): Response
     {
@@ -96,7 +96,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/article/{id}", name="content_article", methods={"GET"})
+     * @Route("/admin/article/{id}", name="content_article", methods={"GET"})
      */
     public function showArticle(Content $content): Response
     {
@@ -106,7 +106,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="content_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="content_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Content $content): Response
     {
@@ -126,7 +126,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="content_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="content_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Content $content): Response
     {
