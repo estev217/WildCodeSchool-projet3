@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Content;
 use App\Form\ContentType;
 use App\Repository\ContentRepository;
@@ -28,7 +29,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route ("/info", name="info")
+     * @Route ("/info/{category}", name="info")
      * @param ContentRepository $contentRepository
      * @param PaginatorInterface $paginator
      * @param Request $request
@@ -37,10 +38,11 @@ class ContentController extends AbstractController
     public function showContent(
         ContentRepository $contentRepository,
         PaginatorInterface $paginator,
-        Request $request
+        Request $request,
+        Category $category
     ): Response {
 
-        $data = $contentRepository->findAll();
+        $data = $contentRepository->findBy(['category' => $category->getId()]);
         $contents = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
