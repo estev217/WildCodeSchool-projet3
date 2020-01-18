@@ -63,9 +63,9 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/new/{id}", name="appointment_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="appointment_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ParameterBagInterface $parameterBag): Response
+    public function new(Request $request, ParameterBagInterface $parameterBag, User $collaborator): Response
     {
         $manager = $this->getUser();
         $appointment = new Appointment();
@@ -75,6 +75,7 @@ class AppointmentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $appointment->setPartner($manager);
+            $appointment->setUser($collaborator);
             $entityManager->persist($appointment);
             $entityManager->flush();
 
@@ -128,6 +129,7 @@ class AppointmentController extends AbstractController
         return $this->render('appointment/new.html.twig', [
             'appointment' => $appointment,
             'form' => $form->createView(),
+            'collaborator' => $collaborator,
         ]);
     }
 
