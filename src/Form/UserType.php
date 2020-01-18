@@ -47,7 +47,6 @@ class UserType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
-
             ->add('referent', EntityType::class, [
                 'label' => 'Référent',
                 'required' => false,
@@ -56,12 +55,13 @@ class UserType extends AbstractType
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 }])
-
             ->add('startDate', DateType::class, [
                 'format' => 'dd-MM-yyyy',
                 'label' => 'Date d\'entrée',
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ]
             ])
-
             ->add('position', EntityType::class, [
                 'class' => Position::class,
                 'required' => false,
@@ -100,7 +100,6 @@ class UserType extends AbstractType
                     return $residence->getName() . ' - ' . $residence->getCity();
                 },
                 'label' => 'Résidence pilote',
-
             ]);
     }
 
