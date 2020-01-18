@@ -13,7 +13,7 @@ class UserSearchType extends AbstractType
     {
         $builder
             ->add('searchField', SearchType::class, [
-                'label' => 'Chercher un utilisateur'
+                'label' => false,
                 ])
         ;
     }
