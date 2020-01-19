@@ -21,7 +21,7 @@ class CategoryController extends AbstractController
      */
     public function navigation(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('navigationCategories.html.twig', [
+        return $this->render('_navigation_categories.html.twig', [
             'categories' => $categoryRepository->findAll(),
         ]);
     }
