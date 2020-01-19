@@ -49,7 +49,7 @@ class ContentController extends AbstractController
             self::ITEMS_PER_PAGE
         );
 
-        return $this->render('nemeaContent.html.twig', [
+        return $this->render('nemea_content.html.twig', [
             'contents' => $contents,
         ]);
     }

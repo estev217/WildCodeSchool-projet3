@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Planifier un rendez-vous</h1>
+        <h1>Planifier un rendez-vous avec {{ collaborator.firstname }} {{ collaborator.lastname }}</h1>
         <a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes collaborateurs</a>
         {{ include('appointment/_form.html.twig') }}
     </div>
