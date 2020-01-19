@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ChecklistItem;
 use App\Entity\IntegrationStep;
 use App\Entity\User;
+use App\Form\UserSearchType;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Entity\Role;
@@ -118,11 +119,25 @@ class UserController extends AbstractController
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
         $users = $userRepository->findBy([], ['lastname' => 'ASC']);
+
+        $form = $this->createForm(
+            UserSearchType::class,
+            null,
+            ['method' => Request::METHOD_GET]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $data = $form->getData()['searchField'];
+            $users = $userRepository->searchUser($data);
+        }
+
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'form' => $form->createView(),
         ]);
     }
 
