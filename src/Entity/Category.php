@@ -24,11 +24,6 @@ class Category
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $identifier;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="category")
      */
     private $contents;
@@ -51,18 +46,6 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getIdentifier(): ?string
-    {
-        return $this->identifier;
-    }
-
-    public function setIdentifier(string $identifier): self
-    {
-        $this->identifier = $identifier;
 
         return $this;
     }
