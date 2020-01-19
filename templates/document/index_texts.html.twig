@@ -20,8 +20,8 @@
                         <tr>
                             <td><a href="/upload/documents/{{ text.documentName }}"
                                    target="_blank">{{ text.documentName }}</a></td>
-                            <td><input class="copy-text" type="text" id="text-box" size="20"
-                                       value="/upload/documents/{{ text.documentName }}"> <a title="Copier l'URL"> <i
+                            <td><input class="copy-text" type="text" id="text-box-{{ text.id }}" size="20"
+                                       value="/upload/documents/{{ text.documentName }}" readonly> <a title="Copier l'URL"> <i
                                             class="fas fa-copy copy-button ml-2"></i></a></td>
                             <td>
                                 <a href="{{ path('document_show_text', {'id': text.id}) }}">Voir</a>

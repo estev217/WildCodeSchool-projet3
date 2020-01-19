@@ -48,7 +48,7 @@ class AppointmentController extends AbstractController
         });
 
         return $this->render('appointment/_next.html.twig', [
-            'nextAppointments' => $nextAppointments,
+            'nextAppointments' => array_slice($nextAppointments, 0, 2),
         ]);
     }
 

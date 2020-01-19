@@ -8,6 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class TimelineService
 {
+
+    const DAYS_PER_MONTH = 30;
+    const DAYS_PER_WEEK = 7;
+
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -62,13 +66,13 @@ class TimelineService
     {
         $result = [];
         foreach ($steps as $step) {
-            if ($step->getDuration() >= 30) {
-                $result[$step->getId()] = round($step->getDuration() / 30) . ' mois';
-            } elseif ($step->getDuration() >= 7) {
+            if ($step->getDuration() >= self::DAYS_PER_MONTH) {
+                $result[$step->getId()] = round($step->getDuration() / self::DAYS_PER_MONTH) . ' mois';
+            } elseif ($step->getDuration() >= self::DAYS_PER_WEEK) {
                 if (intval(round($step->getDuration() / 7)) === 1) {
-                    $result[$step->getId()] = round($step->getDuration() / 7) . ' semaine';
+                    $result[$step->getId()] = round($step->getDuration() / self::DAYS_PER_WEEK) . ' semaine';
                 } else {
-                    $result[$step->getId()] = round($step->getDuration() / 7) . ' semaines';
+                    $result[$step->getId()] = round($step->getDuration() / self::DAYS_PER_WEEK) . ' semaines';
                 }
             } else {
                 if ($step->getDuration() === 1) {
