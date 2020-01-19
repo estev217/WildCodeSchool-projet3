@@ -42,7 +42,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/", name="integration_step_index", methods={"GET"})
+     * @Route("/admin/index", name="integration_step_index", methods={"GET"})
      */
     public function index(IntegrationStepRepository $integrationStepRepository): Response
     {
@@ -53,7 +53,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="integration_step_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="integration_step_new", methods={"GET","POST"})
      * @param Request $request
      * @param TimelineService $timelineService
      * @param IntegrationStepRepository $integrationStepRepository
@@ -86,7 +86,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="integration_step_show", methods={"GET"})
+     * @Route("/admin/{id}", name="integration_step_show", methods={"GET"})
      */
     public function show(IntegrationStep $integrationStep): Response
     {
@@ -96,7 +96,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="integration_step_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="integration_step_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, IntegrationStep $integrationStep): Response
     {
@@ -116,7 +116,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="integration_step_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="integration_step_delete", methods={"DELETE"})
      */
     public function delete(Request $request, IntegrationStep $integrationStep): Response
     {

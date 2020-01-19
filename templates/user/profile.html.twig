@@ -24,83 +24,81 @@
                     <div class="card-header">
                         <h3>{{ user.firstname }} {{ user.lastname }}</h3>
                     </div>
-                    <div class="card-body d-flex align-items-center justify-content-around">
-                        <div class="profile-infos">
-                            <p>Email : <b>{{ user.email }}</b></p>
-                            {% if is_granted('ROLE_COLLABORATOR') %}
-                                <p><a href="{{ path('password_verify', {'user': user.id} ) }}"> Modifier mon mot de passe</a></p>
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <p><a href="{{ path('password_reset', {'user': user.id} ) }}"> Modification du mot de passe</a></p>
-                            {% endif %}
-                            <p>Téléphone : <b>{{ user.telephone }}</b></p>
-                            <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
-                            <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
+                    <div class="card-body">
+                        <p>Email : <b>{{ user.email }}</b></p>
+                        {% if is_granted('ROLE_COLLABORATOR') %}
+                            <p><a href="{{ path('password_verify', {'user': user.id} ) }}"> Modifier mon mot de
+                                    passe</a></p>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <p><a href="{{ path('password_reset', {'user': user.id} ) }}"> Modification du mot de
+                                    passe</a></p>
+                        {% endif %}
+                        <p>Téléphone : <b>{{ user.telephone }}</b></p>
+                        <p>Date d'arrivée à Néméa : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
+                        <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
 
-                            {% if user.manager %}
-                                <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
-                                                data-target="#modal-manager"><b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></a>
-                                </p>
-                            {% endif %}
-                            {% if user.referent %}
-                                <p>Référent : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
-                                                 data-target="#modal-referent"><b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></a>
-                                </p>
-                            {% endif %}
-                            {% if user.mentor %}
-                                <p>Parrain : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
-                                                data-target="#modal-mentor"><b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></a>
-                                </p>
-                            {% endif %}
+                        {% if user.manager %}
+                            <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
+                                            data-target="#modal-manager"><b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></a>
+                            </p>
+                        {% endif %}
+                        {% if user.referent %}
+                            <p>Référent : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
+                                             data-target="#modal-referent"><b>{{ user.referent.firstname }} {{ user.referent.lastname }}</b></a>
+                            </p>
+                        {% endif %}
+                        {% if user.mentor %}
+                            <p>Parrain : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
+                                            data-target="#modal-mentor"><b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></a>
+                            </p>
+                        {% endif %}
 
-                            {% if user.manager %}
-                                <table>
-                                    <tr>
-                                        <td>
-                                            {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
-                                                <a class="link-profile text-decoration-none"
-                                                   href="{{ path('collaborator_checklist', {'user': user.id }) }}">
-                                                    Checklist :
-                                                </a>
-                                            {% else %}
-                                                <a class="link-profile text-decoration-none"
-                                                   href="{{ path('checklist_item_checklist', {'user': user.id }) }}">Checklist :</a>
-                                            {% endif %}
-                                        </td>
-                                        <td class="progress-td">
-                                            <div class="progress" style="height: 20px; width: 90%;">
-                                                <div class="progress-bar progress-bar-striped" role="progressbar"
-                                                     style="width: {{ percentChecklist }}%"
-                                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
+                        {% if user.manager %}
+                            <table>
+                                <tr>
+                                    <td>
+                                        {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
+                                            <a class="link-profile text-decoration-none"
+                                               href="{{ path('collaborator_checklist', {'user': user.id }) }}">
+                                                Checklist :
+                                            </a>
+                                        {% else %}
+                                            <a class="link-profile text-decoration-none"
+                                               href="{{ path('checklist_item_checklist', {'user': user.id }) }}">Checklist
+                                                :</a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="progress-td">
+                                        <div class="progress" style="height: 20px; width: 90%;">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar"
+                                                 style="width: {{ percentChecklist }}%"
+                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a class="link-profile text-decoration-none"
-                                               href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
-                                        <td>
-                                            <div class="progress" style="height: 20px; width: 90%;">
-                                                <div class="progress-bar progress-bar-striped bg-info"
-                                                     role="progressbar"
-                                                     style="width: {{ percentIntegration }}%"
-                                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><a class="link-profile text-decoration-none"
+                                           href="{{ path('timeline', {'user': user.id }) }}">Intégration :</a></td>
+                                    <td>
+                                        <div class="progress" style="height: 20px; width: 90%;">
+                                            <div class="progress-bar progress-bar-striped bg-info"
+                                                 role="progressbar"
+                                                 style="width: {{ percentIntegration }}%"
+                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                                             </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        {% endif %}
 
-                            {% if is_granted('ROLE_MANAGER') and app.user.id == user.id %}
-                                <p><a href="{{ path('manager_show', {'user': app.user.id }) }}">
-                                        Mes collaborateurs
-                                    </a></p>
-                            {% endif %}
-                        </div>
-                        <div class="profile-pic">
-                            <img src="{{ user.picture }}" alt="image de profil">
-                        </div>
+                        {% if is_granted('ROLE_MANAGER') and app.user.id == user.id %}
+                            <p><a href="{{ path('manager_show', {'user': app.user.id }) }}">
+                                    Mes collaborateurs
+                                </a></p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

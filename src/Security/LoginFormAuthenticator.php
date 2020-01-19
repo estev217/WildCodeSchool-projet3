@@ -73,7 +73,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException("L'Email n'a pas été trouvé.");
         }
 
         return $user;
@@ -109,7 +109,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
                 '_fragment' => 'active',
                 ]));
         } else {
-            return new RedirectResponse($this->urlGenerator->generate('user_index'));
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));

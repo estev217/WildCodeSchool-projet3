@@ -11,23 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/document")
+ * @Route("/document/admin")
  */
 class DocumentController extends AbstractController
 {
-    const TEXT_TYPES = [
-        'application/pdf',
-        'application/x-pdf',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    ];
-
-    const IMAGE_TYPES = [
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-    ];
-
     /**
      * @Route("/text", name="document_index_texts", methods={"GET"})
      */

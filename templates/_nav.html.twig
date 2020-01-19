@@ -29,14 +29,16 @@
                         Boîte à outils
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ path('info') }}" class="nav-link">
-                        <i class="fas fa-cubes mr-3 fa-fw"></i>
-                        Nemea
-                    </a>
-                </li>
             </ul>
-            <div>
+
+            <p class="font-weight-bold text-uppercase text-center px-2 small py-4 mb-0">
+                <a class="nav-title" data-toggle="collapse"
+                   href="#collapse-categories" role="button" aria-expanded="false" aria-controls="collapse-categories">
+                    Articles
+                </a>
+            </p>
+
+            <div class="collapse" id="collapse-categories">
                 {{ render ( controller (
                     'App\\Controller\\CategoryController::navigation'
                 )) }}
@@ -63,6 +65,7 @@
             {% endif %}
 
             {% if is_granted('ROLE_ADMIN') %}
+                <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-4 mb-0">Administrateur</p>
                 <ul class="nav flex-column mb-0">
                     <li class="nav-item">
                         <a href="{{ path('admin') }}" class="nav-link">

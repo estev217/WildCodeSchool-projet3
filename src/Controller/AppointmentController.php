@@ -14,6 +14,7 @@ use App\Entity\Appointment;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,12 +49,12 @@ class AppointmentController extends AbstractController
         });
 
         return $this->render('appointment/_next.html.twig', [
-            'nextAppointments' => $nextAppointments,
+            'nextAppointments' => array_slice($nextAppointments, 0, 2),
         ]);
     }
 
     /**
-     * @Route("/", name="appointment_index", methods={"GET"})
+     * @Route("/admin/index", name="appointment_index", methods={"GET"})
      */
     public function index(AppointmentRepository $appointmentRepository): Response
     {
@@ -65,7 +66,7 @@ class AppointmentController extends AbstractController
     /**
      * @Route("/new/{id}", name="appointment_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ParameterBagInterface $parameterBag): Response
+    public function new(Request $request, ParameterBagInterface $parameterBag, User $collaborator): Response
     {
         $manager = $this->getUser();
         $appointment = new Appointment();
@@ -75,10 +76,11 @@ class AppointmentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $appointment->setPartner($manager);
+            $appointment->setUser($collaborator);
             $entityManager->persist($appointment);
             $entityManager->flush();
 
-            $date = date_format(($form['date']->getData()), 'd-m H:i');
+            $date = date_format(($form['date']->getData()), 'd-m-Y H:i');
 
             $mail = new PHPMailer(true);
 
@@ -118,17 +120,22 @@ class AppointmentController extends AbstractController
 
                 $mail->send();
 
-                return $this->redirectToRoute('appointment_index');
+                $this->addFlash('success', 'Rendez-vous et e-mail envoyés !');
+
+                return new RedirectResponse($this->generateUrl('manager_show', [
+                'user' => $manager->getId(),
+                ]));
         }
 
         return $this->render('appointment/new.html.twig', [
             'appointment' => $appointment,
             'form' => $form->createView(),
+            'collaborator' => $collaborator,
         ]);
     }
 
     /**
-     * @Route("/{id}", name="appointment_show", methods={"GET"})
+     * @Route("/admin/{id}", name="appointment_show", methods={"GET"})
      */
     public function show(Appointment $appointment): Response
     {
@@ -138,7 +145,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="appointment_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="appointment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Appointment $appointment): Response
     {
@@ -177,7 +184,7 @@ class AppointmentController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}", name="appointment_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="appointment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Appointment $appointment): Response
     {
