@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container">
-    <h1>Créer un compte rendu de rendez-vous</h1>
+    <h1> Compte rendu du {{ appointment.date|date ("d/m/Y") }} avec {{ appointment.user.firstname }} {{ appointment.user.lastname }}</h1>
 {{ form_start(form) }}
     {{ form_row ( form.summary ) }}
 {{ form_widget(form) }}

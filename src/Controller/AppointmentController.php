@@ -165,24 +165,37 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/summary/{id}", name="summary", methods={"GET","POST"})
+     * @Route("/summary/edit/{id}", name="edit_summary", methods={"GET","POST"})
      */
-    public function editSummary(Request $request, Appointment $summary, Appointment $appointment): Response
+    public function editSummary(Request $request, Appointment $appointment): Response
     {
-        $form = $this->createForm(SummaryAppointmentType::class, $summary);
+        $form = $this->createForm(SummaryAppointmentType::class, $appointment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('appointment_index');
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' =>$this->getUser()->getId(),
+            ]));
         }
 
-        return $this->render('manager/summaryAppointment.html.twig', [
-            'summary' => $summary,
+        return $this->render('appointment/summary_appointment.html.twig', [
+            'appointment' => $appointment,
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/summary/{id}", name="show_summary", methods={"GET","POST"})
+     */
+    public function showSummary(Appointment $appointment)
+    {
+        return $this->render('appointment/show_summary.html.twig', [
+            'appointment' => $appointment,
+        ]);
+    }
+
     /**
      * @Route("/admin/{id}", name="appointment_delete", methods={"DELETE"})
      */
