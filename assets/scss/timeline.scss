@@ -172,7 +172,7 @@
   margin-top: 5px;
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
   ul.timeline:before {
     left: 40px;
   }
