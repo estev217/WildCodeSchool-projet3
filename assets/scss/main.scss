@@ -43,7 +43,7 @@ hr {
   background-color: $yellow;
 }
 
-@media (max-width: 700px) {
+@media screen and (max-width: 700px) {
     .main-content{
         width: 100vw;
         margin-left: 0;
@@ -56,25 +56,25 @@ hr {
     }
 }
 
-@media (max-width: 380px) {
+@media screen and (max-width: 380px) {
     .not-under-mobile{
         display: none;
     }
 }
 
-@media (min-width: 701px) {
+@media screen and (min-width: 701px) {
     .not-upper-mobile {
         display: none;
     }
 }
 
-@media (max-width: 950px) {
+@media screen and (max-width: 950px) {
     .desktop-l{
         display: none;
     }
 }
 
-@media (max-width: 1180px) {
+@media screen and (max-width: 1180px) {
     .desktop-xl{
         display: none;
  }

@@ -1,6 +1,14 @@
-.container-login{
+.summer-background{
   display: flex;
   background-image: url("../images/pilat.jpg");
+  background-size: cover;
+  background-position: center;
+  margin-top: 0;
+}
+
+.winter-background{
+  display: flex;
+  background-image: url("../images/hiver1.jpg");
   background-size: cover;
   background-position: center;
   margin-top: 0;
