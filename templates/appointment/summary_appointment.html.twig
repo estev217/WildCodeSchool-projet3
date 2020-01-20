@@ -1,0 +1,14 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Compte rendu de rendez-vous{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1> Compte rendu du {{ appointment.date|date ("d/m/Y") }} avec {{ appointment.user.firstname }} {{ appointment.user.lastname }}</h1>
+{{ form_start(form) }}
+    {{ form_row ( form.summary ) }}
+{{ form_widget(form) }}
+    <button class="btn btn-primary mb-3">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}
+</div>
+{% endblock %}
