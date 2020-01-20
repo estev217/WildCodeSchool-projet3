@@ -19,7 +19,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card profile-card">
                     <div class="card-header">
                         <h3>{{ user.firstname }} {{ user.lastname }}</h3>
@@ -103,23 +103,46 @@
                 </div>
             </div>
             {% if not is_granted('ROLE_ADMIN') or user.id != app.user.id %}
-                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
                         <div class="card-header">
                             <h3>Rendez-vous</h3>
                         </div>
                         <div class="card-body">
                             <div class="form-group">
+                                <table>
+                                    <tbody>
+
                                 {% for appointment in appointments %}
-                                    <p>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+                                <tr>
+                                    <td class="col-6">Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
                                     {% if is_granted('ROLE_COLLABORATOR') %}
-                                        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                                        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></td>
+                                        <td>
+                                            <a href="{{ path('show_summary', {'id': appointment.id }) }}">
+                                                <i class="fas fa-file-contract"></i></a>
+                                        </td>
                                     {% elseif is_granted(['ROLE_MANAGER', 'ROLE_ADMIN']) and user.id != app.user.id %}
-                                        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
+                                        <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
+                                        <td>
+                                            <a href="{{ path('show_summary', {'id': appointment.id }) }}">
+                                                <i class="fas fa-file-contract"></i></a>
+                                        </td>
                                     {% elseif is_granted('ROLE_MANAGER') and user.id == app.user.id %}
-                                        <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b></p>
+                                        <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b>
+                                        <td>
+                                            <a href="{{ path('edit_summary', {'id': appointment.id }) }}">
+                                                <i class="fas fa-file-signature ml-4"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('show_summary', {'id': appointment.id }) }}"><i class="fas fa-file-contract ml-2"></i></a>
+                                        </td>
                                     {% endif %}
+                                </tr>
                                 {% endfor %}
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

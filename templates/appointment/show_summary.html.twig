@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Compte rendu{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Compte rendu du {{ appointment.date|date ("d/m/Y") }} avec {{ appointment.partner.firstname }} {{ appointment.partner.lastname }}</h1>
+                </div>
+                    <div class="card-body">
+                        {{ appointment.summary|raw }}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
