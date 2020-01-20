@@ -53,13 +53,13 @@
     }
 }
 
-@media (min-width: 701px) {
+@media screen and (min-width: 701px) {
     .pos-f-t{
      display: none;
  }
 }
 
-@media (max-width: 700px) {
+@media screen and (max-width: 700px) {
     #sidebar {
         margin-left: -10rem;
     }
