@@ -35,10 +35,6 @@ class UserType extends AbstractType
                 'label' => 'Numéro de téléphone',
                 'required' => false,
             ])
-            ->add('picture', FileType::class, [
-                'label' => 'Image',
-                'required' => false,
-            ])
             ->add('mentor', EntityType::class, [
                 'label' => 'Parrain',
                 'required' => false,
