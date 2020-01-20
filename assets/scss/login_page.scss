@@ -36,8 +36,14 @@
   margin-bottom: 2rem;
 }
 
-@media (max-width: 950px) {
+@media screen and (max-width: 950px) {
   .login {
     width: 370px;
+  }
+  .summer-background {
+    background-image: url("../images/pilat_mobile.jpg");
+  }
+  .winter-background {
+    background-image: url("../images/hiver1_mobile.jpg");
   }
 }
