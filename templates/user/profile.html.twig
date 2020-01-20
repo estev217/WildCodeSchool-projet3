@@ -115,7 +115,7 @@
 
                                 {% for appointment in appointments %}
                                 <tr>
-                                    <td>Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+                                    <td class="col-6">Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
                                     {% if is_granted('ROLE_COLLABORATOR') %}
                                         <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></td>
                                         <td>
