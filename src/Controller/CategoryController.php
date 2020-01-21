@@ -22,6 +22,7 @@ class CategoryController extends AbstractController
     public function navigation(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
+        $managerCategory = '';
 
         foreach ($categories as $key => $category) {
             if ($category->getName() === 'Checklist manager') {
