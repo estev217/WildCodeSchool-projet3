@@ -89,6 +89,11 @@ class ContentController extends AbstractController
             $entityManager->persist($content);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Article créé'
+            );
+
             return $this->redirectToRoute('content_index');
         }
 
@@ -129,6 +134,11 @@ class ContentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return $this->redirectToRoute('content_index');
         }
 
@@ -147,6 +157,11 @@ class ContentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($content);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Article supprimé'
+            );
         }
 
         return $this->redirectToRoute('content_index');

@@ -114,31 +114,31 @@
                                     <tbody>
 
                                     {% for appointment in appointments %}
-                                        <tr>
-                                            <td class="col-12">Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+                                        <tr class="border-bottom">
+                                            <td class="col-7">Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
                                                 {% if is_granted('ROLE_COLLABORATOR') %}
                                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <a href="{{ path('show_summary', {'id': appointment.id }) }}">
                                                     <i class="fas fa-file-contract"></i></a>
                                             </td>
                                             {% elseif is_granted(['ROLE_MANAGER', 'ROLE_ADMIN']) and user.id != app.user.id %}
                                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
-                                                <td>
+                                                <td class="text-center">
                                                     <a href="{{ path('show_summary', {'id': appointment.id }) }}">
-                                                        <i class="fas fa-file-contract"></i></a>
+                                                        <i class="fas fa-file-contract ml-4"></i></a>
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     <a href="{{ path('edit_summary', {'id': appointment.id }) }}">
-                                                        <i class="fas fa-file-signature ml-4"></i></a>
+                                                        <i class="fas fa-file-signature ml-2"></i></a>
                                                 </td>
                                             {% elseif is_granted('ROLE_MANAGER') and user.id == app.user.id %}
                                                 <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b>
 
                                                 <td>
                                                     <a href="{{ path('show_summary', {'id': appointment.id }) }}"><i
-                                                                class="fas fa-file-contract ml-2"></i></a>
+                                                                class="fas fa-file-contract"></i></a>
                                                 </td>
                                             {% endif %}
                                         </tr>
