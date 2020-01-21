@@ -109,8 +109,12 @@
             {% if not is_granted('ROLE_ADMIN') or user.id != app.user.id %}
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <h3>Rendez-vous</h3>
+                            {% if is_granted('ROLE_MANAGER') and user.id != app.user.id %}
+                                <a href="{{ path('appointment_new', {'id': user.id}) }}"
+                                   title="Prendre rendez-vous"><i class="far fa-calendar-check fa-lg mr-4"></i></a>
+                            {% endif %}
                         </div>
                         <div class="card-body">
                             <div class="form-group">
