@@ -16,7 +16,7 @@ class CategoryFixtures extends Fixture
             'name' => 'Le groupe',
         ],
         [
-            'name' => 'Nos métiers ',
+            'name' => 'Boîte à outils',
         ],
         [
             'name' => 'Cap 2022',
