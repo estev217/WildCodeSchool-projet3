@@ -148,7 +148,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}/edit", name="appointment_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="appointment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Appointment $appointment): Response
     {
