@@ -209,7 +209,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="appointment_delete", methods={"DELETE"})
+     * @Route("/{id}", name="appointment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Appointment $appointment): Response
     {
