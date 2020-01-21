@@ -26,7 +26,7 @@
                     </div>
                     <div class="card-body">
                         <p>Email : <b>{{ user.email }}</b></p>
-                        {% if is_granted('ROLE_COLLABORATOR') %}
+                        {% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_MANAGER') %}
                             <p><a href="{{ path('password_verify', {'user': user.id} ) }}"> Modifier mon mot de
                                     passe</a></p>
                         {% endif %}
