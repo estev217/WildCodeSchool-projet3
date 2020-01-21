@@ -26,10 +26,24 @@ class ContentRepository extends ServiceEntityRepository
         $query = $this->findAllQuery();
 
         if ($search->getText()) {
+            $words = explode(' ', $search->getText());
+
+            $clauses = '';
+            $parameters = [];
+            $i = 0;
+            foreach ($words as $word) {
+                $parameters[':val' . $i] = '%' . $word . '%';
+                if ($i === 0) {
+                    $clauses = 'c.title LIKE :val' . $i . ' OR c.content LIKE :val' . $i;
+                } else {
+                    $clauses .= ' AND c.title LIKE :val' . $i . ' OR c.content LIKE :val' . $i;
+                }
+                $i++;
+            }
+
             $query = $query
-                ->andwhere('c.title LIKE :val')
-                ->orWhere('c.content LIKE :val')
-                ->setParameter('val', '%' . $search->getText() . '%');
+                ->andwhere($clauses)
+                ->setParameters($parameters);
         }
 
         if ($search->getCategory()) {
