@@ -44,7 +44,7 @@ class ContentController extends AbstractController
         Category $category
     ): Response {
 
-        $data = $contentRepository->findBy(['category' => $category->getId()]);
+        $data = $contentRepository->findBy(['category' => $category->getId()], ['createdAt' => 'DESC']);
         $contents = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
