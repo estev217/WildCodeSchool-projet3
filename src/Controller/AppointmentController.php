@@ -120,7 +120,10 @@ class AppointmentController extends AbstractController
 
                 $mail->send();
 
-                $this->addFlash('success', 'Rendez-vous et e-mail envoyés !');
+                $this->addFlash(
+                    'primary',
+                    'Rendez-vous et e-mail envoyés !'
+                );
 
                 return new RedirectResponse($this->generateUrl('manager_show', [
                 'user' => $manager->getId(),
@@ -154,6 +157,10 @@ class AppointmentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('appointment_index');
         }
@@ -175,8 +182,13 @@ class AppointmentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return new RedirectResponse($this->generateUrl('profile', [
-                'user' =>$this->getUser()->getId(),
+                'user' =>$appointment->getUser()->getId(),
             ]));
         }
 
