@@ -13,10 +13,10 @@ class CategoryFixtures extends Fixture
 {
     const CATEGORIES = [
         [
-            'name' => 'Le groupe',
+            'name' => 'Boîte à outils',
         ],
         [
-            'name' => 'Boîte à outils',
+            'name' => 'Le groupe',
         ],
         [
             'name' => 'Cap 2022',

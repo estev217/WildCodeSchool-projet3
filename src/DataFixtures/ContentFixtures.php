@@ -98,7 +98,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker  =  Faker\Factory::create('fr_FR');
-        for ($i=0; $i<=5; $i++) {
+        for ($i=1; $i<=5; $i++) {
             $content = new Content();
             $content->setTitle($faker->sentence);
             $content->setUser($this->getReference('admin'));
@@ -111,7 +111,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $toolbox->setUser($this->getReference('admin'));
             $toolbox->setTitle($data['title']);
             $toolbox->setContent($data['content']);
-            $toolbox->setCategory($this->getReference('categorie_2'));
+            $toolbox->setCategory($this->getReference('categorie_0'));
             $manager->persist($toolbox);
         }
         foreach (self::CHECKLIST_MANAGER as $data) {
