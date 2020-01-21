@@ -21,8 +21,19 @@ class CategoryController extends AbstractController
      */
     public function navigation(CategoryRepository $categoryRepository): Response
     {
+        $categories = $categoryRepository->findAll();
+
+        foreach ($categories as $key => $category) {
+            if ($category->getName() === 'Checklist manager') {
+                $managerCategory = $category;
+                unset($categories[$key]);
+            }
+        }
+
+        $categories[] = $managerCategory;
+
         return $this->render('_navigation_categories.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $categories,
         ]);
     }
 
