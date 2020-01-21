@@ -2,9 +2,20 @@
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="p-1 nav-color">
             <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
-                <a data-toggle="collapse"
+                <a data-toggle="collapse" class="nav-title"
+                   href="#collapse-categories" role="button" aria-expanded="false" aria-controls="collapse-categories">
+                    Articles<i class="fas fa-sort-down ml-2"></i>
+                </a>
+            </p>
+            <div class="collapse nav mb-0 justify-content-center" id="collapse-categories">
+                {{ render ( controller (
+                    'App\\Controller\\CategoryController::navigation'
+                )) }}
+            </div>
+            <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+                <a data-toggle="collapse" class="nav-title"
                    href="#collapse-pack" role="button" aria-expanded="false" aria-controls="collapse-pack">
-                    Mon Welcome Pack
+                    Mon Welcome Pack<i class="fas fa-sort-down ml-2"></i>
                 </a>
             </p>
             <ul class="collapse nav flex-row mb-0 justify-content-center" id="collapse-pack">
@@ -35,22 +46,11 @@
                     </a>
                 </li>
             </ul>
-            <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
-                <a data-toggle="collapse"
-                   href="#collapse-categories" role="button" aria-expanded="false" aria-controls="collapse-categories">
-                    Articles
-                </a>
-            </p>
-            <div class="collapse nav mb-0 justify-content-center" id="collapse-categories">
-                {{ render ( controller (
-                    'App\\Controller\\CategoryController::navigation'
-                )) }}
-            </div>
             {% if is_granted('ROLE_MANAGER') %}
                 <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
-                    <a data-toggle="collapse"
+                    <a data-toggle="collapse" class="nav-title"
                        href="#collapse-manager" role="button" aria-expanded="false" aria-controls="collapse-manager">
-                        Le coin du manager
+                        Le coin du manager<i class="fas fa-sort-down ml-2"></i>
                     </a>
                 </p>
 
@@ -71,9 +71,9 @@
             {% endif %}
             {% if is_granted('ROLE_ADMIN') %}
                 <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
-                    <a data-toggle="collapse"
+                    <a data-toggle="collapse" class="nav-title"
                        href="#collapse-admin" role="button" aria-expanded="false" aria-controls="collapse-admin">
-                        Administrateur
+                        Administrateur<i class="fas fa-sort-down ml-2"></i>
                     </a>
                 </p>
                 <ul class="collapse nav flex-row justify-content-center mb-0" id="collapse-admin">
@@ -85,13 +85,12 @@
                     </li>
                 </ul>
             {% endif %}
-            <br>
-            <ul class="nav flex-row mb-0 justify-content-end">
+            <ul class="nav flex-row mb-0 mt-2 justify-content-end">
                 <li class="nav-item">
                     {% if app.user %}
                         <a href="{{ path('app_logout') }}" class="nav-link">
-                            <i class="fas fa-sign-out-alt mr-1 fa-fw"></i>
                             Déconnexion
+                            <i class="fas fa-sign-out-alt fa-fw"></i>
                         </a>
                     {% endif %}
                 </li>
@@ -103,7 +102,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div>
-            <p class="text-uppercase">menu</p>
+            <p class="text-uppercase nav-title">menu</p>
         </div>
     </nav>
 </div>
