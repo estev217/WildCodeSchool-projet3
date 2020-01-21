@@ -30,6 +30,9 @@ class CategoryFixtures extends Fixture
         [
             'name' => 'Nos produits',
         ],
+        [
+            'name' => 'Checklist manager',
+        ]
 
     ];
 
