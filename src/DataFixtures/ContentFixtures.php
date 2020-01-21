@@ -58,7 +58,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             'content' => 'Relire la défintion du poste et des responsabilités.
             Décrire le style et les attentes du responsable.
             Préciser les objectifs de performance.
-            Prévoir des rendez-vous avec les "acteurs" clés susceptibles de collaborer ave la nouvelle recrue.
+            Prévoir des rendez-vous avec les "acteurs" clés susceptibles de collaborer avec la nouvelle recrue.
             Présenter les outils usuels.
             Expliquer le mode de réservation des salles de réunion.
             Fournir l\'annuaire des salariés.

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Content;
+use App\Entity\ContentSearch;
+use App\Form\ContentSearchType;
 use App\Form\ContentType;
 use App\Repository\ContentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +44,7 @@ class ContentController extends AbstractController
         Category $category
     ): Response {
 
-        $data = $contentRepository->findBy(['category' => $category->getId()]);
+        $data = $contentRepository->findBy(['category' => $category->getId()], ['createdAt' => 'DESC']);
         $contents = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
@@ -56,10 +58,19 @@ class ContentController extends AbstractController
     /**
      * @Route("/admin/index", name="content_index", methods={"GET"})
      */
-    public function index(ContentRepository $contentRepository): Response
+    public function index(ContentRepository $contentRepository, Request $request): Response
     {
+
+        $search = new ContentSearch();
+
+        $form = $this->createForm(ContentSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $contents = $contentRepository->searchContent($search);
+
         return $this->render('content/index.html.twig', [
-            'contents' => $contentRepository->findAll(),
+            'contents' => $contents,
+            'form' => $form->createView(),
         ]);
     }
 
