@@ -10,8 +10,8 @@
 
         {{ include('appointment/_delete_form.html.twig') }}
 
-        <div class="d-flex justify-content-center mt-3 mb-5">
-            <a class="btn btn-primary" href="{{ path('appointment_index') }}">Retour</a>
+        <div class="d-flex justify-content-center mb-5">
+            <a class="btn btn-primary" href="{{ path('profile', {'user': appointment.user.id}) }}">Retour</a>
         </div>
     </div>
 {% endblock %}
