@@ -5,7 +5,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\ResetPasswordType;
 use App\Form\VerifyPasswordType;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormError;
@@ -22,9 +26,14 @@ class AccountController extends AbstractController
      * @param User $user
      * @param Request $request
      * @return Response
+     * @throws Exception
      */
-    public function reset(User $user, Request $request, UserPasswordEncoderInterface $encoder): Response
-    {
+    public function reset(
+        User $user,
+        Request $request,
+        UserPasswordEncoderInterface $encoder,
+        ParameterBagInterface $parameterBag
+    ): Response {
         $form = $this->createForm(ResetPasswordType::class, $user);
 
         $form->handleRequest($request);
@@ -40,11 +49,53 @@ class AccountController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success', 'Nouveau mot de passe enregistré !');
+            $mail = new PHPMailer(true);
 
-            return new RedirectResponse($this->generateUrl('profile', [
-                'user' => $user->getId(),
-            ]));
+                /*Enable verbose debug output*/
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                /* Tells PHPMailer to use SMTP. */
+                $mail->isSMTP();
+                /* SMTP server address. */
+                $mail->Host = $this->getParameter('mail_server');
+                /* Use SMTP authentication. */
+                $mail->SMTPAuth = true;
+                /* SMTP authentication username. */
+                $mail->Username = $this->getParameter('mail_from');
+                /* SMTP authentication password. */
+                $mail->Password = $this->getParameter('mail_password');
+                /* Set the encryption system. */
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                /* Set the SMTP port. */
+                $mail->Port = 587;
+                $mail->setFrom($this->getParameter('mail_from'));
+                $mail->addAddress($this->getParameter('mail_from'));
+                //$mail->addAddress($user->getEmail());
+                $mail->isHTML(true);
+                $mail->Subject = utf8_decode('Nemea On Board : modification du mot de passe');
+                $firstname = $user->getFirstname();
+                $lastname = $user->getLastname();
+                $mail->Body = utf8_decode("Bonjour $firstname $lastname, <br>
+                                          Votre mot de passe a été modifié. <br> 
+                                          Si vous n'avez pas effectué ou demandé ce changement, 
+                                          contactez le service Ressources Humaines.<br><br>
+                                          Message automatique envoyé depuis <i>Nemea On Board</i>");
+
+                /* Disable some SSL checks. */
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+
+                $mail->send();
+
+                $this->addFlash('success', 'Nouveau mot de passe enregistré !');
+
+                return new RedirectResponse($this->generateUrl('profile', [
+                    'user' => $user->getId(),
+                ]));
         }
         return $this->render('security/reset.html.twig', [
             'form' => $form->createView(),
