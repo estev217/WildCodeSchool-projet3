@@ -1,8 +1,9 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modifier Contenu{% endblock %}
+{% block title %}Modifier du contenu{% endblock %}
 
 {% block body %}
+
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -12,8 +13,10 @@
                     </div>
                     <div class="m-3">
                         {{ include('content/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
-                        <a class="btn btn-primary mt-3" href="{{ path('document_index_texts') }}" target="_blank">Voir les documents disponibles</a>
-                        <a class="btn btn-primary mt-3" href="{{ path('document_index_images') }}" target="_blank">Voir les images disponibles</a>
+                        <a class="btn btn-primary mt-3" href="{{ path('document_index_texts') }}" target="_blank">Voir
+                            les documents disponibles</a>
+                        <a class="btn btn-primary mt-3" href="{{ path('document_index_images') }}" target="_blank">Voir
+                            les images disponibles</a>
 
                         {{ include('content/_delete_form.html.twig') }}
                     </div>
@@ -24,4 +27,5 @@
     <div class="d-flex justify-content-center mt-3 mb-3">
         <a class="btn btn-primary" href="{{ path('content_index') }}">Retour</a>
     </div>
+
 {% endblock %}

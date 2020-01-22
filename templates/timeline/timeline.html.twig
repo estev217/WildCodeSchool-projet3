@@ -1,7 +1,9 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Mon parcours d'intégration{% endblock %}
+
 {% block body %}
+
     <div class="container">
         {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
             <a href="{{ path('profile', {'user': user.id }) }}">Retour au profil du
@@ -34,4 +36,5 @@
             {% endfor %}
         </ul>
     </div>
+
 {% endblock %}
