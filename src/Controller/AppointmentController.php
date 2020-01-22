@@ -164,7 +164,7 @@ class AppointmentController extends AbstractController
             );
 
             return new RedirectResponse($this->generateUrl('profile', [
-                'user' =>$appointment->getUser()->getId(),
+                'user' => $request->getSession()->get('from'),
             ]));
         }
 
@@ -191,7 +191,7 @@ class AppointmentController extends AbstractController
             );
 
             return new RedirectResponse($this->generateUrl('profile', [
-                'user' =>$appointment->getUser()->getId(),
+                'user' => $request->getSession()->get('from'),
             ]));
         }
 
