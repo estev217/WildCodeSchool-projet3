@@ -162,7 +162,9 @@ class AppointmentController extends AbstractController
                 'Modification prise en compte'
             );
 
-            return $this->redirectToRoute('appointment_index');
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' =>$appointment->getUser()->getId(),
+            ]));
         }
 
         return $this->render('appointment/edit.html.twig', [
