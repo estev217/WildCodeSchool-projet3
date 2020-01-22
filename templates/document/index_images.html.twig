@@ -5,36 +5,47 @@
 {% block body %}
 
     <div class="container">
-        <h1>Toutes les images</h1>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Toutes les images</h1>
 
-        <a href="{{ path('document_new_image') }}" class="btn btn-primary mb-3">Ajouter une image</a>
+                        <a href="{{ path('document_new_image') }}" class="btn btn-primary mb-3">Ajouter une image</a>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Image</th>
-                <th>URL de l'image</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for image in images %}
-                <tr>
-                    <td><img src="/upload/documents/{{ image.documentName }}" alt="vignette" class="vignette"></td>
-                    <td><input class="copy-text" type="text" id="text-box-{{ image.id }}" size="20"
-                               value="/upload/documents/{{ image.documentName }}" readonly> <a title="Copier l'URL"> <i
-                                    class="fas fa-copy copy-button ml-2"></i></a></td>
-                    <td>
-                        <a href="{{ path('document_show_image', {'id': image.id}) }}">Voir</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">Aucun document</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>URL de l'image</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for image in images %}
+                                <tr>
+                                    <td><img src="/upload/documents/{{ image.documentName }}" alt="vignette"
+                                             class="vignette"></td>
+                                    <td><input class="copy-text" type="text" id="text-box-{{ image.id }}" size="20"
+                                               value="/upload/documents/{{ image.documentName }}" readonly> <a
+                                                title="Copier l'URL"> <i
+                                                    class="fas fa-copy copy-button ml-2"></i></a></td>
+                                    <td>
+                                        <a href="{{ path('document_show_image', {'id': image.id}) }}">Voir</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">Aucun document</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

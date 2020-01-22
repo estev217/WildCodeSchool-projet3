@@ -6,12 +6,11 @@
 
     <div class="container">
         {% if is_granted('ROLE_MANAGER') or is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('profile', {'user': collaborator.id }) }}">Retour au profil du
-                collaborateur</a>
-
             <div class="page-header">
                 <h1>Checklist de {{ collaborator.firstname }} {{ collaborator.lastname }}</h1>
             </div>
+            <a class="btn btn-primary mb-5" href="{{ path('profile', {'user': collaborator.id }) }}">Retour au profil du
+                collaborateur</a>
         {% else %}
             <div class="page-header">
                 <h1>Ma checklist</h1>

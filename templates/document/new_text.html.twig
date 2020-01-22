@@ -5,14 +5,23 @@
 {% block body %}
 
     <div class="container">
-        <h1>Ajouter un document</h1>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Ajouter un document</h1>
 
-        <p>Type acceptés : PDF, DOC, DOCX</p>
-        <hr>
+                        <p>Type acceptés : PDF, DOC, DOCX (taille max: 2 Mo)</p>
+                        <hr>
 
-        {{ include('document/_form.html.twig') }}
-
-        <a href="{{ path('document_index_texts') }}">Retour</a>
+                        {{ include('document/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mb-5">
+        <a class="btn btn-primary" href="{{ path('document_index_texts') }}">Retour</a>
     </div>
 
 {% endblock %}
