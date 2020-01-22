@@ -12,13 +12,53 @@ use Faker;
 
 class ContentFixtures extends Fixture implements DependentFixtureInterface
 {
+    const TOOLBOX = [
+        [
+            'title' => 'HORSYS',
+            'content' => 'La solution Horsys est accessible depuis une page web. Elle vous permet de :
+            Consulter et gérer les demandes des collaborateurs (congés, abscences...)
+            Plannifier les plannings horaires de votre équipe
+            Visualiser les fins de contrat
+            Valider et visualiser les feuilles de temps de vos collaborateurs
+    
+            Vous trouverez le guide d\'utilisation et toutes les informations dont vous avez besoin sur votre clé USB ainsi que dans le Book d\'outils'
+        ],
+        [
+            'title' => 'EURECIA',
+            'content' => 'La solution Eurecia est accessible depuis une page web ou bien de votre Smartphone. Elle vous permet de :
+
+            Soumettre à validation vos notes de frais en temps réel en y joignant vos différents justificatifs en PJ
+            Catégoriser vos dépenses par thème et/ou par déplacement
+            Suivre l\'état d\'avancement du traitement de vos saisies en temps réel
+        
+            Vous trouverez le guide d\'utilisation et toutes les informations dont vous avez besoin sur votre clé USB ainsi que dans le Book d\'outils'
+        ],
+        [
+            'title' => 'IRESIA',
+            'content' => 'Iresa est un logiciel de gestion de suivi des réservations, interne au Groupe Nemea.
+            Il s\'agit d\'une solution sur laquelle vous pourrez retrouver un suivi en temps réel des réservations effectuées sur votre résidence.
+            Iresa vous permettra également d\'avoir une visibilité sur les différentes prestations réservées par séjour.',
+        ],
+        [
+            'title' => 'SILAE',
+            'content' => 'La solution Silae est un logiciel de gestion des contrats Extras.
+            Elle vous permettra la génération des Déclarations Préalables à l\'Embauche (DPAE) et de renseigner le nombre d\'heures effectuées dans le mois par le salarié et par contrat, afin que le service paie puisse générer les bulletins de salaires.
+            Vous trouverez le guide d\'utilisation et toutes les informations dont vous avez besoin sur votre clé USB ainsi que dans le Book d\'outils',
+        ],
+        [
+            'title' => 'PROGIDOC',
+            'content' => 'Progidoc est un logiciel de dématérialisation des factures fournisseurs et des demandes d\'achats. Cet outil permet d\'intégrer les devis pour les soumettre à validation au manager.
+            Une fois ces derniers validés, Progidoc permettra d\'avoir un suivi des dépenses effectuées et de suivre la facturation des différents achats.',
+        ],
+    ];
+
     const CHECKLIST_MANAGER = [
         [
             'title' => 'Mettre toutes les chances de réussite de son côté',
             'content' => 'Relire la défintion du poste et des responsabilités.
             Décrire le style et les attentes du responsable.
             Préciser les objectifs de performance.
-            Prévoir des rendez-vous avec les "acteurs" clés susceptibles de collaborer ave la nouvelle recrue.
+            Prévoir des rendez-vous avec les "acteurs" clés susceptibles de collaborer avec la nouvelle recrue.
             Présenter les outils usuels.
             Expliquer le mode de réservation des salles de réunion.
             Fournir l\'annuaire des salariés.
@@ -58,13 +98,21 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker  =  Faker\Factory::create('fr_FR');
-        for ($i=0; $i<=5; $i++) {
+        for ($i=1; $i<=5; $i++) {
             $content = new Content();
             $content->setTitle($faker->sentence);
             $content->setUser($this->getReference('admin'));
             $content->setContent($faker->text);
             $content->setCategory($this->getReference('categorie_' . $i));
             $manager->persist($content);
+        }
+        foreach (self::TOOLBOX as $data) {
+            $toolbox = new Content();
+            $toolbox->setUser($this->getReference('admin'));
+            $toolbox->setTitle($data['title']);
+            $toolbox->setContent($data['content']);
+            $toolbox->setCategory($this->getReference('categorie_0'));
+            $manager->persist($toolbox);
         }
         foreach (self::CHECKLIST_MANAGER as $data) {
             $listManager = new Content();
@@ -74,7 +122,6 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $listManager->setCategory($this->getReference('categorie_6'));
             $manager->persist($listManager);
         }
-
         $manager->flush();
     }
     /**

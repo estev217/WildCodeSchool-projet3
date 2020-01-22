@@ -11,6 +11,7 @@
                     <div class="card-header text-center">
                         <h1>Contenu</h1>
                     </div>
+
                     <table class="table nemea-content">
                         <tbody>
                         <tr>
@@ -19,7 +20,7 @@
                         </tr>
                         <tr>
                             <th>Texte</th>
-                            <td>{{ content.content|raw }}</td>
+                            <td>{{ content.content|raw|nl2br }}</td>
                         </tr>
                         <tr>
                             <th>Crée le</th>
@@ -35,6 +36,7 @@
                         </tr>
                         </tbody>
                     </table>
+
                     <div class="d-flex align-items-end">
                         <a class="btn btn-primary mr-4 ml-4 mb-4" href="{{ path('content_edit', {'id': content.id}) }}">Modifier</a>
                         <div class="mb-4">
