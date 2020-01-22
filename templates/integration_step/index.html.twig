@@ -39,10 +39,12 @@
                                     <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <a class="text-decoration-none mr-3" href="{{ path('integration_step_show', {'id': integration_step.id}) }}">
+                                    <a class="text-decoration-none mr-3" title="Voir"
+                                       href="{{ path('integration_step_show', {'id': integration_step.id}) }}">
                                         <i class="fas fa-search-plus"></i>
                                     </a>
-                                    <a class="text-decoration-none" href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">
+                                    <a class="text-decoration-none" title="Modifier"
+                                       href="{{ path('integration_step_edit', {'id': integration_step.id}) }}">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                 </td>

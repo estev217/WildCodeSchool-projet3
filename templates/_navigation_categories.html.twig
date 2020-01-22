@@ -5,7 +5,7 @@
                 {% if not is_granted('ROLE_COLLABORATOR') %}
                     <li class="nav-item">
                         <a href="{{ path('info', {'category': category.id }) }}" class="nav-link">
-                            <i class="fas fa-cubes mr-3 fa-fw"></i>
+                            <i class="fas fa-clipboard-list mr-3 fa-fw"></i>
                             {{ category.name }}
                         </a>
                     </li>
@@ -13,7 +13,7 @@
             {% else %}
                 <li class="nav-item">
                     <a href="{{ path('info', {'category': category.id }) }}" class="nav-link">
-                        <i class="fas fa-cubes mr-3 fa-fw"></i>
+                        <i class="fas fa-folder-open mr-3 fa-fw"></i>
                         {{ category.name }}
                     </a>
                 </li>

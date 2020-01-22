@@ -28,10 +28,10 @@
                                 <td>{{ residence.name }}</td>
                                 <td>{{ residence.city }}</td>
                                 <td class="text-center">
-                                    <a href="{{ path('residence_show', {'id': residence.id}) }}">
+                                    <a href="{{ path('residence_show', {'id': residence.id}) }}" title="Voir">
                                         <i class="fas fa-search-plus mr-3"></i>
                                     </a>
-                                    <a href="{{ path('residence_edit', {'id': residence.id}) }}">
+                                    <a href="{{ path('residence_edit', {'id': residence.id}) }}" title="Modifier">
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                 </td>
