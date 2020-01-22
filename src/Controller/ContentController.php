@@ -53,6 +53,7 @@ class ContentController extends AbstractController
 
         return $this->render('nemea_content.html.twig', [
             'contents' => $contents,
+            'category' => $category,
         ]);
     }
     /**
@@ -114,7 +115,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/{id}", name="content_article", methods={"GET"})
+     * @Route("/article/{id}", name="content_article", methods={"GET"})
      */
     public function showArticle(Content $content): Response
     {
