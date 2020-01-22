@@ -54,6 +54,11 @@ class DocumentController extends AbstractController
             $entityManager->persist($document);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Document ajouté'
+            );
+
             return $this->redirectToRoute('document_index_texts');
         }
 
@@ -77,6 +82,11 @@ class DocumentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($document);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Image ajoutée'
+            );
 
             return $this->redirectToRoute('document_index_images');
         }
@@ -137,6 +147,11 @@ class DocumentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($document);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Document supprimé'
+            );
         }
 
         return $this->redirectToRoute('document_index_texts');
@@ -151,6 +166,11 @@ class DocumentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($document);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Image supprimée'
+            );
         }
 
         return $this->redirectToRoute('document_index_images');
