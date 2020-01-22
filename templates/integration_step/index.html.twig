@@ -15,14 +15,14 @@
                     </div>
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th scope="col" class="col-1 text-uppercase">Position</th>
-                                <th scope="col" class="col-3 text-uppercase">Nom</th>
-                                <th scope="col" class="col-4 text-uppercase">Description</th>
-                                <th scope="col" class="col-1 text-center text-uppercase">Durée</th>
-                                <th scope="col" class="col-1 text-center text-uppercase">Icône</th>
-                                <th scope="col" class="col-1 text-center text-uppercase">Couleur</th>
-                                <th scope="col" class="col-1"></th>
+                            <tr class="container no-gutters">
+                                <th scope="col" class="text-uppercase">Position</th>
+                                <th scope="col" class="text-uppercase">Nom</th>
+                                <th scope="col" class="text-uppercase">Description</th>
+                                <th scope="col" class="text-center text-uppercase">Durée</th>
+                                <th scope="col" class="text-center text-uppercase">Icône</th>
+                                <th scope="col" class="text-center text-uppercase">Couleur</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,7 +39,7 @@
                                     <div class="color-icon" style="background-color: {{ integration_step.color }};"></div>
                                 </td>
                                 <td class="text-center align-middle">
-                                    <a class="text-decoration-none mr-3" title="Voir"
+                                    <a class="text-decoration-none" title="Voir"
                                        href="{{ path('integration_step_show', {'id': integration_step.id}) }}">
                                         <i class="fas fa-search-plus"></i>
                                     </a>
