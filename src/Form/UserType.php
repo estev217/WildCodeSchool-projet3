@@ -27,10 +27,6 @@ class UserType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('email')
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe',
-                'disabled' => $options['password_disabled']
-            ])
             ->add('telephone', TextType::class, [
                 'label' => 'Numéro de téléphone',
                 'required' => false,
@@ -97,6 +93,11 @@ class UserType extends AbstractType
                 },
                 'label' => 'Résidence pilote',
             ]);
+        if (!$options['password_disabled']) {
+            $builder->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
