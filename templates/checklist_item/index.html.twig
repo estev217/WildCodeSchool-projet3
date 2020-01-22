@@ -3,6 +3,7 @@
 {% block title %}Gestion de la checklist{% endblock %}
 
 {% block body %}
+
     <div class="container">
         <div class="row">
             <div class="col-12 mb-5">
@@ -13,13 +14,14 @@
                     <div class="text-center my-2">
                         <a class="btn btn-primary" href="{{ path('checklist_item_new') }}">Ajouter un élément</a>
                     </div>
+
                     <table class="table">
                         <thead>
-                            <tr class="text-center">
-                                <th class="col-6">Nom</th>
-                                <th>Catégorie</th>
-                                <th></th>
-                            </tr>
+                        <tr class="text-center">
+                            <th class="col-6">Nom</th>
+                            <th>Catégorie</th>
+                            <th></th>
+                        </tr>
                         </thead>
                         <tbody>
                         {% for checklist_item in checklist_items %}
@@ -27,7 +29,8 @@
                                 <td class="align-middle">{{ checklist_item.name }}</td>
                                 <td class="text-center align-middle">{{ checklist_item.category }}</td>
                                 <td class="text-center align-middle">
-                                    <a class="text-decoration-none" href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">Modifier</a>
+                                    <a class="text-decoration-none"
+                                       href="{{ path('checklist_item_edit', {'id': checklist_item.id}) }}">Modifier</a>
                                 </td>
                             </tr>
                         {% else %}
@@ -37,8 +40,10 @@
                         {% endfor %}
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}
