@@ -40,12 +40,15 @@ class UserController extends AbstractController
      * @Route("/profile/{user}", name="profile")
      * @param User $user
      * @param TimelineService $timelineService
+     * @param AppointmentRepository $appointmentRepository
+     * @param Request $request
      * @return Response
      */
     public function profile(
         User $user,
         TimelineService $timelineService,
-        AppointmentRepository $appointmentRepository
+        AppointmentRepository $appointmentRepository,
+        Request $request
     ): Response {
         //Checklist progress bar
         $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
@@ -72,6 +75,10 @@ class UserController extends AbstractController
         usort($appointments, function ($a, $b) {
             return ($a->getDate()) <=> ($b->getDate());
         });
+
+        $session = $request->getSession();
+
+        $session->set('from', $user->getId());
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,

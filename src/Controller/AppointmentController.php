@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -163,7 +164,7 @@ class AppointmentController extends AbstractController
             );
 
             return new RedirectResponse($this->generateUrl('profile', [
-                'user' =>$appointment->getUser()->getId(),
+                'user' => $request->getSession()->get('from'),
             ]));
         }
 
@@ -190,7 +191,7 @@ class AppointmentController extends AbstractController
             );
 
             return new RedirectResponse($this->generateUrl('profile', [
-                'user' =>$appointment->getUser()->getId(),
+                'user' => $request->getSession()->get('from'),
             ]));
         }
 
