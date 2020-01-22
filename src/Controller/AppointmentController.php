@@ -120,7 +120,10 @@ class AppointmentController extends AbstractController
 
                 $mail->send();
 
-                $this->addFlash('success', 'Rendez-vous et e-mail envoyés !');
+                $this->addFlash(
+                    'primary',
+                    'Rendez-vous et e-mail envoyés !'
+                );
 
                 return new RedirectResponse($this->generateUrl('manager_show', [
                 'user' => $manager->getId(),
@@ -145,7 +148,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}/edit", name="appointment_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="appointment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Appointment $appointment): Response
     {
@@ -154,8 +157,14 @@ class AppointmentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
-            return $this->redirectToRoute('appointment_index');
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' =>$appointment->getUser()->getId(),
+            ]));
         }
 
         return $this->render('appointment/edit.html.twig', [
@@ -175,8 +184,13 @@ class AppointmentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return new RedirectResponse($this->generateUrl('profile', [
-                'user' =>$this->getUser()->getId(),
+                'user' =>$appointment->getUser()->getId(),
             ]));
         }
 
@@ -197,7 +211,7 @@ class AppointmentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="appointment_delete", methods={"DELETE"})
+     * @Route("/{id}", name="appointment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Appointment $appointment): Response
     {

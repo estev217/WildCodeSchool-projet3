@@ -38,6 +38,10 @@ class ResidenceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($residence);
             $entityManager->flush();
+            $this->addFlash(
+                'primary',
+                'Résidence ajoutée'
+            );
 
             return $this->redirectToRoute('residence_index');
         }
@@ -68,6 +72,10 @@ class ResidenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('residence_index');
         }
@@ -87,6 +95,10 @@ class ResidenceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($residence);
             $entityManager->flush();
+            $this->addFlash(
+                'primary',
+                'Résidence supprimée'
+            );
         }
 
         return $this->redirectToRoute('residence_index');

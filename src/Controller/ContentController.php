@@ -53,6 +53,7 @@ class ContentController extends AbstractController
 
         return $this->render('nemea_content.html.twig', [
             'contents' => $contents,
+            'category' => $category,
         ]);
     }
     /**
@@ -89,6 +90,11 @@ class ContentController extends AbstractController
             $entityManager->persist($content);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Article créé'
+            );
+
             return $this->redirectToRoute('content_index');
         }
 
@@ -109,7 +115,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/admin/article/{id}", name="content_article", methods={"GET"})
+     * @Route("/article/{id}", name="content_article", methods={"GET"})
      */
     public function showArticle(Content $content): Response
     {
@@ -129,6 +135,11 @@ class ContentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return $this->redirectToRoute('content_index');
         }
 
@@ -147,6 +158,11 @@ class ContentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($content);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Article supprimé'
+            );
         }
 
         return $this->redirectToRoute('content_index');

@@ -76,6 +76,11 @@ class IntegrationStepController extends AbstractController
             $entityManager->persist($integrationStep);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Etape d\'intégration créée'
+            );
+
             return $this->redirectToRoute('integration_step_index');
         }
 
@@ -105,6 +110,10 @@ class IntegrationStepController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('integration_step_index');
         }
@@ -124,6 +133,10 @@ class IntegrationStepController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($integrationStep);
             $entityManager->flush();
+            $this->addFlash(
+                'primary',
+                'Etape d\'intégration supprimée'
+            );
         }
 
         return $this->redirectToRoute('integration_step_index');

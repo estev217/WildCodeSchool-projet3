@@ -37,7 +37,7 @@ class ChecklistItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash(
-                'success',
+                'primary',
                 'Vos changements ont été sauvegardés !'
             );
             $entityManager->flush();
@@ -76,6 +76,11 @@ class ChecklistItemController extends AbstractController
             $entityManager->persist($checklistItem);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return $this->redirectToRoute('checklist_item_index');
         }
 
@@ -111,6 +116,11 @@ class ChecklistItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return $this->redirectToRoute('checklist_item_index');
         }
 
@@ -132,6 +142,11 @@ class ChecklistItemController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($checklistItem);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
         }
 
         return $this->redirectToRoute('checklist_item_index');
