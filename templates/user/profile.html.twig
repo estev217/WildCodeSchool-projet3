@@ -25,6 +25,9 @@
                         <h3>{{ user.firstname }} {{ user.lastname }}</h3>
                     </div>
                     <div class="card-body">
+                        {% if user.position %}
+                            <p><b>{{ user.position.name }}</b></p>
+                        {% endif %}
                         <p>Email : <b>{{ user.email }}</b></p>
                         {% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_MANAGER') and user.id == app.user.id %}
                             <p><a href="{{ path('password_verify', {'user': user.id} ) }}"> Modifier mon mot de
