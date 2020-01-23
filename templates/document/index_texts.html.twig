@@ -3,6 +3,7 @@
 {% block title %}Tous les documents{% endblock %}
 
 {% block body %}
+
     <div class="container">
         <div class="row">
             <div class="col-12 mb-5">
@@ -26,9 +27,13 @@
                             <tr>
                                 <td class="align-middle"><a href="/upload/documents/{{ text.documentName }}"
                                        target="_blank">{{ text.documentName }}</a></td>
-                                <td class="align-middle text-center"><input class="copy-text" type="text" id="text-box-{{ text.id }}" size="20"
-                                           value="/upload/documents/{{ text.documentName }}" readonly> <a title="Copier l'URL"> <i
-                                                class="fas fa-copy copy-button ml-2"></i></a></td>
+                                <td class="align-middle text-center">
+                                    <input class="copy-text" type="text" id="text-box-{{ text.id }}" size="20"
+                                           value="/upload/documents/{{ text.documentName }}" readonly>
+                                    <a title="Copier l'URL">
+                                        <i class="fas fa-copy copy-button ml-2"></i>
+                                    </a>
+                                </td>
                                 <td class="align-middle text-center">
                                     <a href="{{ path('document_show_text', {'id': text.id}) }}" title="Voir">
                                         <i class="fas fa-search-plus"></i>

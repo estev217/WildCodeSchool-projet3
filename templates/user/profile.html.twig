@@ -3,21 +3,16 @@
 {% block title %}Profil{% endblock %}
 {% block body %}
     <div class="container-fluid profile-page">
-        <div class="mb-3">
-            <div>
-                {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
-                    <a href="{{ path('manager_show', {'user': app.user.id }) }}">Retour à la liste de mes
-                        collaborateurs</a>
-                {% elseif is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('user_index') }}">Retour à la liste des
-                        utilisateurs</a>
-                {% endif %}
-            </div>
-        </div>
         <div class="page-header">
             <h1>Profil</h1>
         </div>
-
+            <div class="ml-5">
+                {% if is_granted('ROLE_MANAGER') and app.user.id != user.id %}
+                    <a class="btn btn-primary" href="{{ path('manager_show', {'user': app.user.id }) }}">Retour</a>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                    <a class="btn btn-primary" href="{{ path('user_index') }}">Retour</a>
+                {% endif %}
+            </div>
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <div class="card profile-card">
@@ -98,6 +93,7 @@
                             </table>
                         {% endif %}
 
+
                         {% if is_granted('ROLE_MANAGER') and app.user.id == user.id %}
                             <p><a href="{{ path('manager_show', {'user': app.user.id }) }}">
                                     Mes collaborateurs
@@ -106,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
             {% if not is_granted('ROLE_ADMIN') or user.id != app.user.id %}
                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                     <div class="card ">
@@ -171,7 +168,6 @@
                 </div>
             {% endif %}
         </div>
-
     </div>
 
 {% endblock %}
