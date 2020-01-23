@@ -35,9 +35,12 @@
                                     </a>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <a href="{{ path('document_show_text', {'id': text.id}) }}" title="Voir">
-                                        <i class="fas fa-search-plus"></i>
-                                    </a>
+                                    <form method="post" action="{{ path('document_delete_image', {'id': text.id}) }}"
+                                          onsubmit="return confirm('La suppression de cet élément est définitive, êtes-vous sûr(e)?');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ text.id) }}">
+                                        <button class="btn btn-danger">Supprimer</button>
+                                    </form>
                                 </td>
                             </tr>
                         {% else %}
