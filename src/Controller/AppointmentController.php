@@ -9,7 +9,6 @@ use DateTime;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use App\Entity\Appointment;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
@@ -67,7 +66,7 @@ class AppointmentController extends AbstractController
     /**
      * @Route("/new/{id}", name="appointment_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ParameterBagInterface $parameterBag, User $collaborator): Response
+    public function new(Request $request, User $collaborator): Response
     {
         $manager = $this->getUser();
         $appointment = new Appointment();
@@ -158,14 +157,55 @@ class AppointmentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash(
-                'primary',
-                'Modification prise en compte'
-            );
 
-            return new RedirectResponse($this->generateUrl('profile', [
-                'user' => $request->getSession()->get('from'),
-            ]));
+            $date = date_format(($form['date']->getData()), 'd-m-Y H:i');
+
+            $mail = new PHPMailer(true);
+
+                /*Enable verbose debug output*/
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                /* Tells PHPMailer to use SMTP. */
+                $mail->isSMTP();
+                /* SMTP server address. */
+                $mail->Host = $this->getParameter('mail_server');
+                /* Use SMTP authentication. */
+                $mail->SMTPAuth = true;
+                /* SMTP authentication username. */
+                $mail->Username = $this->getParameter('mail_from');
+                /* SMTP authentication password. */
+                $mail->Password = $this->getParameter('mail_password');
+                /* Set the encryption system. */
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                /* Set the SMTP port. */
+                $mail->Port = 587;
+                $mail->setFrom($this->getParameter('mail_from'));
+                $mail->addAddress($this->getParameter('mail_from'));
+                //$mail->addAddress($form['user']->getData()->getEmail());
+                /*$mail->addCC($manager->getEmail());
+                $mail->addReplyTo($manager->getEmail());*/
+                $mail->isHTML(true);
+                $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
+                $mail->Body = utf8_decode($form['message']->getData());
+
+                /* Disable some SSL checks. */
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+
+                $mail->send();
+
+                $this->addFlash(
+                    'primary',
+                    'Modification prise en compte'
+                );
+
+                return new RedirectResponse($this->generateUrl('profile', [
+                    'user' => $request->getSession()->get('from'),
+                ]));
         }
 
         return $this->render('appointment/edit.html.twig', [

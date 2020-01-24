@@ -3,6 +3,7 @@
 {% block title %}Image{% endblock %}
 
 {% block body %}
+
     <div class="container">
         <h1>Image</h1>
 
@@ -14,7 +15,9 @@
             </tr>
             <tr>
                 <th>ULR du document</th>
-                <td><input class="copy-text" type="text" id="text-box" size="50" value="/upload/documents/{{ document.documentName }}"> <a title="Copier l'URL"> <i class="fas fa-copy copy-button ml-2"></i></a></td>
+                <td><input class="copy-text" type="text" id="text-box" size="50"
+                           value="/upload/documents/{{ document.documentName }}"> <a title="Copier l'URL"> <i
+                                class="fas fa-copy copy-button ml-2"></i></a></td>
             </tr>
             <tr>
                 <th>Ajouté le</th>
@@ -23,7 +26,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('document_index_images') }}" class="btn btn-primary mb-3">Retour à la liste</a>
+        <a href="{{ path('document_index_images') }}" class="btn btn-primary mb-3">Retour</a>
 
         {{ include('document/_delete_form_image.html.twig') }}
     </div>

@@ -9,7 +9,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormError;
@@ -31,8 +30,7 @@ class AccountController extends AbstractController
     public function reset(
         User $user,
         Request $request,
-        UserPasswordEncoderInterface $encoder,
-        ParameterBagInterface $parameterBag
+        UserPasswordEncoderInterface $encoder
     ): Response {
         $form = $this->createForm(ResetPasswordType::class, $user);
 
