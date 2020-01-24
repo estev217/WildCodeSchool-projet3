@@ -1,11 +1,24 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New Position{% endblock %}
+{% block title %}Nouvelle fonction{% endblock %}
 
 {% block body %}
-    <h1>Create new Position</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Créer une nouvelle fonction</h1>
 
-    {{ include('position/_form.html.twig') }}
+                    {{ include('position/_form.html.twig') }}
 
-    <a href="{{ path('position_index') }}">back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="d-flex justify-content-md-center mt-3 mb-5">
+        <a class="btn btn-primary" href="{{ path('position_index') }}">Retour</a>
+    </div>
+
 {% endblock %}
