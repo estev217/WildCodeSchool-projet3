@@ -15,12 +15,12 @@
                         <a class="btn btn-primary" href="{{ path('residence_new') }}">Ajouter une résidence</a>
                     </div>
 
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>Nom</th>
                             <th>Ville</th>
-                            <th>actions</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,9 +28,13 @@
                             <tr>
                                 <td>{{ residence.name }}</td>
                                 <td>{{ residence.city }}</td>
-                                <td>
-                                    <a href="{{ path('residence_show', {'id': residence.id}) }}">voir</a>
-                                    <a href="{{ path('residence_edit', {'id': residence.id}) }}">modifier</a>
+                                <td class="text-center">
+                                    <a href="{{ path('residence_show', {'id': residence.id}) }}" title="Voir">
+                                        <i class="fas fa-search-plus mr-2"></i>
+                                    </a>
+                                    <a href="{{ path('residence_edit', {'id': residence.id}) }}" title="Modifier">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
                                 </td>
                             </tr>
                         {% else %}

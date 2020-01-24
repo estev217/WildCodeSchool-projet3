@@ -11,24 +11,25 @@
                     <div class="card-header text-center">
                         <h3>Mes collaborateurs</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body pt-0 px-0">
                         <table class="table table-striped collaborators">
                             <thead>
-                            <tr>
-                                <th scope="col" class="col-1 text-uppercase text-center">Nom</th>
-                                <th scope="col" class="col-1 text-uppercase text-center not-mobile">Prénom</th>
-                                <th scope="col" class="col-3 text-uppercase text-center desktop-xl">Mail</th>
-                                <th scope="col" class="col-3 text-uppercase text-center desktop-l">Fonction</th>
-                                <th scope="col" class="col-3 text-uppercase text-center not-under-mobile">Résidence</th>
-                                <th scope="col" class="col-1 text-uppercase text-center"></th>
-                                <th scope="col" class="col-1 text-uppercase text-center"></th>
-                            </tr>
+                                <tr>
+                                    <th scope="col" class="text-uppercase text-center">Nom</th>
+                                    <th scope="col" class="text-uppercase text-center not-mobile">Prénom</th>
+                                    <th scope="col" class="text-uppercase text-center desktop-xl">Mail</th>
+                                    <th scope="col" class="text-uppercase text-center desktop-l">Fonction</th>
+                                    <th scope="col" class="text-uppercase text-center not-under-mobile">Résidence</th>
+                                    <th scope="col" class="text-uppercase text-center"></th>
+                                    <th scope="col" class="text-uppercase text-center"></th>
+                                </tr>
                             </thead>
                             <tbody>
                             {% for collaborator in collaborators %}
                                 <tr>
                                     <td class="text-center align-middle">{{ collaborator.lastname }}
-                                            <p class="not-upper-mobile">{{ collaborator.firstname }}</p></td>
+                                        <p class="not-upper-mobile">{{ collaborator.firstname }}</p>
+                                    </td>
                                     <td class="text-center align-middle not-mobile">{{ collaborator.firstname }}</td>
                                     <td class="text-center align-middle desktop-xl">{{ collaborator.email }}</td>
                                     <td class="text-center align-middle desktop-l">{{ collaborator.position.name }}</td>
