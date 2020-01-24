@@ -39,12 +39,6 @@
                         </a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a href="{{ path('toolbox') }}" class="nav-link">
-                        <i class="fas fa-toolbox mr-1 fa-fw"></i>
-                        Boîte à outils
-                    </a>
-                </li>
             </ul>
             {% if is_granted('ROLE_MANAGER') %}
                 <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
@@ -55,12 +49,6 @@
                 </p>
 
                 <ul class="collapse nav flex-row mb-0 justify-content-center" id="collapse-manager">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-clipboard-list mr-1 fa-fw"></i>
-                            Checklist
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{{ path('manager_show', {'user': app.user.id }) }}" class="nav-link">
                             <i class="fas fa-users mr-1 fa-fw"></i>
