@@ -35,6 +35,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('val', '%' . $search->getName() . '%');
         }
 
+        if ($search->getPosition()) {
+            $query = $query
+                ->join('u.position', 'p')
+                ->andwhere('p.name = :position')
+                ->setParameter('position', $search->getPosition()->getName());
+        }
+
         if ($search->getRole()) {
             $query = $query
                 ->join('u.role', 'r')
@@ -50,7 +57,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->createQueryBuilder('u')
             ->orderBy('u.lastname', 'ASC');
     }
-
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
