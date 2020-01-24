@@ -5,6 +5,12 @@ namespace App\Entity;
 
 class UserSearch
 {
+
+    /**
+     * @var Position|null
+     */
+    private $position;
+
     /**
      * @var Role|null
      */
@@ -14,6 +20,22 @@ class UserSearch
      * @var string|null
      */
     private $name;
+
+    /**
+     * @return Position|null
+     */
+    public function getPosition(): ?Position
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param Position|null $position
+     */
+    public function setPosition(Position $position): void
+    {
+        $this->position = $position;
+    }
 
     /**
      * @return Role|null

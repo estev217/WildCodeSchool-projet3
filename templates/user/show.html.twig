@@ -34,6 +34,10 @@
                                     <td>{{ user.role.name }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Métier</th>
+                                    <td>{{ user.position ? user.position.name : '' }}</td>
+                                </tr>
+                                <tr>
                                     <th>Manager</th>
                                     <td>{{ user.manager ? user.manager.firstname ~ ' ' ~ user.manager.lastname : '' }}</td>
                                 </tr>
