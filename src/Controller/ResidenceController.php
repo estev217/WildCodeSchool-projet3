@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ResidenceController extends AbstractController
 {
     /**
-     * @Route("/", name="residence_index", methods={"GET"})
+     * @Route("/admin/index", name="residence_index", methods={"GET"})
      */
     public function index(ResidenceRepository $residenceRepository): Response
     {
@@ -26,7 +26,7 @@ class ResidenceController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="residence_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="residence_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -38,6 +38,10 @@ class ResidenceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($residence);
             $entityManager->flush();
+            $this->addFlash(
+                'primary',
+                'Résidence ajoutée'
+            );
 
             return $this->redirectToRoute('residence_index');
         }
@@ -49,7 +53,7 @@ class ResidenceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="residence_show", methods={"GET"})
+     * @Route("/admin/{id}", name="residence_show", methods={"GET"})
      */
     public function show(Residence $residence): Response
     {
@@ -59,7 +63,7 @@ class ResidenceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="residence_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="residence_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Residence $residence): Response
     {
@@ -68,6 +72,10 @@ class ResidenceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('residence_index');
         }
@@ -79,7 +87,7 @@ class ResidenceController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="residence_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="residence_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Residence $residence): Response
     {
@@ -87,6 +95,10 @@ class ResidenceController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($residence);
             $entityManager->flush();
+            $this->addFlash(
+                'primary',
+                'Résidence supprimée'
+            );
         }
 
         return $this->redirectToRoute('residence_index');

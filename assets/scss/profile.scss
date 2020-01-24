@@ -4,10 +4,6 @@
 
   .profile-card {
 
-    .profile-infos {
-      width: 45%;
-    }
-
     table {
       width: 100%;
 
@@ -26,6 +22,13 @@
   &:hover {
     color: $yellow;
   }
+
+
 }
 
-
+.appointment-table {
+  width: 95%;
+  tr {
+    height: 3rem;
+  }
+}

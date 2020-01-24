@@ -35,10 +35,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: /admin, roles: ROLE_ADMIN }
         - { path: ^/user, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
         - { path: ^/integration, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
         - { path: ^/content, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
         - { path: ^/checklistitem, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
         - { path: ^/document, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
+        - { path: ^/appointment, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
+        - { path: ^/category, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
+        - { path: ^/residence, roles: [ROLE_COLLABORATOR, ROLE_MANAGER, ROLE_ADMIN] }
+
 
 

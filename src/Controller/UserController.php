@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\ChecklistItem;
 use App\Entity\IntegrationStep;
 use App\Entity\User;
+use App\Entity\UserSearch;
+use App\Form\UserSearchType;
 use App\Form\UserType;
 use App\Form\UserTypeChecklist;
 use App\Entity\Role;
@@ -38,12 +40,15 @@ class UserController extends AbstractController
      * @Route("/profile/{user}", name="profile")
      * @param User $user
      * @param TimelineService $timelineService
+     * @param AppointmentRepository $appointmentRepository
+     * @param Request $request
      * @return Response
      */
     public function profile(
         User $user,
         TimelineService $timelineService,
-        AppointmentRepository $appointmentRepository
+        AppointmentRepository $appointmentRepository,
+        Request $request
     ): Response {
         //Checklist progress bar
         $totalItems = count($this->getDoctrine()->getRepository(ChecklistItem::class)->findAll());
@@ -70,6 +75,10 @@ class UserController extends AbstractController
         usort($appointments, function ($a, $b) {
             return ($a->getDate()) <=> ($b->getDate());
         });
+
+        $session = $request->getSession();
+
+        $session->set('from', $user->getId());
 
         return $this->render('user/profile.html.twig', [
             'user' => $user,
@@ -114,20 +123,27 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/admin/index", name="user_index", methods={"GET"})
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Request $request): Response
     {
-        $users = $userRepository->findBy([], ['lastname' => 'ASC']);
+        $search = new UserSearch();
+
+        $form = $this->createForm(UserSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $users = $userRepository->searchUser($search);
+
         return $this->render('user/index.html.twig', [
             'users' => $users,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="user_new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -156,6 +172,11 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Utilisateur ajouté'
+            );
+
             return $this->redirectToRoute('user_index');
         }
 
@@ -166,7 +187,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/admin/{id}", name="user_show", methods={"GET"})
      * @param User $user
      * @return Response
      */
@@ -178,7 +199,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="user_edit", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @return Response
@@ -199,8 +220,12 @@ class UserController extends AbstractController
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
-
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('user_index');
         }
@@ -212,7 +237,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="user_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {
@@ -220,6 +245,11 @@ class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Utilisateur supprimé'
+            );
         }
 
         return $this->redirectToRoute('user_index');

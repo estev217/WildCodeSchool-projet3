@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\UserSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,6 +22,40 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function searchUser(UserSearch $search)
+    {
+        $query = $this->findAllQuery();
+
+        if ($search->getName()) {
+            $query = $query
+                ->andwhere('u.lastname LIKE :val')
+                ->orWhere('u.firstname LIKE :val')
+                ->setParameter('val', '%' . $search->getName() . '%');
+        }
+
+        if ($search->getPosition()) {
+            $query = $query
+                ->join('u.position', 'p')
+                ->andwhere('p.name = :position')
+                ->setParameter('position', $search->getPosition()->getName());
+        }
+
+        if ($search->getRole()) {
+            $query = $query
+                ->join('u.role', 'r')
+                ->andwhere('r.name = :role')
+                ->setParameter('role', $search->getRole()->getName());
+        }
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findAllQuery(): QueryBuilder
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.lastname', 'ASC');
     }
 
     /**

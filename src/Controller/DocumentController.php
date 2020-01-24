@@ -11,23 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/document")
+ * @Route("/document/admin")
  */
 class DocumentController extends AbstractController
 {
-    const TEXT_TYPES = [
-        'application/pdf',
-        'application/x-pdf',
-        'application/msword',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    ];
-
-    const IMAGE_TYPES = [
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-    ];
-
     /**
      * @Route("/text", name="document_index_texts", methods={"GET"})
      */
@@ -67,6 +54,11 @@ class DocumentController extends AbstractController
             $entityManager->persist($document);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Document ajouté'
+            );
+
             return $this->redirectToRoute('document_index_texts');
         }
 
@@ -90,6 +82,11 @@ class DocumentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($document);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Image ajoutée'
+            );
 
             return $this->redirectToRoute('document_index_images');
         }
@@ -150,6 +147,11 @@ class DocumentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($document);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Document supprimé'
+            );
         }
 
         return $this->redirectToRoute('document_index_texts');
@@ -164,6 +166,11 @@ class DocumentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($document);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Image supprimée'
+            );
         }
 
         return $this->redirectToRoute('document_index_images');

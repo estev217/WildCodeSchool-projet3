@@ -1,16 +1,31 @@
 <div class="pos-f-t">
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="p-1 nav-color">
-            <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">Mon Welcome Pack</p>
-
-            <ul class="nav flex-row mb-0 justify-content-center">
-                {% if is_granted('ROLE_COLLABORATOR') %}
+            <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+                <a data-toggle="collapse" class="nav-title"
+                   href="#collapse-categories" role="button" aria-expanded="false" aria-controls="collapse-categories">
+                    Articles<i class="fas fa-sort-down ml-2"></i>
+                </a>
+            </p>
+            <div class="collapse nav mb-0 justify-content-center" id="collapse-categories">
+                {{ render ( controller (
+                    'App\\Controller\\CategoryController::navigation'
+                )) }}
+            </div>
+            <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+                <a data-toggle="collapse" class="nav-title"
+                   href="#collapse-pack" role="button" aria-expanded="false" aria-controls="collapse-pack">
+                    Mon Welcome Pack<i class="fas fa-sort-down ml-2"></i>
+                </a>
+            </p>
+            <ul class="collapse nav flex-row mb-0 justify-content-center" id="collapse-pack">
                     <li class="nav-item">
                         <a href="{{ path('profile', {'user': app.user.id }) }}" class="nav-link">
                             <i class="fas fa-user mr-1 fa-fw"></i>
                             Mon profil
                         </a>
                     </li>
+                {% if is_granted('ROLE_COLLABORATOR') %}
                     <li class="nav-item">
                         <a href="{{ path('timeline', {'user': app.user.id }) }}#active" class="nav-link">
                             <i class="fas fa-walking mr-1 fa-fw"></i>
@@ -24,31 +39,16 @@
                         </a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a href="{{ path('toolbox') }}" class="nav-link">
-                        <i class="fas fa-toolbox mr-1 fa-fw"></i>
-                        Boîte à outils
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('info') }}" class="nav-link">
-                        <i class="fas fa-cubes mr-1 fa-fw"></i>
-                        Nemea
-                    </a>
-                </li>
             </ul>
-
             {% if is_granted('ROLE_MANAGER') %}
-                <p class="font-weight-bold text-uppercase text-center px-2 small pt-2 pb-2 mb-0">Le coin du
-                    manager</p>
+                <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+                    <a data-toggle="collapse" class="nav-title"
+                       href="#collapse-manager" role="button" aria-expanded="false" aria-controls="collapse-manager">
+                        Le coin du manager<i class="fas fa-sort-down ml-2"></i>
+                    </a>
+                </p>
 
-                <ul class="nav flex-row mb-0 justify-content-center">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-clipboard-list mr-1 fa-fw"></i>
-                            Checklist
-                        </a>
-                    </li>
+                <ul class="collapse nav flex-row mb-0 justify-content-center" id="collapse-manager">
                     <li class="nav-item">
                         <a href="{{ path('manager_show', {'user': app.user.id }) }}" class="nav-link">
                             <i class="fas fa-users mr-1 fa-fw"></i>
@@ -57,13 +57,28 @@
                     </li>
                 </ul>
             {% endif %}
-            <br>
-            <ul class="nav flex-row mb-0 justify-content-end">
+            {% if is_granted('ROLE_ADMIN') %}
+                <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+                    <a data-toggle="collapse" class="nav-title"
+                       href="#collapse-admin" role="button" aria-expanded="false" aria-controls="collapse-admin">
+                        Administrateur<i class="fas fa-sort-down ml-2"></i>
+                    </a>
+                </p>
+                <ul class="collapse nav flex-row justify-content-center mb-0" id="collapse-admin">
+                    <li class="nav-item">
+                        <a href="{{ path('admin') }}" class="nav-link">
+                            <i class="fas fa-user-cog mr-3 fa-fw"></i>
+                            Gestion
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
+            <ul class="nav flex-row mb-0 mt-2 justify-content-end">
                 <li class="nav-item">
                     {% if app.user %}
                         <a href="{{ path('app_logout') }}" class="nav-link">
-                            <i class="fas fa-sign-out-alt mr-1 fa-fw"></i>
                             Déconnexion
+                            <i class="fas fa-sign-out-alt fa-fw"></i>
                         </a>
                     {% endif %}
                 </li>
@@ -75,7 +90,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div>
-            <p class="text-uppercase">menu</p>
+            <p class="text-uppercase nav-title">menu</p>
         </div>
     </nav>
 </div>

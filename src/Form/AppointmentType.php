@@ -35,12 +35,7 @@ class AppointmentType extends AbstractType
                     $thisYear, $nextYear,
                 ]
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'label' => 'Collaborateur',
-                'choice_label' => function (user $user) {
-                    return $user->getFirstname() . ' ' . $user->getLastname();
-                }])
+
             ->add('subject', TextType::class, [
                 'mapped' => false,
                 'label' => 'Objet du message'

@@ -37,7 +37,7 @@ class ChecklistItemController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->addFlash(
-                'success',
+                'primary',
                 'Vos changements ont été sauvegardés !'
             );
             $entityManager->flush();
@@ -49,7 +49,7 @@ class ChecklistItemController extends AbstractController
     }
 
     /**
-     * @Route("/", name="index", methods={"GET"})
+     * @Route("/admin/index", name="index", methods={"GET"})
      * @param ChecklistItemRepository $checklistItemRepository
      * @return Response
      */
@@ -61,7 +61,7 @@ class ChecklistItemController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="new", methods={"GET","POST"})
+     * @Route("/admin/new", name="new", methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
@@ -76,6 +76,11 @@ class ChecklistItemController extends AbstractController
             $entityManager->persist($checklistItem);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return $this->redirectToRoute('checklist_item_index');
         }
 
@@ -86,7 +91,7 @@ class ChecklistItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show", methods={"GET"})
+     * @Route("/admin/{id}", name="show", methods={"GET"})
      * @param ChecklistItem $checklistItem
      * @return Response
      */
@@ -98,7 +103,7 @@ class ChecklistItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="edit", methods={"GET","POST"})
      * @param Request $request
      * @param ChecklistItem $checklistItem
      * @return Response
@@ -111,6 +116,11 @@ class ChecklistItemController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
+
             return $this->redirectToRoute('checklist_item_index');
         }
 
@@ -121,7 +131,7 @@ class ChecklistItemController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="delete", methods={"DELETE"})
      * @param Request $request
      * @param ChecklistItem $checklistItem
      * @return Response
@@ -132,6 +142,11 @@ class ChecklistItemController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($checklistItem);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
         }
 
         return $this->redirectToRoute('checklist_item_index');

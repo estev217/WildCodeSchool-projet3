@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Content;
+use App\Entity\ContentSearch;
+use App\Form\ContentSearchType;
 use App\Form\ContentType;
 use App\Repository\ContentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +31,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route ("/info", name="info")
+     * @Route ("/info/{category}", name="info")
      * @param ContentRepository $contentRepository
      * @param PaginatorInterface $paginator
      * @param Request $request
@@ -37,32 +40,43 @@ class ContentController extends AbstractController
     public function showContent(
         ContentRepository $contentRepository,
         PaginatorInterface $paginator,
-        Request $request
+        Request $request,
+        Category $category
     ): Response {
 
-        $data = $contentRepository->findAll();
+        $data = $contentRepository->findBy(['category' => $category->getId()], ['createdAt' => 'DESC']);
         $contents = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
             self::ITEMS_PER_PAGE
         );
 
-        return $this->render('nemeaContent.html.twig', [
+        return $this->render('nemea_content.html.twig', [
             'contents' => $contents,
+            'category' => $category,
         ]);
     }
     /**
-     * @Route("/", name="content_index", methods={"GET"})
+     * @Route("/admin/index", name="content_index", methods={"GET"})
      */
-    public function index(ContentRepository $contentRepository): Response
+    public function index(ContentRepository $contentRepository, Request $request): Response
     {
+
+        $search = new ContentSearch();
+
+        $form = $this->createForm(ContentSearchType::class, $search);
+        $form->handleRequest($request);
+
+        $contents = $contentRepository->searchContent($search);
+
         return $this->render('content/index.html.twig', [
-            'contents' => $contentRepository->findAll(),
+            'contents' => $contents,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/new", name="content_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="content_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -76,6 +90,11 @@ class ContentController extends AbstractController
             $entityManager->persist($content);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Article créé'
+            );
+
             return $this->redirectToRoute('content_index');
         }
 
@@ -86,7 +105,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="content_show", methods={"GET"})
+     * @Route("/admin/{id}", name="content_show", methods={"GET"})
      */
     public function show(Content $content): Response
     {
@@ -106,7 +125,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="content_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="content_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Content $content): Response
     {
@@ -115,6 +134,11 @@ class ContentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('content_index');
         }
@@ -126,7 +150,7 @@ class ContentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="content_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="content_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Content $content): Response
     {
@@ -134,6 +158,11 @@ class ContentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($content);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Article supprimé'
+            );
         }
 
         return $this->redirectToRoute('content_index');

@@ -5,20 +5,19 @@
     width: 10rem;
     min-height: 101vh;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s;
     background-color: $cardsColor;
 
     .nav-content {
         position: fixed;
         width: 10rem;
-        margin-top: 2rem;
+        margin-top: 1rem;
     }
     .nav-title {
         color: $yellow;
     }
 
     .menus {
-        margin-top: 4rem;
+        margin-top: 1rem;
     }
 
     .nav-link {
@@ -36,8 +35,8 @@
     .cornerlogo {
         height: 10rem;
         width: 10rem;
-        margin-top: 1.8rem;
-        margin-bottom: 1.8rem;
+        margin-top: 1.0rem;
+        margin-bottom: 1.0rem;
         padding: 1rem;
         .logo-circle {
             width: 100%;
@@ -48,18 +47,19 @@
             img {
                 width: 6.5rem;
                 margin: auto;
+                -ms-grid-row-align: center;
             }
         }
     }
 }
 
-@media (min-width: 701px) {
+@media screen and (min-width: 701px) {
     .pos-f-t{
      display: none;
  }
 }
 
-@media (max-width: 700px) {
+@media screen and (max-width: 700px) {
     #sidebar {
         margin-left: -10rem;
     }
@@ -71,7 +71,12 @@
         width: 100vw;
         .nav-color{
             background-color: $cardsColor;
-            color: $yellow;
         }
+    }
+    .nav-title {
+        color: $yellow;
+    }
+    .fas {
+        color: $lightBlue;
     }
 }

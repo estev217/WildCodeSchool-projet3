@@ -15,8 +15,31 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryController extends AbstractController
 {
+    // Categories inclusion in navbar
     /**
-     * @Route("/", name="category_index", methods={"GET"})
+     * @Route("/navigation", name="category_navigation", methods={"GET"})
+     */
+    public function navigation(CategoryRepository $categoryRepository): Response
+    {
+        $categories = $categoryRepository->findAll();
+        $managerCategory = '';
+
+        foreach ($categories as $key => $category) {
+            if ($category->getName() === 'Checklist manager') {
+                $managerCategory = $category;
+                unset($categories[$key]);
+            }
+        }
+
+        $categories[] = $managerCategory;
+
+        return $this->render('_navigation_categories.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/index", name="category_index", methods={"GET"})
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
@@ -25,19 +48,8 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    // Categories inclusion in navbar
     /**
-     * @Route("/navigation", name="category_navigation", methods={"GET"})
-     */
-    public function navigation(CategoryRepository $categoryRepository): Response
-    {
-        return $this->render('navigationCategories.html.twig', [
-            'categories' => $categoryRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="category_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="category_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -50,6 +62,11 @@ class CategoryController extends AbstractController
             $entityManager->persist($category);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Catégorie créée'
+            );
+
             return $this->redirectToRoute('category_index');
         }
 
@@ -60,7 +77,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="category_show", methods={"GET"})
+     * @Route("/admin/{id}", name="category_show", methods={"GET"})
      */
     public function show(Category $category): Response
     {
@@ -70,7 +87,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -79,6 +96,11 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('category_index');
         }
@@ -90,7 +112,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="category_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="category_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Category $category): Response
     {
@@ -98,12 +120,13 @@ class CategoryController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
+
+            $this->addFlash(
+                'primary',
+                'Catégorie supprimée'
+            );
         }
 
         return $this->redirectToRoute('category_index');
     }
-
 }
-
-
-

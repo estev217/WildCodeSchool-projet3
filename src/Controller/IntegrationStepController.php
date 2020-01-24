@@ -42,7 +42,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/", name="integration_step_index", methods={"GET"})
+     * @Route("/admin/index", name="integration_step_index", methods={"GET"})
      */
     public function index(IntegrationStepRepository $integrationStepRepository): Response
     {
@@ -53,7 +53,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="integration_step_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="integration_step_new", methods={"GET","POST"})
      * @param Request $request
      * @param TimelineService $timelineService
      * @param IntegrationStepRepository $integrationStepRepository
@@ -76,6 +76,11 @@ class IntegrationStepController extends AbstractController
             $entityManager->persist($integrationStep);
             $entityManager->flush();
 
+            $this->addFlash(
+                'primary',
+                'Etape d\'intégration créée'
+            );
+
             return $this->redirectToRoute('integration_step_index');
         }
 
@@ -86,7 +91,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="integration_step_show", methods={"GET"})
+     * @Route("/admin/{id}", name="integration_step_show", methods={"GET"})
      */
     public function show(IntegrationStep $integrationStep): Response
     {
@@ -96,7 +101,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="integration_step_edit", methods={"GET","POST"})
+     * @Route("/admin/{id}/edit", name="integration_step_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, IntegrationStep $integrationStep): Response
     {
@@ -105,6 +110,10 @@ class IntegrationStepController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash(
+                'primary',
+                'Modification prise en compte'
+            );
 
             return $this->redirectToRoute('integration_step_index');
         }
@@ -116,7 +125,7 @@ class IntegrationStepController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="integration_step_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="integration_step_delete", methods={"DELETE"})
      */
     public function delete(Request $request, IntegrationStep $integrationStep): Response
     {
@@ -124,6 +133,10 @@ class IntegrationStepController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($integrationStep);
             $entityManager->flush();
+            $this->addFlash(
+                'primary',
+                'Etape d\'intégration supprimée'
+            );
         }
 
         return $this->redirectToRoute('integration_step_index');
