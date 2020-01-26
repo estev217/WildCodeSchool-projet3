@@ -107,7 +107,7 @@ class AppointmentController extends AbstractController
                 $mail->addReplyTo($manager->getEmail());*/
                 $mail->isHTML(true);
                 $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
-                $mail->Body = utf8_decode($form['message']->getData());
+                $mail->Body = utf8_decode(nl2br($form['message']->getData()));
 
                 /* Disable some SSL checks. */
                 $mail->SMTPOptions = array(
@@ -185,7 +185,7 @@ class AppointmentController extends AbstractController
                 $mail->addReplyTo($manager->getEmail());*/
                 $mail->isHTML(true);
                 $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
-                $mail->Body = utf8_decode($form['message']->getData());
+                $mail->Body = utf8_decode(nl2br($form['message']->getData()));
 
                 /* Disable some SSL checks. */
                 $mail->SMTPOptions = array(
