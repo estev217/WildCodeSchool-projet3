@@ -29,6 +29,12 @@
 
                 <ul class="nav flex-column mb-0">
                     <li class="nav-item">
+                        <a href="{{ path('profile', {'user': app.user.id }) }}" class="nav-link">
+                            <i class="fas fa-user mr-3 fa-fw"></i>
+                            Mon profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ path('timeline', {'user': app.user.id }) }}#active" class="nav-link">
                             <i class="fas fa-walking mr-3 fa-fw"></i>
                             Parcours
@@ -38,18 +44,6 @@
                         <a href="{{ path('checklist_item_checklist', {'user': app.user.id }) }}" class="nav-link">
                             <i class="fas fa-tasks mr-3 fa-fw"></i>
                             Checklist
-                        </a>
-                    </li>
-                </ul>
-            {% endif %}
-
-            {% if is_granted('ROLE_MANAGER') %}
-
-                <ul class="nav flex-column mb-0">
-                    <li class="nav-item">
-                        <a href="{{ path('manager_show', {'user': app.user.id }) }}" class="nav-link">
-                            <i class="fas fa-users mr-3 fa-fw"></i>
-                            Collaborateurs
                         </a>
                     </li>
                 </ul>

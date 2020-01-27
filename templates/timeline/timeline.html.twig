@@ -25,7 +25,7 @@
                                 class="{{ step.fontAwesome }}" style="color:#495057;"></i></div>
                     <div class="timeline-panel {{ statuses[step.id] }}">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title" style="">{{statuses[step.id] == 'in-progress' ? '<b>Etape en cours : </b>': ''}} {{ step.name }}</h4>
+                            <h4 class="timeline-title" >{{statuses[step.id] == 'in-progress' ? '<b>Etape en cours : </b>': ''}} {{ step.name }}</h4>
                             <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Durée : {{ durations[step.id] }}
                                   </small></p>
                         </div>
