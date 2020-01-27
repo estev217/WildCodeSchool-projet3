@@ -21,11 +21,11 @@
         <ul class="timeline">
             {% for step in steps %}
                 <li class="{{ loop.index is odd ? '' : 'timeline-inverted' }}" {{ statuses[step.id] == 'in-progress' ? 'id="active"' : '' }}>
-                    <div class="timeline-badge" style="background-color: {{ statuses[step.id] == 'completed' ? 'grey;' : step.color }}" ><i
+                    <div class="timeline-badge" style="background-color: {{ statuses[step.id] == 'completed' ? '#aeaeae;' : step.color }}" ><i
                                 class="{{ step.fontAwesome }}" style="color:#495057;"></i></div>
                     <div class="timeline-panel {{ statuses[step.id] }}">
                         <div class="timeline-heading">
-                            <h4 class="timeline-title">{{ step.name }}</h4>
+                            <h4 class="timeline-title" style="">{{statuses[step.id] == 'in-progress' ? '<b>Etape en cours : </b>': ''}} {{ step.name }}</h4>
                             <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> Durée : {{ durations[step.id] }}
                                   </small></p>
                         </div>
