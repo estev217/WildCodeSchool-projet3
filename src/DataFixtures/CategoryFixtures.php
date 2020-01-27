@@ -12,28 +12,13 @@ use Faker;
 class CategoryFixtures extends Fixture
 {
     const CATEGORIES = [
-        [
-            'name' => 'Boîte à outils',
-        ],
-        [
-            'name' => 'Le groupe',
-        ],
-        [
-            'name' => 'Cap 2022',
-        ],
-        [
-            'name' => 'Memo pratique',
-        ],
-        [
-            'name' => 'Annuaire',
-        ],
-        [
-            'name' => 'Nos produits',
-        ],
-        [
-            'name' => 'Checklist manager',
-        ]
-
+            'Boîte à outils',
+            'Le groupe',
+            'Cap 2022',
+            'Memo pratique',
+            'Annuaire',
+            'Nos produits',
+            'Checklist',
     ];
 
     public function load(ObjectManager $manager)
@@ -41,9 +26,12 @@ class CategoryFixtures extends Fixture
         $counter = 0;
         foreach (self::CATEGORIES as $data) {
             $category = new Category();
-            $category->setName($data['name']);
+            $category->setName($data);
+            if ($data === 'Checklist') {
+                $category->setAccess('manager');
+            }
             $manager->persist($category);
-            $this->addReference('categorie_' . $counter, $category);
+            $this->addReference('category_' . $counter, $category);
             $counter++;
         }
         $manager->flush();

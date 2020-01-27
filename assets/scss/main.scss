@@ -5,6 +5,19 @@ body {
   background-color: $darkBackground;
 }
 
+.pagination {
+  .page-link {
+    color: $darkBlue;
+  }
+  .page-item.active {
+    .page-link {
+      background-color: $yellow;
+      border-color: $yellow;
+      color: $darkBlue;
+    }
+  }
+}
+
 .container, .container-fluid {
   margin-top: 5rem;
 }

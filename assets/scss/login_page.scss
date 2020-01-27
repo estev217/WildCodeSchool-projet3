@@ -7,11 +7,8 @@
 }
 
 .winter-background{
-  display: flex;
+  @extend .summer-background;
   background-image: url("../images/hiver1.jpg");
-  background-size: cover;
-  background-position: center;
-  margin-top: 0;
 }
 
 .login {

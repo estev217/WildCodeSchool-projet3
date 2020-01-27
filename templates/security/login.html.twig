@@ -1,13 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <div class="container-fluid
-                {% if "now"|date("M") in ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'] %}
-                    summer-background
-                    {% else %}
-                    winter-background
-                {% endif %}
-                min-vh-100">
+    <div class="container-fluid {{ season }}-background min-vh-100">
         <div class="login">
             <img src="{{asset('build/images/logo.png')}}" class="logo" alt="logo">
 
