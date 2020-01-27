@@ -1,23 +1,43 @@
-<div>
+<p class="font-weight-bold text-uppercase text-center px-2 small pt-3 pb-3 mb-0">
+    <a class="nav-title" data-toggle="collapse"
+       href="#collapse-categories" role="button" aria-expanded="false" aria-controls="collapse-categories">
+        Articles<i class="fas fa-sort-down ml-2"></i>
+    </a>
+</p>
+
+<div class="collapse" id="collapse-categories">
     <ul class="nav flex-column mb-0">
         {% for category in categories %}
-            {% if category.name == 'Checklist manager' %}
-                {% if not is_granted('ROLE_COLLABORATOR') %}
-                    <li class="nav-item">
-                        <a href="{{ path('info', {'category': category.id }) }}" class="nav-link">
-                            <i class="fas fa-clipboard-list mr-3 fa-fw"></i>
-                            {{ category.name }}
-                        </a>
-                    </li>
-                {% endif %}
-            {% else %}
                 <li class="nav-item">
                     <a href="{{ path('info', {'category': category.id }) }}" class="nav-link">
                         <i class="fas fa-folder-open mr-3 fa-fw"></i>
                         {{ category.name }}
                     </a>
                 </li>
-            {% endif %}
         {% endfor %}
     </ul>
 </div>
+
+{% if not is_granted('ROLE_COLLABORATOR') %}
+<p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+    <a data-toggle="collapse" class="nav-title"
+       href="#collapse-manager" role="button" aria-expanded="false" aria-controls="collapse-manager">
+        Le coin du manager<i class="fas fa-sort-down ml-2"></i>
+    </a>
+</p>
+
+<ul class="collapse nav flex-row mb-0 justify-content-center" id="collapse-manager">
+    <li class="nav-item">
+        <a href="{{ path('info', {'category': manager_category.id }) }}" class="nav-link">
+            <i class="fas fa-clipboard-list mr-3 fa-fw"></i>
+            {{ manager_category.name }}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ path('manager_show', {'user': app.user.id }) }}" class="nav-link">
+            <i class="fas fa-users mr-3 fa-fw"></i>
+            Collaborateurs
+        </a>
+    </li>
+</ul>
+{% endif %}

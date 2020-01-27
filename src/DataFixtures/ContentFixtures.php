@@ -103,7 +103,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $content->setTitle($faker->sentence);
             $content->setUser($this->getReference('admin'));
             $content->setContent($faker->text);
-            $content->setCategory($this->getReference('categorie_' . $i));
+            $content->setCategory($this->getReference('category_' . $i));
             $manager->persist($content);
         }
         foreach (self::TOOLBOX as $data) {
@@ -111,7 +111,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $toolbox->setUser($this->getReference('admin'));
             $toolbox->setTitle($data['title']);
             $toolbox->setContent($data['content']);
-            $toolbox->setCategory($this->getReference('categorie_0'));
+            $toolbox->setCategory($this->getReference('category_0'));
             $manager->persist($toolbox);
         }
         foreach (self::CHECKLIST_MANAGER as $data) {
@@ -119,7 +119,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $listManager->setUser($this->getReference('admin'));
             $listManager->setTitle($data['title']);
             $listManager->setContent($data['content']);
-            $listManager->setCategory($this->getReference('categorie_6'));
+            $listManager->setCategory($this->getReference('category_6'));
             $manager->persist($listManager);
         }
         $manager->flush();

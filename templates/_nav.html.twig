@@ -17,23 +17,23 @@
                 </li>
             </ul>
 
-            <p class="font-weight-bold text-uppercase text-center px-2 small pt-3 pb-3 mb-0">
-                <a class="nav-title" data-toggle="collapse"
-                   href="#collapse-categories" role="button" aria-expanded="false" aria-controls="collapse-categories">
-                    Articles<i class="fas fa-sort-down ml-2"></i>
-                </a>
-            </p>
 
-            <div class="collapse" id="collapse-categories">
-                {{ render ( controller (
-                    'App\\Controller\\CategoryController::navigation'
-                )) }}
-            </div>
+            {# render controller to display list of articles category in navbar #}
+            {{ render ( controller (
+                'App\\Controller\\CategoryController::navigation'
+            )) }}
+
             {% if is_granted('ROLE_COLLABORATOR') %}
                 <p class="nav-title font-weight-bold text-uppercase text-center px-2 small pt-4 pb-3 mb-0">Mon Welcome
                     Pack</p>
 
                 <ul class="nav flex-column mb-0">
+                    <li class="nav-item">
+                        <a href="{{ path('profile', {'user': app.user.id }) }}" class="nav-link">
+                            <i class="fas fa-user mr-3 fa-fw"></i>
+                            Mon profil
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ path('timeline', {'user': app.user.id }) }}#active" class="nav-link">
                             <i class="fas fa-walking mr-3 fa-fw"></i>
@@ -44,20 +44,6 @@
                         <a href="{{ path('checklist_item_checklist', {'user': app.user.id }) }}" class="nav-link">
                             <i class="fas fa-tasks mr-3 fa-fw"></i>
                             Checklist
-                        </a>
-                    </li>
-                </ul>
-            {% endif %}
-
-            {% if is_granted('ROLE_MANAGER') %}
-                <p class="nav-title font-weight-bold text-uppercase text-center px-2 small pt-4 pb-3 mb-0">Le coin du
-                    manager</p>
-
-                <ul class="nav flex-column mb-0">
-                    <li class="nav-item">
-                        <a href="{{ path('manager_show', {'user': app.user.id }) }}" class="nav-link">
-                            <i class="fas fa-users mr-3 fa-fw"></i>
-                            Collaborateurs
                         </a>
                     </li>
                 </ul>

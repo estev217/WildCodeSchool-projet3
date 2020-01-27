@@ -22,15 +22,6 @@ class ContentController extends AbstractController
     const ITEMS_PER_PAGE = 9;
 
     /**
-     * @Route ("/toolbox", name="toolbox")
-     * @return Response
-     */
-    public function toolBox(): Response
-    {
-        return $this->render('toolBox.html.twig');
-    }
-
-    /**
      * @Route ("/info/{category}", name="info")
      * @param ContentRepository $contentRepository
      * @param PaginatorInterface $paginator

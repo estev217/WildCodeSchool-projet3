@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,27 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $summerMonths = [
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+        ];
+
+        $now = new DateTime();
+        if (in_array($now->format('m'), $summerMonths)) {
+            $season = 'summer';
+        } else {
+            $season = 'winter';
+        }
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+            'season' => $season,
+        ]);
     }
 
     /**
