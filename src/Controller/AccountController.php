@@ -24,6 +24,7 @@ class AccountController extends AbstractController
      * @Route("/user/reset/{user}", name="password_reset", methods={"GET","POST"})
      * @param User $user
      * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
      * @return Response
      * @throws Exception
      */

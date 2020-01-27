@@ -262,6 +262,8 @@ class AppointmentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('appointment_index');
+        return new RedirectResponse($this->generateUrl('profile', [
+            'user' => $request->getSession()->get('from'),
+        ]));
     }
 }

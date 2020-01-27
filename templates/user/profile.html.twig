@@ -25,7 +25,7 @@
                         {% endif %}
                         <p>Email : <b>{{ user.email }}</b></p>
                         {% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_MANAGER') and user.id == app.user.id %}
-                            <p><a href="{{ path('password_verify', {'user': user.id} ) }}"> Modifier mon mot de
+                            <p><a href="{{ path('password_reset', {'user': app.user.id} ) }}"> Modifier mon mot de
                                     passe</a></p>
                         {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
@@ -123,7 +123,7 @@
 
                                     {% for appointment in appointments %}
                                         <tr class="border-bottom">
-                                            <td class="col-12">Le {{ appointment.date|date ("d/m/Y à G:i") }} avec
+                                            <td class="col-12">Le {{ appointment.date|date ("d/m/y à H:i") }} avec <br>
                                                 {% if is_granted('ROLE_COLLABORATOR') %}
                                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
                                             </td>
