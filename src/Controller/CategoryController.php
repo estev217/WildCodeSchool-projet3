@@ -18,6 +18,8 @@ class CategoryController extends AbstractController
     // Categories inclusion in navbar
     /**
      * @Route("/navigation", name="category_navigation", methods={"GET"})
+     * @param CategoryRepository $categoryRepository
+     * @return Response
      */
     public function navigation(CategoryRepository $categoryRepository): Response
     {
@@ -25,21 +27,22 @@ class CategoryController extends AbstractController
         $managerCategory = '';
 
         foreach ($categories as $key => $category) {
-            if ($category->getName() === 'Checklist manager') {
+            if ($category->getAccess() === 'manager') {
                 $managerCategory = $category;
                 unset($categories[$key]);
             }
         }
 
-        $categories[] = $managerCategory;
-
         return $this->render('_navigation_categories.html.twig', [
             'categories' => $categories,
+            'manager_category' => $managerCategory,
         ]);
     }
 
     /**
      * @Route("/admin/index", name="category_index", methods={"GET"})
+     * @param CategoryRepository $categoryRepository
+     * @return Response
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
@@ -50,6 +53,8 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/admin/new", name="category_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -78,6 +83,8 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/admin/{id}", name="category_show", methods={"GET"})
+     * @param Category $category
+     * @return Response
      */
     public function show(Category $category): Response
     {
@@ -88,6 +95,9 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/admin/{id}/edit", name="category_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Category $category
+     * @return Response
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -113,6 +123,9 @@ class CategoryController extends AbstractController
 
     /**
      * @Route("/admin/{id}", name="category_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Category $category
+     * @return Response
      */
     public function delete(Request $request, Category $category): Response
     {

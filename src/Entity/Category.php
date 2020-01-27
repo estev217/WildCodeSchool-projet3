@@ -28,6 +28,11 @@ class Category
      */
     private $contents;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $access;
+
     public function __construct()
     {
         $this->contents = new ArrayCollection();
@@ -77,6 +82,18 @@ class Category
                 $content->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAccess(): ?string
+    {
+        return $this->access;
+    }
+
+    public function setAccess(?string $access): self
+    {
+        $this->access = $access;
 
         return $this;
     }
