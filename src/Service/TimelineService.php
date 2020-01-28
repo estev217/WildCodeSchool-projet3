@@ -51,15 +51,29 @@ class TimelineService
     public function rearrange($steps, $newStep)
     {
         $newNumber = $newStep->getNumber();
-        $i = 1;
-        foreach ($steps as $step) {
-            if ($step->getNumber() >= $newNumber) {
-                $step->setNumber($newNumber + $i);
-                $this->entityManager->persist($step);
-                $i++;
+
+        if ($newNumber > count($steps)) {
+            $newStep->setNumber(count($steps) + 1);
+        } else {
+            $i = 1;
+            foreach ($steps as $step) {
+                if ($step->getNumber() >= $newNumber) {
+                    $step->setNumber($newNumber + $i);
+                    $this->entityManager->persist($step);
+                    $i++;
+                }
             }
         }
-        $this->entityManager->flush();
+    }
+
+    public function renumber($steps)
+    {
+        $i = 1;
+        foreach ($steps as $step) {
+            $step->setNumber($i);
+            $this->entityManager->persist($step);
+            $i++;
+        }
     }
 
     public function convertDays($steps)

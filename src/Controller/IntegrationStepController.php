@@ -102,14 +102,38 @@ class IntegrationStepController extends AbstractController
 
     /**
      * @Route("/admin/{id}/edit", name="integration_step_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param IntegrationStep $integrationStep
+     * @param IntegrationStepRepository $integrationStepRepository
+     * @param TimelineService $timelineService
+     * @return Response
      */
-    public function edit(Request $request, IntegrationStep $integrationStep): Response
-    {
+    public function edit(
+        Request $request,
+        IntegrationStep $integrationStep,
+        IntegrationStepRepository $integrationStepRepository,
+        TimelineService $timelineService
+    ): Response {
         $form = $this->createForm(IntegrationStepType::class, $integrationStep);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $steps = $integrationStepRepository->findBy([], ['number' => 'ASC']);
+
+            $editName = $integrationStep->getName();
+
+            foreach ($steps as $index => $step) {
+                if ($step->getName() === $editName) {
+                    unset($steps[$index]);
+                }
+            }
+
+            $timelineService->renumber($steps);
+            $timelineService->rearrange($steps, $integrationStep);
+
             $this->getDoctrine()->getManager()->flush();
+
             $this->addFlash(
                 'primary',
                 'Modification prise en compte'
