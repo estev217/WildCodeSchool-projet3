@@ -31,19 +31,27 @@ class TimelineService
 
         $today = new DateTime();
 
-        $diff = ($startDate->diff($today))->days;
-
         $result = [];
 
-        foreach ($steps as $key => $step) {
-            if ($sums[$key] < $diff) {
-                $result[$step->getId()] = 'completed';
-            } elseif ($sums[$key] > $diff && ($sums[$key] - $diff) > $step->getDuration()) {
-                $result[$step->getId()] = 'future';
-            } elseif ($sums[$key] >= $diff) {
-                $result[$step->getId()] = 'in-progress';
+        if ($startDate > $today) {
+            foreach ($steps as $step) {
+                    $result[$step->getId()] = 'future';
+            }
+        } else {
+            $diff = ($startDate->diff($today))->days;
+
+            foreach ($steps as $key => $step) {
+                if ($sums[$key] < $diff) {
+                    $result[$step->getId()] = 'completed';
+                } elseif ($sums[$key] > $diff && ($sums[$key] - $diff) > $step->getDuration()) {
+                    $result[$step->getId()] = 'future';
+                } elseif ($sums[$key] >= $diff) {
+                    $result[$step->getId()] = 'in-progress';
+                }
             }
         }
+
+
 
         return $result;
     }
