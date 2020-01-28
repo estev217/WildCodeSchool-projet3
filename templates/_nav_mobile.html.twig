@@ -4,29 +4,26 @@
                 {{ render ( controller (
                     'App\\Controller\\CategoryController::navigation'
                 )) }}
-            <p class="font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
-                <a data-toggle="collapse" class="nav-title"
-                   href="#collapse-pack" role="button" aria-expanded="false" aria-controls="collapse-pack">
-                    Mon Welcome Pack<i class="fas fa-sort-down ml-2"></i>
-                </a>
+            <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
+                    Mon Welcome Pack
             </p>
-            <ul class="collapse nav flex-row mb-0 justify-content-center" id="collapse-pack">
+            <ul class="nav flex-row mb-0 justify-content-center">
                     <li class="nav-item">
                         <a href="{{ path('profile', {'user': app.user.id }) }}" class="nav-link">
-                            <i class="fas fa-user mr-1 fa-fw"></i>
+                            <i class="fas fa-user mr-2 fa-fw"></i>
                             Mon profil
                         </a>
                     </li>
                 {% if is_granted('ROLE_COLLABORATOR') %}
                     <li class="nav-item">
                         <a href="{{ path('timeline', {'user': app.user.id }) }}#active" class="nav-link">
-                            <i class="fas fa-walking mr-1 fa-fw"></i>
+                            <i class="fas fa-walking mr-2 fa-fw"></i>
                             Parcours
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('checklist_item_checklist', {'user': app.user.id }) }}" class="nav-link">
-                            <i class="fas fa-tasks mr-1 fa-fw"></i>
+                            <i class="fas fa-tasks mr-2 fa-fw"></i>
                             Checklist
                         </a>
                     </li>
@@ -34,12 +31,9 @@
             </ul>
             {% if is_granted('ROLE_ADMIN') %}
                 <p class="nav-title font-weight-bold text-uppercase text-center px-2 small py-2 mb-0">
-                    <a data-toggle="collapse" class="nav-title"
-                       href="#collapse-admin" role="button" aria-expanded="false" aria-controls="collapse-admin">
-                        Administrateur<i class="fas fa-sort-down ml-2"></i>
-                    </a>
+                        Administrateur
                 </p>
-                <ul class="collapse nav flex-row justify-content-center mb-0" id="collapse-admin">
+                <ul class="nav flex-row justify-content-center mb-0">
                     <li class="nav-item">
                         <a href="{{ path('admin') }}" class="nav-link">
                             <i class="fas fa-user-cog mr-3 fa-fw"></i>

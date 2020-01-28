@@ -16,6 +16,11 @@
         color: $yellow;
     }
 
+    .manager {
+        display: flex;
+        flex-direction: column;
+    }
+
     .menus {
         margin-top: 1rem;
     }
@@ -78,5 +83,9 @@
     }
     .svg-inline--fa.fa-fw  {
         color: $lightBlue;
+    }
+    .manager {
+        display: flex;
+        flex-direction: row;
     }
 }
