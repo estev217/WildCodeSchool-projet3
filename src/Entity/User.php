@@ -76,6 +76,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Position", inversedBy="users")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $position;
 
@@ -98,11 +99,13 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Residence", inversedBy="users")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $residence;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Residence")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $residencePilote;
 
