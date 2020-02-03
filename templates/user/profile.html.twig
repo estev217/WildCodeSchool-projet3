@@ -54,7 +54,7 @@
                                             data-target="#modal-mentor"><b>{{ user.mentor.firstname }} {{ user.mentor.lastname }}</b></a>
                             </p>
                         {% endif %}
-
+                        {% if user.role.name == 'Collaborateur' %}
                             <table>
                                 <tr>
                                     <td>
@@ -96,7 +96,7 @@
                                     </td>
                                 </tr>
                             </table>
-
+                        {% endif %}
 
                         {% if is_granted('ROLE_MANAGER') and app.user.id == user.id %}
                             <p><a href="{{ path('manager_show', {'user': app.user.id }) }}">
