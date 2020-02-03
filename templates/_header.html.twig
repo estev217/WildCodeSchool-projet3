@@ -33,13 +33,13 @@
                 <div>
                     <p><i class="fas fa-user-tie mr-2"></i><a href="" data-toggle="modal" data-target="#modal-manager">
                             Manager :
-                            <b>{{ app.user.manager.firstname }} {{ app.user.manager.lastname }}</b></a></p>
+                            <b>{{ app.user.manager ? app.user.manager.firstname ~ ' ' ~ app.user.manager.lastname : 'Non défini'}}</b></a></p>
                     <p><i class="fas fa-user-cog mr-1"></i><a href="" data-toggle="modal" data-target="#modal-referent">
                             Référent métier :
-                            <b>{{ app.user.referent.firstname }} {{ app.user.referent.lastname }}</b></a></p>
+                            <b>{{ app.user.referent ? app.user.referent.firstname ~ ' ' ~ app.user.referent.lastname : 'Non défini'}}</b></a></p>
                     <p><i class="fas fa-user-ninja mr-2"></i><a href="" data-toggle="modal" data-target="#modal-mentor">
                             Parrain :
-                            <b>{{ app.user.mentor.firstname }} {{ app.user.mentor.lastname }}</b></a></p>
+                            <b>{{ app.user.mentor ? app.user.mentor.firstname ~ ' ' ~ app.user.mentor.lastname : 'Non défini' }}</b></a></p>
                 </div>
                 {% include 'user/modal_profile.html.twig' %}
             </div>
@@ -62,7 +62,7 @@
             <div class="info user-info">
                 <h4 class="my-name"><b>{{ app.user.firstname }} {{ app.user.lastname }}</b></h4>
                 {% if is_granted('ROLE_COLLABORATOR') %}
-                    <h4>{{ app.user.position.name }}</h4>
+                    <h4>{{ app.user.position ? app.user.position.name : 'Fonction non définie'}}</h4>
                 {% endif %}
             </div>
         </div>
