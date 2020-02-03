@@ -19,7 +19,7 @@ body {
 }
 
 .container, .container-fluid {
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .main {
@@ -61,6 +61,15 @@ hr {
         width: 100vw;
         margin-left: 0;
     }
+
+    .container, .container-fluid {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 0;
+    }
+
     .not-mobile{
         display: none;
     }
