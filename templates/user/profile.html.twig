@@ -121,7 +121,7 @@
 
                                     {% for appointment in appointments %}
                                         <tr class="border-bottom">
-                                            <td class="col-12">Le {{ appointment.date|date ("d/m/y à H:i") }} avec <br>
+                                            <td class="col-12">Le {{ appointment.date|date ("d/m/y à H:i") }} <span class="with-span">avec</span> <br>
                                                 {% if is_granted('ROLE_COLLABORATOR') %}
                                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
                                             </td>
@@ -129,12 +129,12 @@
                                             {% elseif is_granted(['ROLE_MANAGER', 'ROLE_ADMIN']) and user.id != app.user.id %}
                                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
                                                 </td>
-                                                <td class="col-1 text-center">
+                                                <td class="col-1 icon-td text-center">
                                                     <a href="{{ path('appointment_edit', {'id': appointment.id }) }}"
                                                        title="Modifier rendez-vous">
                                                         <i class="fas fa-calendar-times"></i></a>
                                                 </td>
-                                                <td class="col-1 text-center">
+                                                <td class="col-1 icon-td text-center">
                                                     <a href="{{ path('edit_summary', {'id': appointment.id }) }}"
                                                        title="Editer compte-rendu">
                                                         <i class="fas fa-file-signature"></i></a>
@@ -142,18 +142,18 @@
                                             {% elseif is_granted('ROLE_MANAGER') and user.id == app.user.id %}
                                                 <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b>
                                                 </td>
-                                                <td class="col-1 text-center">
+                                                <td class="col-1 icon-td text-center">
                                                     <a href="{{ path('appointment_edit', {'id': appointment.id }) }}"
                                                        title="Modifier rendez-vous">
                                                         <i class="fas fa-calendar-times"></i></a>
                                                 </td>
-                                                <td class="col-1 text-center">
+                                                <td class="col-1 icon-td text-center">
                                                     <a href="{{ path('edit_summary', {'id': appointment.id }) }}"
                                                        title="Editer compte-rendu">
                                                         <i class="fas fa-file-signature"></i></a>
                                                 </td>
                                             {% endif %}
-                                            <td class="col-1 text-center">
+                                            <td class="col-1 icon-td text-center">
                                                 <a href="{{ path('show_summary', {'id': appointment.id }) }}"
                                                    title="Voir compte-rendu">
                                                     <i class="fas fa-file-contract"></i></a>
