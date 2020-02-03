@@ -32,10 +32,13 @@
                             <p><a href="{{ path('password_reset', {'user': user.id} ) }}"> Modification du mot de
                                     passe</a></p>
                         {% endif %}
+                        {% if user.telephone %}
                         <p>Téléphone : <b>{{ user.telephone }}</b></p>
+                        {% endif %}
+                        {%  if user.startDate %}
                         <p>Date d'arrivée à Nemea : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
+                        {% endif %}
                         <p>Résidence : <b>{{ user.residence ? user.residence.name ~ ' à ' ~  user.residence.city : 'Non définie'}}</b></p>
-
                         {% if user.manager %}
                             <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
                                             data-target="#modal-manager"><b>{{ user.manager.firstname }} {{ user.manager.lastname }}</b></a>
