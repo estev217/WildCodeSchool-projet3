@@ -5,4 +5,6 @@
     {% elseif is_granted('ROLE_COLLABORATOR') %}
         <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b></p>
     {% endif %}
+{% else %}
+    <p>Pas de rendez-vous prévus</p>
 {% endfor %}

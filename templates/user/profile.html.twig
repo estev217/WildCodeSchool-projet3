@@ -34,7 +34,7 @@
                         {% endif %}
                         <p>Téléphone : <b>{{ user.telephone }}</b></p>
                         <p>Date d'arrivée à Nemea : <b>{{ user.startDate|date ("d/m/Y") }}</b></p>
-                        <p>Résidence : <b>{{ user.residence.name }} à {{ user.residence.city }}</b></p>
+                        <p>Résidence : <b>{{ user.residence ? user.residence.name ~ ' à ' ~  user.residence.city : 'Non définie'}}</b></p>
 
                         {% if user.manager %}
                             <p>Manager : <a class="link-profile text-decoration-none" href="" data-toggle="modal"
@@ -52,7 +52,6 @@
                             </p>
                         {% endif %}
 
-                        {% if user.manager %}
                             <table>
                                 <tr>
                                     <td>
@@ -94,7 +93,6 @@
                                     </td>
                                 </tr>
                             </table>
-                        {% endif %}
 
 
                         {% if is_granted('ROLE_MANAGER') and app.user.id == user.id %}

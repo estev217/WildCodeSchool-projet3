@@ -10,9 +10,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Manager : <b>{{ app.user.manager.firstname }} {{ app.user.manager.lastname }}</b></p>
-                <p>Email : <b>{{ app.user.manager.email }}</b></p>
-                <p>Téléphone : <b>{{ app.user.manager.telephone }}</b></p>
+                <p>Manager : <b>{{ app.user.manager ? app.user.manager.firstname ~ ' ' ~ app.user.manager.lastname : 'Non défini'}}</b></p>
+                <p>Email : <b>{{ app.user.manager ? app.user.manager.email : ''}}</b></p>
+                <p>Téléphone : <b>{{ app.user.manager ? app.user.manager.telephone : ''}}</b></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
@@ -33,9 +33,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Référent métier :<b>{{ app.user.referent.firstname }} {{ app.user.referent.lastname }}</b></p>
-                <p>Email : <b>{{ app.user.referent.email }}</b></p>
-                <p>Téléphone : <b>{{ app.user.referent.telephone }}</b></p>
+                <p>Référent métier :<b>{{ app.user.referent ? app.user.referent.firstname ~ ' ' ~ app.user.referent.lastname : 'Non défini'}}</b></p>
+                <p>Email : <b>{{ app.user.referent ? app.user.referent.email : ''}}</b></p>
+                <p>Téléphone : <b>{{ app.user.referent ? app.user.referent.telephone : ''}}</b></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
@@ -56,9 +56,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Mentor :<b>{{ app.user.mentor.firstname }} {{ app.user.mentor.lastname }}</b></p>
-                <p>Email : <b>{{ app.user.mentor.email }}</b></p>
-                <p>Téléphone : <b>{{ app.user.mentor.telephone }}</b></p>
+                <p>Mentor :<b>{{ app.user.mentor ? app.user.mentor.firstname ~ ' ' ~ app.user.mentor.lastname : 'Non défini' }}</b></p>
+                <p>Email : <b>{{ app.user.mentor ? app.user.mentor.email : ''}}</b></p>
+                <p>Téléphone : <b>{{ app.user.mentor ? app.user.mentor.telephone : ''}}</b></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
