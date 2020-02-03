@@ -31,19 +31,27 @@ class TimelineService
 
         $today = new DateTime();
 
-        $diff = ($startDate->diff($today))->days;
-
         $result = [];
 
-        foreach ($steps as $key => $step) {
-            if ($sums[$key] < $diff) {
-                $result[$step->getId()] = 'completed';
-            } elseif ($sums[$key] > $diff && ($sums[$key] - $diff) > $step->getDuration()) {
-                $result[$step->getId()] = 'future';
-            } elseif ($sums[$key] >= $diff) {
-                $result[$step->getId()] = 'in-progress';
+        if ($startDate > $today) {
+            foreach ($steps as $step) {
+                    $result[$step->getId()] = 'future';
+            }
+        } else {
+            $diff = ($startDate->diff($today))->days;
+
+            foreach ($steps as $key => $step) {
+                if ($sums[$key] < $diff) {
+                    $result[$step->getId()] = 'completed';
+                } elseif ($sums[$key] > $diff && ($sums[$key] - $diff) > $step->getDuration()) {
+                    $result[$step->getId()] = 'future';
+                } elseif ($sums[$key] >= $diff) {
+                    $result[$step->getId()] = 'in-progress';
+                }
             }
         }
+
+
 
         return $result;
     }
@@ -51,15 +59,29 @@ class TimelineService
     public function rearrange($steps, $newStep)
     {
         $newNumber = $newStep->getNumber();
-        $i = 1;
-        foreach ($steps as $step) {
-            if ($step->getNumber() >= $newNumber) {
-                $step->setNumber($newNumber + $i);
-                $this->entityManager->persist($step);
-                $i++;
+
+        if ($newNumber > count($steps)) {
+            $newStep->setNumber(count($steps) + 1);
+        } else {
+            $i = 1;
+            foreach ($steps as $step) {
+                if ($step->getNumber() >= $newNumber) {
+                    $step->setNumber($newNumber + $i);
+                    $this->entityManager->persist($step);
+                    $i++;
+                }
             }
         }
-        $this->entityManager->flush();
+    }
+
+    public function renumber($steps)
+    {
+        $i = 1;
+        foreach ($steps as $step) {
+            $step->setNumber($i);
+            $this->entityManager->persist($step);
+            $i++;
+        }
     }
 
     public function convertDays($steps)
