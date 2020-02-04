@@ -101,10 +101,8 @@ class AppointmentController extends AbstractController
                 /* Set the SMTP port. */
                 $mail->Port = 587;
                 $mail->setFrom($this->getParameter('mail_from'));
-                $mail->addAddress($this->getParameter('mail_from'));
-                //$mail->addAddress($form['user']->getData()->getEmail());
-                /*$mail->addCC($manager->getEmail());
-                $mail->addReplyTo($manager->getEmail());*/
+                $mail->addAddress($collaborator->getEmail());
+                $mail->addReplyTo($manager->getEmail());
                 $mail->isHTML(true);
                 $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
                 $mail->Body = utf8_decode(nl2br($form['message']->getData()));
@@ -152,6 +150,7 @@ class AppointmentController extends AbstractController
      */
     public function edit(Request $request, Appointment $appointment): Response
     {
+        $manager = $this->getUser();
         $form = $this->createForm(AppointmentType::class, $appointment);
         $form->handleRequest($request);
 
@@ -179,10 +178,8 @@ class AppointmentController extends AbstractController
                 /* Set the SMTP port. */
                 $mail->Port = 587;
                 $mail->setFrom($this->getParameter('mail_from'));
-                $mail->addAddress($this->getParameter('mail_from'));
-                //$mail->addAddress($form['user']->getData()->getEmail());
-                /*$mail->addCC($manager->getEmail());
-                $mail->addReplyTo($manager->getEmail());*/
+                $mail->addAddress($appointment->getUser()->getEmail());
+                $mail->addReplyTo($manager->getEmail());
                 $mail->isHTML(true);
                 $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
                 $mail->Body = utf8_decode(nl2br($form['message']->getData()));
