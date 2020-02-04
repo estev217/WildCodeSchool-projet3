@@ -116,12 +116,18 @@ class AppointmentController extends AbstractController
                     )
                 );
 
-                $mail->send();
-
-                $this->addFlash(
-                    'primary',
-                    'Rendez-vous et e-mail envoyés !'
-                );
+                try {
+                    $mail->send();
+                    $this->addFlash(
+                        'primary',
+                        'Rendez-vous et e-mail envoyés !'
+                    );
+                } catch (Exception $exception) {
+                    $this->addFlash(
+                        'danger',
+                        'Rendez-vous ajouté MAIS e-mail non envoyé !'
+                    );
+                }
 
                 return new RedirectResponse($this->generateUrl('manager_show', [
                 'user' => $manager->getId(),
@@ -193,12 +199,18 @@ class AppointmentController extends AbstractController
                     )
                 );
 
-                $mail->send();
-
-                $this->addFlash(
-                    'primary',
-                    'Modification prise en compte'
-                );
+                try {
+                    $mail->send();
+                    $this->addFlash(
+                        'primary',
+                        'Rendez-vous modifié et e-mail envoyés !'
+                    );
+                } catch (Exception $exception) {
+                    $this->addFlash(
+                        'danger',
+                        'Rendez-vous modifié MAIS e-mail non envoyé !'
+                    );
+                }
 
                 return new RedirectResponse($this->generateUrl('profile', [
                     'user' => $request->getSession()->get('from'),
