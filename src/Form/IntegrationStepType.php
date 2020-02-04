@@ -18,8 +18,8 @@ class IntegrationStepType extends AbstractType
             ->add('name', TextType::class, ['label' => 'Nom'])
             ->add('description')
             ->add('duration', TextType::class, ['label' => 'Durée (en jours)'])
-            ->add('fontAwesome', TextType::class, ['label' => 'Icône FontAwesome'])
-            ->add('color', TextType::class, ['label' => 'Couleur hexadécimale #xxxxxx'])
+            ->add('fontAwesome', TextType::class, ['label' => 'Icône FontAwesome  (fas-fa-xxxx)'])
+            ->add('color', TextType::class, ['label' => 'Couleur hexadécimale  (#xxxxxx)'])
         ;
     }
 

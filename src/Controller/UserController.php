@@ -61,9 +61,14 @@ class UserController extends AbstractController
         $totalSteps = count($steps);
         $startDate = $user->getStartDate();
         $statuses = $timelineService->generate($steps, $startDate);
-        $userSteps = (array_count_values($statuses)['completed']);
+        if (in_array('completed', $statuses)) {
+            $completedSteps = (array_count_values($statuses)['completed']);
+        } else {
+            $completedSteps = 0;
+        }
 
-        $percentIntegration = ($userSteps * 100) / $totalSteps;
+
+        $percentIntegration = ($completedSteps * 100) / $totalSteps;
 
         $appointments = [];
         if (in_array('ROLE_MANAGER', $user->getRoles())) {

@@ -16,6 +16,11 @@
         color: $yellow;
     }
 
+    .manager {
+        display: flex;
+        flex-direction: column;
+    }
+
     .menus {
         margin-top: 1rem;
     }
@@ -28,7 +33,7 @@
         }
     }
 
-    .fas {
+    .svg-inline--fa.fa-fw  {
         color: $lightBlue;
     }
 
@@ -76,7 +81,11 @@
     .nav-title {
         color: $yellow;
     }
-    .fas {
+    .svg-inline--fa.fa-fw  {
         color: $lightBlue;
+    }
+    .manager {
+        display: flex;
+        flex-direction: row;
     }
 }
