@@ -67,14 +67,13 @@ class AccountController extends AbstractController
                 /* Set the SMTP port. */
                 $mail->Port = 587;
                 $mail->setFrom($this->getParameter('mail_from'));
-                $mail->addAddress($this->getParameter('mail_from'));
-                //$mail->addAddress($user->getEmail());
+                $mail->addAddress($user->getEmail());
                 $mail->isHTML(true);
                 $mail->Subject = utf8_decode('Nemea On Board : modification du mot de passe');
                 $firstname = $user->getFirstname();
                 $lastname = $user->getLastname();
                 $mail->Body = utf8_decode("Bonjour $firstname $lastname, <br>
-                                          Votre mot de passe a été modifié. <br> 
+                                          Votre mot de passe d'accès à <i>Nemea On Board</i> a été modifié. <br> 
                                           Si vous n'avez pas effectué ou demandé ce changement, 
                                           contactez le service Ressources Humaines.<br><br>
                                           Message automatique envoyé depuis <i>Nemea On Board</i>");

@@ -32,8 +32,17 @@
                                     </td>
                                     <td class="text-center align-middle not-mobile">{{ collaborator.firstname }}</td>
                                     <td class="text-center align-middle desktop-xl">{{ collaborator.email }}</td>
-                                    <td class="text-center align-middle desktop-l">{{ collaborator.position.name }}</td>
-                                    <td class="text-center align-middle not-under-mobile">{{ collaborator.residence.city }}</td>
+
+                                    <td class="text-center align-middle desktop-l">
+                                    {% if collaborator.position %}
+                                        {{ collaborator.position.name }}
+                                    {% endif %}
+                                    </td>
+                                    <td class="text-center align-middle not-under-mobile">
+                                    {% if collaborator.residence %}
+                                        {{ collaborator.residence.city }}
+                                    {% endif %}
+                                    </td>
                                     <td class="text-center align-middle">
                                        <a href="{{ path('appointment_new', {'id': collaborator.id}) }}" title="Prendre rendez-vous"><i class="far fa-calendar-check fa-lg"></i></a>
                                     </td>
