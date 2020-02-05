@@ -121,11 +121,12 @@ class AppointmentController extends AbstractController
                     $this->addFlash(
                         'primary',
                         'Rendez-vous et e-mail envoyés avec succès !'
+
                     );
                 } catch (Exception $exception) {
                     $this->addFlash(
                         'danger',
-                        'Rendez-vous enregistré MAIS e-mail non envoyé !'
+                        'Rendez-vous ajouté MAIS e-mail non envoyé !'
                     );
                 }
 

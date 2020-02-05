@@ -32,7 +32,8 @@ class AccountController extends AbstractController
         User $user,
         Request $request,
         UserPasswordEncoderInterface $encoder
-    ): Response {
+    ): Response
+    {
         $form = $this->createForm(ResetPasswordType::class, $user);
 
         $form->handleRequest($request);
@@ -50,59 +51,60 @@ class AccountController extends AbstractController
 
             $mail = new PHPMailer(true);
 
-                /*Enable verbose debug output*/
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-                /* Tells PHPMailer to use SMTP. */
-                $mail->isSMTP();
-                /* SMTP server address. */
-                $mail->Host = $this->getParameter('mail_server');
-                /* Use SMTP authentication. */
-                $mail->SMTPAuth = true;
-                /* SMTP authentication username. */
-                $mail->Username = $this->getParameter('mail_from');
-                /* SMTP authentication password. */
-                $mail->Password = $this->getParameter('mail_password');
-                /* Set the encryption system. */
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                /* Set the SMTP port. */
-                $mail->Port = 587;
-                $mail->setFrom($this->getParameter('mail_from'));
-                $mail->addAddress($user->getEmail());
-                $mail->isHTML(true);
-                $mail->Subject = utf8_decode('Nemea On Board : modification du mot de passe');
-                $firstname = $user->getFirstname();
-                $lastname = $user->getLastname();
-                $mail->Body = utf8_decode("Bonjour $firstname $lastname, <br>
+            /*Enable verbose debug output*/
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            /* Tells PHPMailer to use SMTP. */
+            $mail->isSMTP();
+            /* SMTP server address. */
+            $mail->Host = $this->getParameter('mail_server');
+            /* Use SMTP authentication. */
+            $mail->SMTPAuth = true;
+            /* SMTP authentication username. */
+            $mail->Username = $this->getParameter('mail_from');
+            /* SMTP authentication password. */
+            $mail->Password = $this->getParameter('mail_password');
+            /* Set the encryption system. */
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            /* Set the SMTP port. */
+            $mail->Port = 587;
+            $mail->setFrom($this->getParameter('mail_from'));
+            $mail->addAddress($user->getEmail());
+            $mail->isHTML(true);
+            $mail->Subject = utf8_decode('Nemea On Board : modification du mot de passe');
+            $firstname = $user->getFirstname();
+            $lastname = $user->getLastname();
+            $mail->Body = utf8_decode("Bonjour $firstname $lastname, <br>
                                           Votre mot de passe d'accès à <i>Nemea On Board</i> a été modifié. <br> 
                                           Si vous n'avez pas effectué ou demandé ce changement, 
                                           contactez le service Ressources Humaines.<br><br>
                                           Message automatique envoyé depuis <i>Nemea On Board</i>");
 
-                /* Disable some SSL checks. */
-                $mail->SMTPOptions = array(
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true
-                    )
+            /* Disable some SSL checks. */
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+
+            try {
+                $mail->send();
+                $this->addFlash(
+                    'primary',
+                    'Mot de passe modifié avec succès !'
                 );
+            } catch (Exception $exception) {
+                $this->addFlash(
+                    'primary',
+                    'Mot de passe modifié avec succès !'
+                );
+            }
 
-                try {
-                    $mail->send();
-                    $this->addFlash(
-                        'primary',
-                        'Mot de passe modifié avec succès !'
-                    );
-                } catch (Exception $exception) {
-                    $this->addFlash(
-                        'primary',
-                        'Mot de passe modifié avec succès !'
-                    );
-                }
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' => $user->getId(),
+            ]));
 
-                return new RedirectResponse($this->generateUrl('profile', [
-                    'user' => $user->getId(),
-                ]));
         }
         return $this->render('security/reset.html.twig', [
             'form' => $form->createView(),
