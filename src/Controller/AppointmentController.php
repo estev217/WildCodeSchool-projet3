@@ -82,7 +82,8 @@ class AppointmentController extends AbstractController
 
             $date = date_format(($form['date']->getData()), 'd-m-Y H:i');
 
-            $mail = new PHPMailer(true);
+            try {
+                $mail = new PHPMailer(true);
 
                 /*Enable verbose debug output*/
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -104,7 +105,7 @@ class AppointmentController extends AbstractController
                 $mail->addAddress($collaborator->getEmail());
                 $mail->addReplyTo($manager->getEmail());
                 $mail->isHTML(true);
-                $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
+                $mail->Subject = 'Votre rendez-vous du ' . $date . ' ' . utf8_decode($form['subject']->getData());
                 $mail->Body = utf8_decode(nl2br($form['message']->getData()));
 
                 /* Disable some SSL checks. */
@@ -117,15 +118,20 @@ class AppointmentController extends AbstractController
                 );
 
                 $mail->send();
-
                 $this->addFlash(
                     'primary',
-                    'Rendez-vous et e-mail envoyés !'
+                    'Rendez-vous et e-mail envoyés avec succès !'
                 );
+            } catch (Exception $exception) {
+                $this->addFlash(
+                    'danger',
+                    'Rendez-vous ajouté MAIS e-mail non envoyé !'
+                );
+            }
 
-                return new RedirectResponse($this->generateUrl('manager_show', [
+            return new RedirectResponse($this->generateUrl('manager_show', [
                 'user' => $manager->getId(),
-                ]));
+            ]));
         }
 
         return $this->render('appointment/new.html.twig', [
@@ -159,7 +165,8 @@ class AppointmentController extends AbstractController
 
             $date = date_format(($form['date']->getData()), 'd-m-Y H:i');
 
-            $mail = new PHPMailer(true);
+            try {
+                $mail = new PHPMailer(true);
 
                 /*Enable verbose debug output*/
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -181,7 +188,7 @@ class AppointmentController extends AbstractController
                 $mail->addAddress($appointment->getUser()->getEmail());
                 $mail->addReplyTo($manager->getEmail());
                 $mail->isHTML(true);
-                $mail->Subject = 'Votre rendez-vous du '. $date . ' ' . utf8_decode($form['subject']->getData());
+                $mail->Subject = 'Votre rendez-vous du ' . $date . ' ' . utf8_decode($form['subject']->getData());
                 $mail->Body = utf8_decode(nl2br($form['message']->getData()));
 
                 /* Disable some SSL checks. */
@@ -192,17 +199,21 @@ class AppointmentController extends AbstractController
                         'allow_self_signed' => true
                     )
                 );
-
                 $mail->send();
-
                 $this->addFlash(
                     'primary',
-                    'Modification prise en compte'
+                    'Rendez-vous modifié et e-mail envoyé avec succès !'
                 );
+            } catch (Exception $exception) {
+                $this->addFlash(
+                    'danger',
+                    'Rendez-vous modifié MAIS e-mail non envoyé !'
+                );
+            }
 
-                return new RedirectResponse($this->generateUrl('profile', [
-                    'user' => $request->getSession()->get('from'),
-                ]));
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' => $request->getSession()->get('from'),
+            ]));
         }
 
         return $this->render('appointment/edit.html.twig', [

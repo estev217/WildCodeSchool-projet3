@@ -130,7 +130,11 @@
                                             </td>
 
                                             {% elseif is_granted(['ROLE_MANAGER', 'ROLE_ADMIN']) and user.id != app.user.id %}
+                                                {% if user.role.name == 'Collaborateur' %}
                                                 <b>{{ appointment.partner.firstname }} {{ appointment.partner.lastname }} </b>
+                                                    {% else %}
+                                                        <b>{{ appointment.user.firstname }} {{ appointment.user.lastname }} </b>
+                                                {% endif %}
                                                 </td>
                                                 <td class="col-1 icon-td text-center">
                                                     <a href="{{ path('appointment_edit', {'id': appointment.id }) }}"

@@ -48,7 +48,8 @@ class AccountController extends AbstractController
             $manager->persist($user);
             $manager->flush();
 
-            $mail = new PHPMailer(true);
+            try {
+                $mail = new PHPMailer(true);
 
                 /*Enable verbose debug output*/
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -88,12 +89,20 @@ class AccountController extends AbstractController
                 );
 
                 $mail->send();
+                $this->addFlash(
+                    'primary',
+                    'Mot de passe modifié avec succès !'
+                );
+            } catch (Exception $exception) {
+                $this->addFlash(
+                    'primary',
+                    'Mot de passe modifié avec succès !'
+                );
+            }
 
-                $this->addFlash('success', 'Nouveau mot de passe enregistré !');
-
-                return new RedirectResponse($this->generateUrl('profile', [
-                    'user' => $user->getId(),
-                ]));
+            return new RedirectResponse($this->generateUrl('profile', [
+                'user' => $user->getId(),
+            ]));
         }
         return $this->render('security/reset.html.twig', [
             'form' => $form->createView(),
