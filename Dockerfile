@@ -44,7 +44,6 @@ RUN docker-php-ext-install xsl
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN php bin/console ckeditor:install --release=custom --custom-build-id=16cb7e0601a3d4b733b4a284e34bf573
 RUN composer install --no-interaction -o --ignore-platform-reqs
 
 #Not tested in a new project but we have to install yarn (Guillaume) :
