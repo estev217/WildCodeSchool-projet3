@@ -92,18 +92,19 @@ class AccountController extends AbstractController
                 $mail->send();
                 $this->addFlash(
                     'primary',
-                    'Nouveau mot de passe enregistré et e-mail envoyés !'
+                    'Mot de passe modifié avec succès !'
                 );
             } catch (Exception $exception) {
                 $this->addFlash(
-                    'danger',
-                    'Nouveau mot de passe enregistré MAIS e-mail non envoyé !'
+                    'primary',
+                    'Mot de passe modifié avec succès !'
                 );
             }
 
             return new RedirectResponse($this->generateUrl('profile', [
                 'user' => $user->getId(),
             ]));
+
         }
         return $this->render('security/reset.html.twig', [
             'form' => $form->createView(),

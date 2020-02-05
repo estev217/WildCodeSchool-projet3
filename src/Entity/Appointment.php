@@ -35,13 +35,13 @@ class Appointment
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="appointments")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $partner;
 

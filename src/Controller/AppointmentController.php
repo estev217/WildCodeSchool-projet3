@@ -120,7 +120,8 @@ class AppointmentController extends AbstractController
                     $mail->send();
                     $this->addFlash(
                         'primary',
-                        'Rendez-vous et e-mail envoyés !'
+                        'Rendez-vous et e-mail envoyés avec succès !'
+
                     );
                 } catch (Exception $exception) {
                     $this->addFlash(
@@ -203,7 +204,7 @@ class AppointmentController extends AbstractController
                     $mail->send();
                     $this->addFlash(
                         'primary',
-                        'Rendez-vous modifié et e-mail envoyés !'
+                        'Rendez-vous modifié et e-mail envoyé avec succès !'
                     );
                 } catch (Exception $exception) {
                     $this->addFlash(
