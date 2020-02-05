@@ -87,9 +87,18 @@ class AccountController extends AbstractController
                     )
                 );
 
-                $mail->send();
-
-                $this->addFlash('success', 'Nouveau mot de passe enregistré !');
+                try {
+                    $mail->send();
+                    $this->addFlash(
+                        'primary',
+                        'Mot de passe modifié avec succès !'
+                    );
+                } catch (Exception $exception) {
+                    $this->addFlash(
+                        'primary',
+                        'Mot de passe modifié avec succès !'
+                    );
+                }
 
                 return new RedirectResponse($this->generateUrl('profile', [
                     'user' => $user->getId(),
