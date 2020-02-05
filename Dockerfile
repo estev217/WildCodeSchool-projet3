@@ -73,6 +73,7 @@ RUN rm -rf /etc/nginx/sites-enabled
 RUN mkdir -p /etc/nginx/sites-enabled
 
 RUN chmod -R 777 /var/www/public
+RUN chmod -R 777 /var/www/var
 RUN yarn install
 RUN yarn encore dev
 RUN php bin/console cache:clear
