@@ -26,122 +26,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-
-        $faker = Faker\Factory::create('fr_FR');
-
-        // Creates Laureen admin
+        // Creates admin Anaïs
         $user = new User();
-        $user->setFirstname('Laureen');
-        $user->setLastname('Dumas');
-        $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
+        $user->setFirstname('Anaïs');
+        $user->setLastname('Gounet');
+        $user->setEmail('anais.gounet@nemea.fr');
         $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
         $user->setRole($this->getReference('role_2'));
         $user->setRoles(['ROLE_ADMIN']);
-        $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-        $user->setTelephone($faker->phoneNumber);
-        $user->setStartDate($faker->dateTimeThisDecade);
         $manager->persist($user);
         $this->addReference('admin', $user);
-
-        // Creates 1 random admin
-        $user = new User();
-        $user->setFirstname($faker->firstName);
-        $user->setLastname($faker->lastName);
-        $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
-        $user->setRole($this->getReference('role_2'));
-        $user->setRoles(['ROLE_ADMIN']);
-        $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-        $user->setTelephone($faker->phoneNumber);
-        $user->setStartDate($faker->dateTimeThisDecade);
-        $manager->persist($user);
-
-        // Creates Estevao manager
-        $user = new User();
-        $user->setFirstname('Estevao');
-        $user->setLastname('Fernandes');
-        $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
-        $user->setRole($this->getReference('role_1'));
-        $user->setRoles(['ROLE_MANAGER']);
-        $user->setPosition($this->getReference('position_0'));
-        $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-        $user->setTelephone($faker->phoneNumber);
-        $user->setStartDate($faker->dateTimeThisDecade);
-        $manager->persist($user);
-        $this->addReference('manager_4', $user);
-
-
-        // Creates 4 managers
-        for ($i = 0; $i < 4; $i++) {
-            $user = new User();
-            $user->setFirstname($faker->firstName);
-            $user->setLastname($faker->lastName);
-            $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
-            $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
-            $user->setRole($this->getReference('role_1'));
-            $user->setRoles(['ROLE_MANAGER']);
-            $user->setPosition($this->getReference('position_0'));
-            $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-            $user->setTelephone($faker->phoneNumber);
-            $user->setStartDate($faker->dateTimeThisDecade);
-            $manager->persist($user);
-            $this->addReference('manager_' . $i, $user);
-        }
-
-        // Creates Philippe Collaborator
-        $user = new User();
-        $user->setFirstname('Philippe');
-        $user->setLastname('Urban');
-        $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
-        $user->setRole($this->getReference('role_0'));
-        $user->setRoles(['ROLE_COLLABORATOR']);
-        $user->setManager($this->getReference('manager_' . rand(0, 4)));
-        $user->setPosition($this->getReference('position_' . rand(1, 2)));
-        $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-        $user->setMentor($this->getReference('manager_' . rand(0, 4)));
-        $user->setReferent($this->getReference('manager_' . rand(0, 4)));
-        $user->setTelephone($faker->phoneNumber);
-        $user->setStartDate($faker->dateTimeThisYear);
-        $manager->persist($user);
-
-        // Creates Anne Collaborator
-        $user = new User();
-        $user->setFirstname('Anne');
-        $user->setLastname('Quiedeville');
-        $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
-        $user->setRole($this->getReference('role_0'));
-        $user->setRoles(['ROLE_COLLABORATOR']);
-        $user->setManager($this->getReference('manager_' . rand(0, 4)));
-        $user->setPosition($this->getReference('position_' . rand(1, 2)));
-        $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-        $user->setMentor($this->getReference('manager_' . rand(0, 4)));
-        $user->setReferent($this->getReference('manager_' . rand(0, 4)));
-        $user->setTelephone($faker->phoneNumber);
-        $user->setStartDate($faker->dateTimeThisYear);
-        $manager->persist($user);
-
-        // Creates 7 collaborators associated to a manager
-        for ($i = 0; $i < 7; $i++) {
-            $user = new User();
-            $user->setFirstname($faker->firstName);
-            $user->setLastname($faker->lastName);
-            $user->setEmail(strtolower($user->getFirstname() . '.' . $user->getLastname() . '@nemea.fr'));
-            $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
-            $user->setRole($this->getReference('role_0'));
-            $user->setRoles(['ROLE_COLLABORATOR']);
-            $user->setManager($this->getReference('manager_' . rand(0, 4)));
-            $user->setPosition($this->getReference('position_' . rand(1, 2)));
-            $user->setResidence($this->getReference('residence_' . rand(0, 4)));
-            $user->setMentor($this->getReference('manager_' . rand(0, 4)));
-            $user->setReferent($this->getReference('manager_' . rand(0, 4)));
-            $user->setTelephone($faker->phoneNumber);
-            $user->setStartDate($faker->dateTimeThisYear);
-            $manager->persist($user);
-            $this->addReference('collaborator_' . $i, $user);
-        }
         $manager->flush();
     }
 
@@ -153,6 +47,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
      */
     public function getDependencies()
     {
-        return [RoleFixtures::class, PositionFixtures::class, ResidenceFixtures::class];
+        return [RoleFixtures::class];
     }
 }
