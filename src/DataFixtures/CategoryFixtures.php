@@ -13,11 +13,6 @@ class CategoryFixtures extends Fixture
 {
     const CATEGORIES = [
             'Boîte à outils',
-            'Le groupe',
-            'Cap 2022',
-            'Memo pratique',
-            'Annuaire',
-            'Nos produits',
             'Checklist',
     ];
 

@@ -97,15 +97,6 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
     ];
     public function load(ObjectManager $manager)
     {
-        $faker  =  Faker\Factory::create('fr_FR');
-        for ($i=1; $i<=5; $i++) {
-            $content = new Content();
-            $content->setTitle($faker->sentence);
-            $content->setUser($this->getReference('admin'));
-            $content->setContent($faker->text);
-            $content->setCategory($this->getReference('category_' . $i));
-            $manager->persist($content);
-        }
         foreach (self::TOOLBOX as $data) {
             $toolbox = new Content();
             $toolbox->setUser($this->getReference('admin'));
@@ -119,7 +110,7 @@ class ContentFixtures extends Fixture implements DependentFixtureInterface
             $listManager->setUser($this->getReference('admin'));
             $listManager->setTitle($data['title']);
             $listManager->setContent($data['content']);
-            $listManager->setCategory($this->getReference('category_6'));
+            $listManager->setCategory($this->getReference('category_1'));
             $manager->persist($listManager);
         }
         $manager->flush();
